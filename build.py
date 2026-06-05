@@ -401,7 +401,7 @@ def home_body():
     '<p style="margin-top:18px"><a href="about.html" class="card-link">More about us →</a></p></div>'
     '<div><div class="impact-box"><p style="font-weight:700;color:var(--navy-800);margin-bottom:14px;font-family:var(--display)">Trusted by leading enterprises &amp; system integrators</p>'
     '<div class="logos-row"><span>Deloitte</span><span>Wipro</span><span>Infosys</span><span>Cognizant</span><span>Tech&nbsp;Mahindra</span><span>Mphasis</span><span>Sonata</span><span>ABB</span></div>'
-    '<p class="muted" style="font-size:.86rem;margin:20px 0 0">~$30M in delivery · 4 entities · 350+ families supported through our consultant network.</p></div></div></div></div></section>'
+    '<p class="muted" style="font-size:.86rem;margin:20px 0 0">4 entities · 350+ families supported through our consultant network.</p></div></div></div></div></section>'
     # cta + form
     '<section class="cta-band" id="contact"><div class="container"><div class="cta-inner"><div>'
     '<p class="eyebrow eyebrow--light">Let\'s build</p><h2>Build your AI-first business on Google.</h2>'
@@ -453,7 +453,7 @@ def about_body():
     '<span class="cred">Women-owned &amp; diversity-certified</span><span class="cred">OECM Supplier Partner</span><span class="cred">ISO 27001 · ISO 42001 · SOC 2 · GDPR — in progress</span></div></div>'
     '<div><div class="impact-box"><p style="font-weight:700;color:var(--navy-800);margin-bottom:14px;font-family:var(--display)">Trusted by leading enterprises &amp; system integrators</p>'
     '<div class="logos-row"><span>Deloitte</span><span>Wipro</span><span>Infosys</span><span>Cognizant</span><span>Tech&nbsp;Mahindra</span><span>Mphasis</span><span>Sonata</span><span>ABB</span></div>'
-    '<p class="muted" style="font-size:.86rem;margin:20px 0 0">~$30M in delivery · 4 entities · 350+ families supported through our consultant network.</p></div></div></div></div></section>'
+    '<p class="muted" style="font-size:.86rem;margin:20px 0 0">4 entities · 350+ families supported through our consultant network.</p></div></div></div></div></section>'
     '%s' % (BRAND, cta_simple(p, "Work with us.", "Tell us what you want to build on Google.")))
 
 def insights_body():

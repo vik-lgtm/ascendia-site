@@ -61,7 +61,7 @@ AGENTIC = [
     dict(slug="secure-ai-adoption-governance", name="Secure AI Adoption & Governance", tag="Trust",
         nav="Adopt AI safely — governance, access control, oversight.",
         eyebrow="Trust · responsible AI",
-        intro="We help organizations adopt AI safely, responsibly and at scale. Our approach covers security, access control, data governance, human-approval workflows, responsible-AI practices and enterprise-ready deployment standards — so you use AI confidently without losing control of sensitive data, systems or decisions.",
+        intro="We help organizations adopt AI safely, responsibly and at scale. Our approach covers security, access control, data governance, human-approval workflows, responsible-AI practices and enterprise-ready deployment standards — so you use AI confidently without losing control of sensitive data, systems or decisions. Our own compliance program targets ISO 42001 (AI management), ISO 27001, SOC 2 and GDPR.",
         deliver=["AI governance frameworks","Secure Gemini deployment plans","Access control & permission models","Human-in-the-loop approval workflows","AI usage policies","Cloud security foundations","Monitoring & compliance workflows"],
         impact=["Reduce AI adoption risk","Protect sensitive business data","Give leaders control over AI usage","Support responsible, compliant deployment","Build trust in enterprise AI"],
         steps=[("Assess","Risk and data review."),("Frame","Policies and guardrails."),("Control","Access and approvals."),("Monitor","Logging and compliance."),("Sustain","Ongoing governance.")]),
@@ -315,7 +315,7 @@ def home_body():
     '<div class="prop"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0b2a4a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><h3>Google specialist</h3><p>One ecosystem, mastered — not a generalist juggling three clouds.</p></div>'
     '<div class="prop"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0b2a4a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 1 4 4c1.5 0 3 1.5 3 3a3.5 3.5 0 0 1 0 7c0 1.5-1.5 3-3 3a4 4 0 0 1-8 0c-1.5 0-3-1.5-3-3a3.5 3.5 0 0 1 0-7c0-1.5 1.5-3 3-3a4 4 0 0 1 4-4z"/></svg></div><h3>Agentic-AI first</h3><p>We design Gemini agents that act, not just answer.</p></div>'
     '<div class="prop"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0b2a4a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg></div><h3>Outcome &amp; ROI-led</h3><p>Every engagement is scoped to a result and measured.</p></div>'
-    '<div class="prop"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0b2a4a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Secure &amp; governed</h3><p>Responsible AI and data governance built in. ISO 27001 in progress.</p></div></div></div></section>'
+    '<div class="prop"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0b2a4a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Secure &amp; governed</h3><p>Responsible AI and data governance built in. ISO 27001, ISO 42001, SOC 2 &amp; GDPR in progress.</p></div></div></div></section>'
     # why now
     '<section class="section section--alt" data-reveal><div class="container"><div class="whynow"><div>'
     '<p class="eyebrow">Why now</p><h2>The AI window is open. Most enterprises can\'t walk through it alone.</h2>'
@@ -366,7 +366,7 @@ def home_body():
     '<p class="eyebrow">Backed by Avanciers</p><h2>A startup\'s focus. An established firm\'s backbone.</h2>'
     '<p class="lead">%s is launched and backed by <strong>Avanciers</strong> — a women-owned global talent and technology firm operating since 2014 across Canada, the USA, Mexico and India, serving Big-4 and Tier-1 enterprises.</p>'
     '<div class="creds"><span class="cred">Certified Google Cloud Partner (Strategic)</span><span class="cred">Certified Salesforce Partner</span>'
-    '<span class="cred">Women-owned &amp; diversity-certified</span><span class="cred">OECM Supplier Partner</span><span class="cred">ISO 27001 — in progress</span></div>'
+    '<span class="cred">Women-owned &amp; diversity-certified</span><span class="cred">OECM Supplier Partner</span><span class="cred">ISO 27001 · ISO 42001 · SOC 2 · GDPR — in progress</span></div>'
     '<p style="margin-top:18px"><a href="about.html" class="card-link">More about us →</a></p></div>'
     '<div><div class="impact-box"><p style="font-weight:700;color:var(--navy-800);margin-bottom:14px;font-family:var(--display)">Trusted by leading enterprises &amp; system integrators</p>'
     '<div class="logos-row"><span>Deloitte</span><span>Wipro</span><span>Infosys</span><span>Cognizant</span><span>Tech&nbsp;Mahindra</span><span>Mphasis</span><span>Sonata</span><span>ABB</span></div>'
@@ -419,7 +419,7 @@ def about_body():
     '<p class="eyebrow">Backed by Avanciers</p><h2>A startup\'s focus. An established firm\'s backbone.</h2>'
     '<p class="lead">Avanciers is a women-owned global talent and technology firm operating since 2014 across Canada, the USA, Mexico and India, serving Big-4 and Tier-1 enterprises.</p>'
     '<div class="creds"><span class="cred">Certified Google Cloud Partner (Strategic)</span><span class="cred">Certified Salesforce Partner</span>'
-    '<span class="cred">Women-owned &amp; diversity-certified</span><span class="cred">OECM Supplier Partner</span><span class="cred">ISO 27001 — in progress</span></div></div>'
+    '<span class="cred">Women-owned &amp; diversity-certified</span><span class="cred">OECM Supplier Partner</span><span class="cred">ISO 27001 · ISO 42001 · SOC 2 · GDPR — in progress</span></div></div>'
     '<div><div class="impact-box"><p style="font-weight:700;color:var(--navy-800);margin-bottom:14px;font-family:var(--display)">Trusted by leading enterprises &amp; system integrators</p>'
     '<div class="logos-row"><span>Deloitte</span><span>Wipro</span><span>Infosys</span><span>Cognizant</span><span>Tech&nbsp;Mahindra</span><span>Mphasis</span><span>Sonata</span><span>ABB</span></div>'
     '<p class="muted" style="font-size:.86rem;margin:20px 0 0">~$30M in delivery · 4 entities · 350+ families supported through our consultant network.</p></div></div></div></div></section>'
@@ -457,7 +457,7 @@ def legal_body():
     sec = lambda h, b: f'<h2 style="margin-top:36px">{h}</h2><p class="muted">{b}</p>'
     notice = (f'<div class="impact-box" style="margin-bottom:30px"><p class="muted" style="margin:0">'
               f'<strong>Template notice:</strong> This is placeholder legal text for the {BRAND} website and must be '
-              f'reviewed and finalized by counsel before launch — especially alongside the ISO 27001 program and any '
+              f'reviewed and finalized by counsel before launch — especially alongside the ISO 27001 / ISO 42001 / SOC 2 program and any'
               f'GDPR/PIPEDA obligations.</p></div>')
     body = (
         '<h2 id="privacy">Privacy</h2><p class="muted">We collect only the information you provide through our contact form '
@@ -465,7 +465,7 @@ def legal_body():
         'access to or deletion of your information at any time by emailing <a href="mailto:hello@ascendia.ai">hello@ascendia.ai</a>.</p>'
         + sec("Cookies", "We use essential cookies to run the site and privacy-respecting analytics to understand traffic. You can control cookies in your browser settings.")
         + sec("Terms of use", f"Content on this site is provided for general information about {BRAND} services and is offered without warranty. Trademarks and product names (including Google, Google Cloud, Gemini, BigQuery and Looker) belong to their respective owners.")
-        + sec("Data security", "Information is handled in line with our information-security program (ISO 27001, in progress). Contact us for our current security posture.")
+        + sec("Data security", "Information is handled in line with our information-security program (ISO 27001, ISO 42001, SOC 2 and GDPR — in progress, targeted 2026). Contact us for our current security posture.")
         + '<p class="muted" style="margin-top:30px">Questions? <a href="contact.html">Contact us</a>.</p>')
     return (
         '<section class="page-hero"><div class="container"><div class="inner"><p class="crumb"><a href="index.html">Home</a> › Legal</p>'

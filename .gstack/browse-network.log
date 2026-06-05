@@ -1,0 +1,6 @@
+[2026-06-05T12:24:39.184Z] GET file:///Users/vikramwahi/Desktop/GCP-AI-Venture/site/insights/we-ran-our-own-company-on-google.html → 200 (10ms, 11715B)
+[2026-06-05T12:24:39.207Z] GET https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap → 200 (239ms, 1397B)
+[2026-06-05T12:24:39.207Z] GET file:///Users/vikramwahi/Desktop/GCP-AI-Venture/site/assets/css/styles.css → 200 (9ms, 23344B)
+[2026-06-05T12:24:39.207Z] GET file:///Users/vikramwahi/Desktop/GCP-AI-Venture/site/assets/js/main.js → 200 (15ms, 2890B)
+[2026-06-05T12:24:39.527Z] GET https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2 → 200 (274ms, 48982B)
+[2026-06-05T12:24:39.527Z] GET https://fonts.gstatic.com/s/manrope/v20/xn7gYHE41ni1AdIRggexSvfedN4.woff2 → 200 (297ms, 24703B)

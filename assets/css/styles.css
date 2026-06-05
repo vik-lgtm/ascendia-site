@@ -314,3 +314,20 @@ ul{margin:0;padding:0}
   .hero-inner{padding:62px 0 54px}.metrics{flex-wrap:wrap;gap:18px}
   .footer-top{grid-template-columns:1fr 1fr}
 }
+
+/* Long-form article (Insights) */
+.article{max-width:780px;margin:0 auto}
+.article .dek{font-size:1.22rem;color:#cdd9e8;margin:6px 0 0}
+.prose{font-size:1.06rem;color:#26333f;line-height:1.75}
+.prose h2{font-family:var(--display);color:var(--navy-800);font-size:1.5rem;margin:40px 0 12px}
+.prose h3{font-size:1.18rem;margin:28px 0 8px}
+.prose p{margin:0 0 1.15rem}
+.prose ul{margin:0 0 1.2rem;padding-left:22px;list-style:disc}
+.prose ol{margin:0 0 1.2rem;padding-left:22px}
+.prose li{margin:0 0 .55rem}
+.prose strong{color:var(--navy-800)}
+.callout{background:var(--bg-alt);border-left:4px solid var(--accent);border-radius:0 12px 12px 0;padding:20px 24px;margin:28px 0;font-size:1.05rem;color:var(--navy-700)}
+.article-metrics{display:flex;flex-wrap:wrap;gap:34px;background:var(--navy-800);border-radius:var(--radius);padding:26px 30px;margin:6px 0 30px;color:#fff}
+.article-metrics .m{font-family:var(--display);font-weight:800;font-size:1.9rem;color:var(--accent);line-height:1}
+.article-metrics .l{font-size:.82rem;color:#a8bcd4;margin-top:5px}
+.article-foot{margin-top:40px;padding-top:24px;border-top:1px solid var(--line);font-size:.95rem;color:var(--slate)}

@@ -96,6 +96,37 @@ CORE = [
 ]
 
 # ----------------------------------------------------------------------------
+# CONTENT — Insights articles (case studies + white papers / points of view)
+# Add a dict here + re-run build.py to publish a new article.
+# ----------------------------------------------------------------------------
+ARTICLES = [
+    dict(slug="enterprise-ai-agents-from-pilot-to-production", kind="Point of view", topic="Agentic AI", date="2026",
+        title="From pilots to production: making enterprise AI agents real",
+        dek="Why most enterprise AI pilots stall — and the operating model that gets agents into daily work.",
+        body=[
+            '<p>Every enterprise is running AI pilots. Far fewer have agents doing real work in production. The gap is rarely the model — it is the operating model around it. Here is what separates the pilots that ship from the ones that quietly die.</p>',
+            '<h2>The pilot trap</h2><p>A demo that impresses in a conference room is not an agent that survives contact with real work. Pilots stall for predictable reasons: no clear owner, no integration with the systems where work actually happens, no governance to make security and legal comfortable, and no agreed metric to prove it was worth doing. The technology works; the model around it does not.</p>',
+            '<h2>1. Start with one workflow, not a platform</h2><p>The fastest path to production is the narrowest one. Pick a single, high-value, bounded workflow — support triage, proposal drafting, finance reporting — and define the one number that says it worked: hours saved, response time, deflection rate. A focused four-to-six-week pilot beats a year-long platform programme that never ships.</p>',
+            '<h2>2. Build for integration, not the demo</h2><p>An agent earns its keep when it can read and write the systems your team already uses, and when a human stays in the loop for the decisions that matter. Connect it to your real data and tools from day one, and design the hand-offs and approvals before you polish the prompts.</p>',
+            '<h2>3. Govern from the first day</h2><p>Security, access control and responsible-AI practices are not a launch checklist — they are how you earn permission to launch at all. Treat governance, the discipline behind standards like ISO 42001, as part of the build, so the agent is something you can put in front of both your data and your board.</p>',
+            '<h2>4. Measure, then expand</h2><p>Prove the metric, share the result internally, and use that win to fund the next workflow. Production AI is a sequence of small, measured expansions, not a big-bang transformation. Over time the pilots compound into an AI-first operating model.</p>',
+            '<div class="callout"><strong>The model in one line:</strong> one workflow &rarr; an integrated build with a human in the loop &rarr; governed from day one &rarr; measured &rarr; expand. That is how a pilot becomes production.</div>',
+        ]),
+    dict(slug="we-ran-our-own-company-on-google", kind="Case study", topic="Data & AI", date="2026",
+        title="We ran our own company on Google Cloud",
+        dek="How we re-platformed our own operating data onto BigQuery, Looker and Gemini — and made it our first reference implementation.",
+        metrics=[("27k+", "transactions unified"), ("1", "ask-your-business agent"), ("days&rarr;min", "to an answer")],
+        body=[
+            '<p>The hardest test of an AI-for-operations platform is whether you would run your own business on it. We do. Before we take a pattern to clients, we prove it on ourselves.</p>',
+            '<h2>The challenge</h2><p>Like most growing companies, our operating data lived in spreadsheets and disconnected systems — sales, delivery, finance and recruiting each telling part of the story. Answering a straightforward leadership question often meant a manual pull across several files, and the answer could take days. There was no single source of truth, and reporting consumed real time every week.</p>',
+            '<h2>The approach</h2><p>We treated our own company as a client. The goal was simple: one trustworthy model of the business, reporting leaders actually use, and the ability to ask questions in plain language instead of waiting for a report.</p>',
+            '<h2>What we built, on Google Cloud</h2><ul><li><strong>A unified data model on BigQuery</strong> — records from our operating systems brought into one warehouse with consistent, conformed definitions.</li><li><strong>Executive reporting in Looker</strong> — dashboards for the metrics leadership tracks, refreshed automatically.</li><li><strong>An &ldquo;ask-your-business&rdquo; Gemini agent</strong> — natural-language questions answered from the approved model, with every number traceable back to source.</li></ul>',
+            '<h2>The outcome</h2><p>Questions that used to take days are answered in minutes. Reporting is standardized and largely automated. Most importantly, we now have a single source of truth — and a working reference implementation we can show any client weighing the same move.</p>',
+            '<div class="callout"><strong>Why it matters:</strong> we do not pitch AI-for-operations from theory. We re-platformed our own company onto BigQuery, Looker and Gemini first — and we build the same foundation for you.</div>',
+        ]),
+]
+
+# ----------------------------------------------------------------------------
 # NAV
 # ----------------------------------------------------------------------------
 NAV = [
@@ -358,7 +389,7 @@ def home_body():
     '<h3>We ran our own company on it.</h3><p>We unified our entire operating dataset into a single model on Google Cloud, rebuilt executive reporting in Looker, and stood up a Gemini agent that answers leadership questions in plain language — the same platform we now build for clients.</p>'
     '<div class="metrics"><div class="metric"><div class="m">27k+</div><div class="l">transactions unified</div></div>'
     '<div class="metric"><div class="m">1</div><div class="l">ask-your-business agent</div></div>'
-    '<div class="metric"><div class="m">days→min</div><div class="l">to a decision</div></div></div></div></div>'
+    '<div class="metric"><div class="m">days→min</div><div class="l">to a decision</div></div></div><a href="insights/we-ran-our-own-company-on-google.html" class="card-link" style="color:#ffb79d;margin-top:18px">Read the case study →</a></div></div>'
     '<div class="case case--soon"><div class="case-body"><p class="kicker">Client story</p><p>First client case study — coming soon as pilots land.</p></div></div>'
     '<div class="case case--soon"><div class="case-body"><p class="kicker">Client story</p><p>Your engagement could be the next one featured here.</p></div></div></div></div></section>'
     # backed
@@ -427,12 +458,9 @@ def about_body():
 
 def insights_body():
     p = ""
-    posts = [
-        ("b","Point of view","From pilots to production: making enterprise AI agents real","Why most AI pilots stall — and the operating model that gets agents into daily work.","Coming soon"),
-        ("c","Playbook","Your BigQuery + Looker decision foundation","A practical sequence for turning scattered data into decisions leaders trust.","Coming soon"),
-        ("","Field notes","We ran our own company on Google AI","What we learned re-platforming our own analytics on BigQuery, Looker and Gemini.","Coming soon"),
-    ]
-    cards = "".join('<a class="post" href="#"><div class="thumb %s"></div><div class="pbody"><span class="ptag">%s</span><h3>%s</h3><p>%s</p><span class="pmeta">%s</span></div></a>' % (c, t, h, d, m) for c, t, h, d, m in posts)
+    thumbs = {"Point of view": "b", "Case study": "", "White paper": "c", "Playbook": "c"}
+    cards = "".join('<a class="post" href="insights/%s.html"><div class="thumb %s"></div><div class="pbody"><span class="ptag">%s</span><h3>%s</h3><p>%s</p><span class="pmeta">%s · Read →</span></div></a>' % (a["slug"], thumbs.get(a["kind"], ""), a["kind"], a["title"], a["dek"], a["topic"]) for a in ARTICLES)
+    cards += '<div class="post"><div class="thumb c"></div><div class="pbody"><span class="ptag">Playbook</span><h3>Your BigQuery + Looker decision foundation</h3><p>A practical sequence for turning scattered data into decisions leaders trust.</p><span class="pmeta">Coming soon</span></div></div>'
     return (
     '<section class="page-hero"><div class="container"><div class="inner"><p class="crumb"><a href="index.html">Home</a> › Insights</p>'
     '<p class="eyebrow eyebrow--light">Insights</p><h1>Ideas on AI-first business.</h1>'
@@ -473,6 +501,21 @@ def legal_body():
         '<p class="lead">How we handle your information and the terms of using this site.</p></div></div></section>'
         '<section class="section"><div class="container" style="max-width:820px">' + notice + body + '</div></section>')
 
+def article_body(a):
+    p = "../"
+    metrics = ""
+    if a.get("metrics"):
+        metrics = '<div class="article-metrics">' + "".join('<div><div class="m">%s</div><div class="l">%s</div></div>' % (m, l) for m, l in a["metrics"]) + '</div>'
+    return (
+    '<section class="page-hero"><div class="container"><div class="inner">'
+    '<p class="crumb"><a href="%sindex.html">Home</a> › <a href="../insights.html">Insights</a> › %s</p>'
+    '<p class="eyebrow eyebrow--light">%s · %s</p><h1>%s</h1><p class="dek">%s</p></div></div></section>'
+    '<section class="section"><div class="container"><div class="article prose">%s%s'
+    '<p class="article-foot">Published by %s. This reflects how we work with clients — <a href="%scontact.html">talk to us</a> about applying it to your business.</p>'
+    '</div></div></section>%s'
+    % (p, a["kind"], a["kind"], a["topic"], a["title"], a["dek"], metrics, "".join(a["body"]), BRAND, p,
+       cta_simple(p, "Want this for your business?", "Tell us the workflow or decision you want to tackle first.")))
+
 # ----------------------------------------------------------------------------
 # GENERATE
 # ----------------------------------------------------------------------------
@@ -507,6 +550,8 @@ pages.append(write("contact.html", "Contact — %s" % BRAND,
     "Talk to us about building your AI-first business on Google. We reply within one business day.", contact_body(), "contact"))
 pages.append(write("privacy.html", "Legal — Privacy, Cookies & Terms — %s" % BRAND,
     "Privacy, cookies and terms for the %s website." % BRAND, legal_body(), ""))
+for a in ARTICLES:
+    pages.append(write("insights/%s.html" % a["slug"], "%s — %s" % (a["title"], BRAND), a["dek"][:155], article_body(a), "insights"))
 
 print("Generated %d pages:" % len(pages))
 for p in pages:

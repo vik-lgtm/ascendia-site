@@ -264,8 +264,10 @@ def service_body(s, hub, hub_label):
     rel_cards = "".join(
         '<a class="mini" href="%s.html"><span class="tag">%s</span><h3>%s</h3><p>%s</p><span class="more">Learn more →</span></a>'
         % (x["slug"], x.get("tag", "Service"), x["name"], x["nav"]) for x in siblings)
+    svc_img = {"enterprise-ai-agents":"agentic-ai","ai-knowledge-search":"insight-pilot","agentic-data-decision-intelligence":"insight-data","workspace-ai-transformation":"team-collab","custom-gemini-applications":"platform","ai-customer-experience":"consultant","secure-ai-adoption-governance":"insight-google","cloud-migration-modernization":"core-services","data-analytics-reporting":"people-work","google-workspace":"team-collab2"}
+    ph_bg = '<img class="ph-bg" src="%sassets/img/%s.webp" alt="" aria-hidden="true">' % (p, svc_img.get(s["slug"], hub))
     return (
-    '<section class="page-hero"><div class="container"><div class="inner">'
+    '<section class="page-hero">%s<div class="container"><div class="inner">'
     '<p class="crumb"><a href="%sindex.html">Home</a> › <a href="index.html">%s</a> › %s</p>'
     '<p class="eyebrow eyebrow--light">%s</p><h1>%s</h1><p class="lead">%s</p>'
     '<div class="hero-cta" style="margin-top:26px"><a href="%scontact.html" class="btn btn-primary btn-lg">Talk to us <span class="arrow">→</span></a></div>'
@@ -276,7 +278,7 @@ def service_body(s, hub, hub_label):
     '<section class="section"><div class="container"><div class="section-head center"><p class="eyebrow">How we work</p><h2>A clear path to value.</h2></div>%s</div></section>'
     '<section class="section section--soft"><div class="container"><div class="section-head"><p class="eyebrow">Related</p><h2>Explore more %s.</h2></div><div class="related">%s</div></div></section>'
     '%s'
-    % (p, hub_label, s["name"], s["eyebrow"], s["name"], s["intro"], p,
+    % (ph_bg, p, hub_label, s["name"], s["eyebrow"], s["name"], s["intro"], p,
        s["name"] + ".", s["intro"], impact_box(s["impact"]),
        checks(s["deliver"]),
        steps_html(s["steps"]),

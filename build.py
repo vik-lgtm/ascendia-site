@@ -9,7 +9,7 @@ import os
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 BRAND = "Ascendia"
-TAGLINE = "An Avanciers company"
+TAGLINE = ""
 YEAR = "2026"
 
 # ----------------------------------------------------------------------------
@@ -34,7 +34,7 @@ AGENTIC = [
         nav="From static dashboards to AI-powered decision systems.",
         eyebrow="Decisions · conversational BI",
         intro="We help businesses move from static dashboards to AI-powered decision systems. Using Google Cloud, BigQuery, Looker and Gemini, we build data platforms that let leaders ask natural-language questions, identify trends, detect inconsistencies, generate forecasts and receive decision-ready insights.",
-        deliver=["AI-powered dashboards","Conversational business intelligence","Executive decision assistants","Predictive analytics systems","Revenue, sales & operations forecasting","Customer & market intelligence platforms","Automated reporting & insight generation"],
+        deliver=["AI-powered dashboards","Conversational business intelligence","Executive decision assistants","Predictive analytics systems","Sales & operations forecasting","Customer & market intelligence platforms","Automated reporting & insight generation"],
         impact=["Turn business data into clear decisions","Reduce dependency on manual reporting","Faster access to insights","Detect risks and opportunities earlier","A smarter, more responsive organization"],
         steps=[("Model","Unify data in BigQuery."),("Visualize","Build Looker dashboards."),("Converse","Add a Gemini ask-your-data layer."),("Predict","Forecasting and alerts."),("Operate","Automated insight delivery.")]),
     dict(slug="workspace-ai-transformation", name="Google Workspace AI Transformation", tag="Productivity",
@@ -180,11 +180,11 @@ def header(p, active):
     return (
     '<header class="site-header" id="header"><div class="container nav">'
     '<a href="%sindex.html" class="brand" aria-label="%s home">%s'
-    '<span class="brand-text"><span class="brand-name">%s</span><span class="brand-tag">%s</span></span></a>'
+    '<span class="brand-text"><span class="brand-name">%s</span></span></a>'
     '<ul class="nav-links" id="navLinks">%s</ul>'
     '<div class="nav-cta"><a href="%scontact.html" class="btn btn-primary">Talk to us</a>'
     '<button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button></div>'
-    '</div></header>' % (p, BRAND, logo("#0b2a4a", "#16466e"), BRAND, TAGLINE, nav_html(p, active), p))
+    '</div></header>' % (p, BRAND, logo("#0b2a4a", "#16466e"), BRAND, nav_html(p, active), p))
 
 def footer(p):
     ag = "".join('<li><a href="%s">%s</a></li>' % (rel(p, "agentic-ai/%s.html" % s["slug"]), s["name"].split(" &")[0]) for s in AGENTIC[:5])
@@ -201,9 +201,9 @@ def footer(p):
     '<li><a href="%sabout.html">About</a></li><li><a href="%spartnership.html">Partnership</a></li>'
     '<li><a href="%sinsights.html">Insights</a></li><li><a href="%scontact.html">Contact</a></li>'
     '<li><a href="https://www.avanciers.com" target="_blank" rel="noopener">Avanciers</a></li></ul></div>'
-    '</div><div class="footer-bottom"><span>© %s %s — %s. All rights reserved.</span>'
+    '</div><div class="footer-bottom"><span>© %s %s. All rights reserved.</span>'
     '<span class="footer-legal"><a href="%sprivacy.html">Privacy</a><a href="%sprivacy.html">Cookies</a><a href="%sprivacy.html">Terms</a></span>'
-    '</div></div></footer>' % (p, logo("#ffffff", "#9fb3cc"), BRAND, ag, co, p, p, p, p, YEAR, BRAND, TAGLINE, p, p, p))
+    '</div></div></footer>' % (p, logo("#ffffff", "#9fb3cc"), BRAND, ag, co, p, p, p, p, YEAR, BRAND, p, p, p))
 
 def head(p, title, desc):
     return (
@@ -213,7 +213,7 @@ def head(p, title, desc):
     '<title>%s</title><meta name="description" content="%s">'
     '<meta property="og:title" content="%s"><meta property="og:description" content="%s"><meta property="og:type" content="website">'
     '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
-    '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">'
+    '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">'
     '<link rel="stylesheet" href="%sassets/css/styles.css"></head><body>' % (title, desc, title, desc, p))
 
 def cta_simple(p, heading, text, aside=""):
@@ -285,6 +285,7 @@ def service_body(s, hub, hub_label):
 
 def hub_body(items, hub, eyebrow, title, intro, kind):
     p = "../"
+    ph_bg = '<img class="ph-bg" src="%sassets/img/%s.webp" alt="" aria-hidden="true">' % (p, hub)
     if kind == "agentic":
         cards = "".join(
             '<a class="mini" href="%s.html"><span class="tag">%s</span><h3>%s</h3><p>%s</p><span class="more">Learn more →</span></a>'
@@ -297,15 +298,22 @@ def hub_body(items, hub, eyebrow, title, intro, kind):
             % (s["icon"], s["name"], s["intro"], "".join('<li>%s</li>' % c for c in s["chips"]), s["slug"]) for s in items)
         grid = '<div class="cards">%s</div>' % cards
     return (
-    '<section class="page-hero"><div class="container"><div class="inner">'
+    '<section class="page-hero">%s<div class="container"><div class="inner">'
     '<p class="crumb"><a href="%sindex.html">Home</a> › %s</p>'
     '<p class="eyebrow eyebrow--light">%s</p><h1>%s</h1><p class="lead">%s</p></div></div></section>'
     '<section class="section"><div class="container">%s</div></section>'
-    '%s' % (p, title, eyebrow, title, intro, grid,
+    '%s' % (ph_bg, p, title, eyebrow, title, intro, grid,
             cta_simple(p, "Not sure where to start?", "Most clients begin with one focused pilot, then expand. Let's find your highest-value first step.")))
+
+def media_row(p, img, eyebrow, title, body_html, side="right", cls=""):
+    media = '<div class="mr-media"><img src="%sassets/img/%s.webp" alt="" loading="lazy"></div>' % (p, img)
+    text = '<div class="mr-text"><p class="eyebrow">%s</p><h2>%s</h2>%s</div>' % (eyebrow, title, body_html)
+    inner = (text + media) if side == "right" else (media + text)
+    return '<section class="section %s" data-reveal><div class="container"><div class="media-row mr-%s">%s</div></div></section>' % (cls, side, inner)
 
 def home_body():
     p = ""
+    ph_platform = '<img class="ph-bg" src="assets/img/platform.webp" alt="" aria-hidden="true">'
     core_cards = "".join(
         '<div class="card"><div class="ic">%s</div><h3>%s</h3><p>%s</p>'
         '<ul class="deliver">%s</ul><a href="core-services/%s.html" class="card-link">Learn more →</a></div>'
@@ -319,10 +327,7 @@ def home_body():
     gp = "".join('<div class="gp"><div class="gp-name">%s</div><div class="gp-desc">%s</div></div>' % (n, d) for n, d in gproducts)
     return (
     # hero
-    '<section class="hero"><svg class="hero-net" viewBox="0 0 600 700" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
-    '<g stroke="rgba(255,255,255,.18)" stroke-width="1.2"><path d="M120 120 L300 200 L460 140 M300 200 L260 360 L460 140 M260 360 L120 480 L420 460 L260 360 M420 460 L500 300 L460 140"/></g>'
-    '<g fill="rgba(255,255,255,.55)"><circle cx="120" cy="120" r="5"/><circle cx="300" cy="200" r="6"/><circle cx="260" cy="360" r="6"/><circle cx="120" cy="480" r="5"/><circle cx="420" cy="460" r="6"/><circle cx="500" cy="300" r="5"/></g>'
-    '<circle cx="460" cy="140" r="9" fill="#e97451"/></svg>'
+    '<section class="hero"><img class="hero-bg" src="assets/img/hero.webp" alt="" aria-hidden="true" fetchpriority="high">'
     '<div class="container"><div class="hero-inner"><p class="eyebrow eyebrow--light">Google-first · AI · Data · Cloud</p>'
     '<h1>Build your AI-first business on Google.</h1>'
     '<p class="lead">We help enterprises modernize on Google Cloud and put Gemini-powered AI agents to work across the business — turning Google technology into measurable outcomes, securely and at scale.</p>'
@@ -376,8 +381,9 @@ def home_body():
     '<div class="step"><h3>Build &amp; Migrate</h3><p>Modernize systems and ship agents, apps and analytics.</p></div>'
     '<div class="step"><h3>Govern</h3><p>Access control, human-in-the-loop and responsible AI.</p></div>'
     '<div class="step"><h3>Scale</h3><p>Adopt, measure ROI and expand the operating model.</p></div></div></div></section>'
+    '%s'
     # partnership
-    '<section class="section partner" id="partnership" data-reveal><div class="container"><div class="section-head"><p class="eyebrow eyebrow--light">The Google advantage</p>'
+    '<section class="section partner" id="partnership" data-reveal>%s<div class="container"><div class="section-head"><p class="eyebrow eyebrow--light">The Google advantage</p>'
     '<h2>One ecosystem. Every layer of the AI-first enterprise.</h2>'
     '<p class="lead">As a Certified Google Cloud Partner, we build across the full Google stack — and bring co-sell, funded proofs-of-concept and Marketplace access to every engagement.</p></div>'
     '<div class="gproducts">%s</div>'
@@ -406,7 +412,7 @@ def home_body():
     '<section class="cta-band" id="contact"><div class="container"><div class="cta-inner"><div>'
     '<p class="eyebrow eyebrow--light">Let\'s build</p><h2>Build your AI-first business on Google.</h2>'
     '<p class="lead">Tell us the workflow, decision or migration you want to tackle first. We\'ll come back with a focused, fixed-scope way to start — usually a 4–6 week pilot.</p></div>%s</div></div></section>'
-    % (core_cards, ag_cards, gp, BRAND, lead_form()))
+    % (core_cards, ag_cards, media_row(p, "consultant", "The people", "Specialists who deliver, not just advise.", "<p>Certified Google Cloud architects and AI engineers who stay in the build from scoping to production — measured against your number, not ours.</p>", side="right"), ph_platform, gp, BRAND, lead_form()))
 
 def partnership_body():
     p = ""
@@ -423,14 +429,16 @@ def partnership_body():
     '<div class="prop"><h3>Marketplace</h3><p>Procure our solutions through Google Cloud Marketplace, drawing down committed spend.</p></div>'
     '<div class="prop"><h3>Certified expertise</h3><p>Engineers certified across Google Cloud, data and AI — kept current as the platform evolves.</p></div>'
     '<div class="prop"><h3>Early access</h3><p>Hands-on with the latest Gemini, Vertex AI and Workspace capabilities as they ship.</p></div></div></div></section>'
+    '%s'
     '<section class="section section--alt partner" style="background:var(--navy-900)"><div class="container"><div class="section-head"><p class="eyebrow eyebrow--light">The stack</p>'
     '<h2 style="color:#fff">Every layer of the AI-first enterprise.</h2><p class="lead" style="color:#cdd9e8">We build across the full Google technology stack.</p></div><div class="gproducts">%s</div></div></section>'
-    '%s' % (gp, cta_simple(p, "Build on Google with a partner.", "Bring us your goal — we'll bring the ecosystem.")))
+    '%s' % (media_row(p, "team-collab2", "Delivery", "A partner team that has done this before.", "<p>Co-sell, funded proofs of concept and Marketplace access — delivered by senior people who have shipped Google Cloud and AI for Tier-1 enterprises.</p>", side="left", cls="section--soft"), gp, cta_simple(p, "Build on Google with a partner.", "Bring us your goal — we'll bring the ecosystem.")))
 
 def about_body():
     p = ""
+    ph_bg = '<img class="ph-bg" src="assets/img/about.webp" alt="" aria-hidden="true">'
     return (
-    '<section class="page-hero"><div class="container"><div class="inner"><p class="crumb"><a href="index.html">Home</a> › About</p>'
+    '<section class="page-hero">%s<div class="container"><div class="inner"><p class="crumb"><a href="index.html">Home</a> › About</p>'
     '<p class="eyebrow eyebrow--light">About us</p><h1>Operators building the AI-first enterprise.</h1>'
     '<p class="lead">%s is a Google-first AI, data and cloud transformation firm — launched and backed by Avanciers, with a singular focus on turning Google technology into measurable business outcomes.</p></div></div></section>'
     '<section class="section"><div class="container"><div class="two-col"><div>'
@@ -439,6 +447,7 @@ def about_body():
     '<p>We prove every capability on our own business before we sell it, then deliver it with secure, governed, ROI-led engagements.</p></div>'
     '<div class="impact-box"><p style="font-weight:700;color:var(--navy-800);font-family:var(--display);margin-bottom:6px">What we believe</p><ul>'
     '<li>Specialization beats breadth</li><li>Agents should act, not just answer</li><li>Every engagement has a measurable result</li><li>AI must be secure and governed</li><li>Prove it on ourselves first</li></ul></div></div></div></section>'
+    '%s%s'
     # leadership
     '<section class="section section--soft" id="leadership"><div class="container"><div class="section-head center"><p class="eyebrow">Leadership</p><h2>Operators who have built this before.</h2></div>'
     '<div class="team"><div class="member veteran"><div class="avatar">★</div><h3>[Industry Veteran]</h3><p class="role">Chairman &amp; Strategic Advisor</p>'
@@ -454,13 +463,13 @@ def about_body():
     '<div><div class="impact-box"><p style="font-weight:700;color:var(--navy-800);margin-bottom:14px;font-family:var(--display)">Trusted by leading enterprises &amp; system integrators</p>'
     '<div class="logos-row"><span>Deloitte</span><span>Wipro</span><span>Infosys</span><span>Cognizant</span><span>Tech&nbsp;Mahindra</span><span>Mphasis</span><span>Sonata</span><span>ABB</span></div>'
     '<p class="muted" style="font-size:.86rem;margin:20px 0 0">4 entities · 350+ families supported through our consultant network.</p></div></div></div></div></section>'
-    '%s' % (BRAND, cta_simple(p, "Work with us.", "Tell us what you want to build on Google.")))
+    '%s' % (ph_bg, BRAND, media_row(p, "team-collab", "How we work", "Senior people, in the room with you.", "<p>You work with the architects and engineers who do the build — not a layer of account managers. Small, senior teams, with a human in the loop on every decision that matters.</p>", side="right"), media_row(p, "people-work", "Proof", "We prove it on ourselves first.", "<p>Before a pattern reaches a client it runs in our own business — our operating data on Google Cloud, our reporting in Looker, our questions answered by a Gemini agent.</p>", side="left", cls="section--soft"), cta_simple(p, "Work with us.", "Tell us what you want to build on Google.")))
 
 def insights_body():
     p = ""
-    thumbs = {"Point of view": "b", "Case study": "", "White paper": "c", "Playbook": "c"}
-    cards = "".join('<a class="post" href="insights/%s.html"><div class="thumb %s"></div><div class="pbody"><span class="ptag">%s</span><h3>%s</h3><p>%s</p><span class="pmeta">%s · Read →</span></div></a>' % (a["slug"], thumbs.get(a["kind"], ""), a["kind"], a["title"], a["dek"], a["topic"]) for a in ARTICLES)
-    cards += '<div class="post"><div class="thumb c"></div><div class="pbody"><span class="ptag">Playbook</span><h3>Your BigQuery + Looker decision foundation</h3><p>A practical sequence for turning scattered data into decisions leaders trust.</p><span class="pmeta">Coming soon</span></div></div>'
+    imgmap = {"enterprise-ai-agents-from-pilot-to-production": "insight-pilot", "we-ran-our-own-company-on-google": "insight-google"}
+    cards = "".join('<a class="post" href="insights/%s.html"><div class="thumb"><img src="assets/img/%s.webp" alt="" loading="lazy"></div><div class="pbody"><span class="ptag">%s</span><h3>%s</h3><p>%s</p><span class="pmeta">%s · Read →</span></div></a>' % (a["slug"], imgmap.get(a["slug"], "insight-pilot"), a["kind"], a["title"], a["dek"], a["topic"]) for a in ARTICLES)
+    cards += '<div class="post"><div class="thumb"><img src="assets/img/insight-data.webp" alt="" loading="lazy"></div><div class="pbody"><span class="ptag">Playbook</span><h3>Your BigQuery + Looker decision foundation</h3><p>A practical sequence for turning scattered data into decisions leaders trust.</p><span class="pmeta">Coming soon</span></div></div>'
     return (
     '<section class="page-hero"><div class="container"><div class="inner"><p class="crumb"><a href="index.html">Home</a> › Insights</p>'
     '<p class="eyebrow eyebrow--light">Insights</p><h1>Ideas on AI-first business.</h1>'
@@ -521,7 +530,7 @@ def article_body(a):
 # ----------------------------------------------------------------------------
 pages = []
 pages.append(write("index.html", "%s — Build your AI-first business on Google" % BRAND,
-    "%s is a Google-first AI, data and cloud transformation firm. We modernize enterprises on Google Cloud and put Gemini-powered AI agents to work — securely, with measurable ROI. An Avanciers company." % BRAND,
+    "%s is a Google-first AI, data and cloud transformation firm. We modernize enterprises on Google Cloud and put Gemini-powered AI agents to work — securely, with measurable ROI." % BRAND,
     home_body(), "home"))
 
 pages.append(write("agentic-ai/index.html", "Agentic AI Services — %s" % BRAND,
@@ -542,7 +551,7 @@ for s in CORE:
 
 pages.append(write("partnership.html", "Partnership — Certified Google Cloud Partner — %s" % BRAND,
     "As a Certified Google Cloud Partner, we build across the full Google stack with co-sell, funded POCs and Marketplace access.", partnership_body(), "partnership"))
-pages.append(write("about.html", "About — %s, an Avanciers company" % BRAND,
+pages.append(write("about.html", "About — %s" % BRAND,
     "A Google-first AI, data and cloud transformation firm, launched and backed by Avanciers. Leadership, story and credentials.", about_body(), "about"))
 pages.append(write("insights.html", "Insights — %s" % BRAND,
     "Practical points of view on building, governing and scaling AI on Google.", insights_body(), "insights"))

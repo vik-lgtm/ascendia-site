@@ -1,9 +1,0 @@
-{
-  "pid": 36451,
-  "port": 17337,
-  "token": "a73ed486-10c3-498a-8928-dd2ee013ae00",
-  "startedAt": "2026-06-05T12:24:39.036Z",
-  "serverPath": "/Users/vikramwahi/.claude/skills/gstack/browse/src/server.ts",
-  "mode": "launched",
-  "configHash": "303a7eeccc03078b"
-}

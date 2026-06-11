@@ -16,8 +16,9 @@
   --surface:#0F2040; --surface-2:#0A1628;
   --accent:#FF6B2B; --accent-600:#FF7A3D; --accent-700:#FF8A52;
   --blue:#00D4FF; --gold:#FFB800;
-  --ink:#F0F4FF; --slate:#8BA4C4; --slate-300:#6E86A6;
+  --ink:#F0F4FF; --slate:#8BA4C4; --slate-300:#8194B0;
   --line:#15294A; --line-2:rgba(26,48,80,.55);
+  /* FINDING-003 — was #6E86A6 (~4.4:1); lift to clear WCAG AA on dark surfaces */
   --display:'Space Grotesk',-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
   --radius:16px; --radius-sm:10px; --radius-lg:20px;
   --ring:0 0 0 4px rgba(0,212,255,.28);
@@ -234,3 +235,11 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 /* ---- 6.12 Stat band rhythm ---- */
 .stat .label{color:var(--slate);letter-spacing:.01em}
 .stat-note{color:var(--slate-300)}
+
+/* ---- 6.13 FINDING-002 — mobile tap targets (≥44px) ---- */
+@media(max-width:760px){
+  .footer-top ul a{display:block;padding:9px 0}
+  .footer-legal a{display:inline-block;padding:8px 10px}
+  .card-link,.more,.article-foot a,.crumb a{display:inline-block;padding-block:7px}
+  .nav-links a.nav-top{padding-block:8px}
+}

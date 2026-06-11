@@ -125,7 +125,7 @@ CORE = [
 SVC_IMG = {"enterprise-ai-agents": "agentic-ai", "ai-knowledge-search": "insight-pilot", "agentic-data-decision-intelligence": "insight-data", "workspace-ai-transformation": "team-collab", "custom-gemini-applications": "platform", "ai-customer-experience": "consultant", "secure-ai-adoption-governance": "insight-google", "cloud-migration-modernization": "core-services", "data-analytics-reporting": "people-work", "google-workspace": "team-collab2"}
 
 ARTICLES = [
-    dict(slug="enterprise-ai-agents-from-pilot-to-production", kind="Point of view", topic="Agentic AI", date="2026",
+    dict(slug="enterprise-ai-agents-from-pilot-to-production", kind="Point of view", topic="Agentic AI", date="June 2026",
         title="From pilots to production: making enterprise AI agents real",
         dek="Why most enterprise AI pilots stall — and the operating model that gets agents into daily work.",
         body=[
@@ -137,7 +137,7 @@ ARTICLES = [
             '<h2>4. Measure, then expand</h2><p>Prove the metric, share the result internally, and use that win to fund the next workflow. Production AI is a sequence of small, measured expansions, not a big-bang transformation. Over time the pilots compound into an AI-first operating model.</p>',
             '<div class="callout"><strong>The model in one line:</strong> one workflow &rarr; an integrated build with a human in the loop &rarr; governed from day one &rarr; measured &rarr; expand. That is how a pilot becomes production.</div>',
         ]),
-    dict(slug="we-ran-our-own-company-on-google", kind="Case study", topic="Data & AI", date="2026",
+    dict(slug="we-ran-our-own-company-on-google", kind="Case study", topic="Data & AI", date="June 2026",
         title="We ran our own company on Google Cloud",
         dek="How we re-platformed our own operating data onto BigQuery, Looker and Gemini — and made it our first reference implementation.",
         metrics=[("27k+", "transactions unified"), ("1", "ask-your-business agent"), ("days&rarr;min", "to an answer")],

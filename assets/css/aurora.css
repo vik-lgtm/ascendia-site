@@ -243,3 +243,30 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
   .card-link,.more,.article-foot a,.crumb a{display:inline-block;padding-block:7px}
   .nav-links a.nav-top{padding-block:8px}
 }
+
+/* ============================================================================
+   7 · ART DIRECTION — cohesive image grade, brand tint, film grain
+   Unifies stock-temperature photos into one authored Aurora look so imagery
+   reads designed, not sourced. (FINDING-004)
+   ============================================================================ */
+.ph-bg,.hero-bg,.card-media img,.thumb img,.mr-media img,.reel-track img{
+  filter:saturate(.72) contrast(1.07) brightness(.9);
+}
+.mini-media{position:relative;overflow:hidden}
+/* cool brand wash over every media surface (cyan top-light → navy floor) */
+.card-media::before,.thumb::before,.mr-media::before,.mini-media::before,.case-media::before{
+  content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:linear-gradient(158deg,rgba(0,150,210,.14),transparent 52%,rgba(5,12,26,.30));
+}
+/* hero imagery: deeper grade so the 3D sphere + text read as foreground */
+.page-hero .ph-bg,.hero .hero-bg{filter:saturate(.6) contrast(1.08) brightness(.62)}
+
+/* film grain — one fixed texture layer for filmic cohesion */
+body::after{
+  content:"";position:fixed;inset:0;z-index:3000;pointer-events:none;opacity:.04;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:180px 180px;
+}
+@media (prefers-reduced-motion: reduce){
+  .ph-bg,.hero-bg,.card-media img,.thumb img,.mr-media img,.reel-track img{filter:saturate(.82)}
+}

@@ -143,6 +143,23 @@
     if (hero) { try { initHero(hero); } catch (e) { /* WebGL unavailable → dimmed image + glow fallback remains */ } }
   }
 
+  /* ---------- Hero entrance choreography (sequenced, not all-at-once) ---------- */
+  if (hasGSAP && !reduce) {
+    var heroEl = document.querySelector(".hero, .page-hero");
+    if (heroEl) {
+      var isPageHero = heroEl.classList.contains("page-hero");
+      var seq = [];
+      var pick = function (sel) { return heroEl.querySelector(sel); };
+      // .hero h1 is word-split by main.js; only sequence the page-hero h1 here.
+      [".crumb", ".eyebrow", isPageHero ? "h1" : null, ".lead", ".dek", ".hero-cta", ".hero-trust"]
+        .forEach(function (s) { var el = s && pick(s); if (el) seq.push(el); });
+      if (seq.length) {
+        var tl = gsap.timeline({ defaults: { ease: "power3.out" }, delay: 0.1 });
+        tl.from(seq, { opacity: 0, y: 18, duration: 0.7, stagger: 0.11 });
+      }
+    }
+  }
+
   /* ---------- v3 section animations (bento, vertical timeline, pipeline) ---------- */
   if (hasGSAP && !reduce) {
     gsap.registerPlugin(ScrollTrigger);

@@ -270,3 +270,27 @@ body::after{
 @media (prefers-reduced-motion: reduce){
   .ph-bg,.hero-bg,.card-media img,.thumb img,.mr-media img,.reel-track img{filter:saturate(.82)}
 }
+
+/* ============================================================================
+   8 · MOTION CHOREOGRAPHY — staggered reveal cascade (FINDING-005)
+   Sections no longer fade as one block: the container fades up, then its
+   cards/tiles rise in sequence using the --i index main.js already sets.
+   ============================================================================ */
+.reveal{transform:translateY(26px);transition:opacity .75s var(--ez),transform .75s var(--ez)}
+.reveal.in{transform:none}
+/* key the hidden state off .reveal (the class main.js ADDS), not [data-reveal]
+   (a static attribute) — so with JS disabled the cards stay visible. */
+.reveal .card,.reveal .mini,.reveal .prop,.reveal .post,
+.reveal .gp,.reveal .member,.reveal .step{
+  opacity:0;transform:translateY(24px);
+  transition:opacity .66s var(--ez),transform .66s var(--ez);
+  transition-delay:calc(var(--i,0)*65ms);
+}
+.reveal.in .card,.reveal.in .mini,.reveal.in .prop,.reveal.in .post,
+.reveal.in .gp,.reveal.in .member,.reveal.in .step{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){
+  .reveal,.reveal .card,.reveal .mini,.reveal .prop,.reveal .post,
+  .reveal .gp,.reveal .member,.reveal .step{
+    opacity:1 !important;transform:none !important;transition:none !important;
+  }
+}

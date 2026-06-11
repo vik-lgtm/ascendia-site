@@ -207,10 +207,11 @@ def header(p, active):
     '<header class="site-header" id="header"><div class="container nav">'
     '<a href="%sindex.html" class="brand" aria-label="%s home">%s'
     '<span class="brand-text"><span class="brand-name">%s</span></span></a>'
-    '<ul class="nav-links" id="navLinks">%s</ul>'
+    '<ul class="nav-links" id="navLinks">%s'
+    '<li class="nav-mobile-cta"><a href="%scontact.html" class="btn btn-primary">Talk to us</a></li></ul>'
     '<div class="nav-cta"><a href="%scontact.html" class="btn btn-primary">Talk to us</a>'
     '<button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button></div>'
-    '</div></header>' % (p, BRAND, logo("#ffffff", "#9fb3cc"), BRAND, nav_html(p, active), p))
+    '</div></header>' % (p, BRAND, logo("#ffffff", "#9fb3cc"), BRAND, nav_html(p, active), p, p))
 
 def footer(p):
     ag = "".join('<li><a href="%s">%s</a></li>' % (rel(p, "agentic-ai/%s.html" % s["slug"]), s["name"].split(" &")[0]) for s in AGENTIC[:5])
@@ -749,7 +750,7 @@ def legal_body():
     sec = lambda h, b: f'<h2 style="margin-top:36px">{h}</h2><p class="muted">{b}</p>'
     notice = (f'<div class="impact-box" style="margin-bottom:30px"><p class="muted" style="margin:0">'
               f'<strong>Template notice:</strong> This is placeholder legal text for the {BRAND} website and must be '
-              f'reviewed and finalized by counsel before launch — especially alongside the ISO 27001 / ISO 42001 / SOC 2 program and any'
+              f'reviewed and finalized by counsel before launch — especially alongside the ISO 27001 / ISO 42001 / SOC 2 program and any '
               f'GDPR/PIPEDA obligations.</p></div>')
     body = (
         '<h2 id="privacy">Privacy</h2><p class="muted">We collect only the information you provide through our contact form '

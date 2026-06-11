@@ -228,7 +228,7 @@ def footer(p):
     '<li><a href="%sinsights.html">Insights</a></li><li><a href="%scontact.html">Contact</a></li>'
     '<li><a href="https://www.avanciers.com" target="_blank" rel="noopener">Avanciers</a></li></ul></div>'
     '</div><div class="footer-bottom"><span>© %s %s. All rights reserved.</span>'
-    '<span class="f-status"><i></i>Operating across Canada · USA · India</span>'
+    '<span class="f-status"><i></i>Operating across Canada · USA · Mexico · India</span>'
     '<span class="footer-legal"><a href="%sprivacy.html">Privacy</a><a href="%sprivacy.html">Cookies</a><a href="%sprivacy.html">Terms</a></span>'
     '</div></div></footer>' % (p, logo("#ffffff", "#9fb3cc"), BRAND, ag, co, p, p, p, p, YEAR, BRAND, p, p, p))
 

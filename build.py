@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Ascendia static site generator.
+Velivance static site generator.
 One source of truth for the dropdown nav, header, footer and all page content.
 Run:  python3 build.py      → regenerates every .html under site/
 Edit content below (brand name, service copy, leadership) and re-run.
@@ -8,7 +8,7 @@ Edit content below (brand name, service copy, leadership) and re-run.
 import os
 
 BASE = os.path.dirname(os.path.abspath(__file__))
-BRAND = "Ascendia"
+BRAND = "Velivance"
 TAGLINE = ""
 YEAR = "2026"
 
@@ -70,6 +70,29 @@ AGENTIC = [
 CLOUD_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>'
 CHART_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><rect x="7" y="11" width="3" height="6"/><rect x="12" y="7" width="3" height="10"/><rect x="17" y="13" width="3" height="4"/></svg>'
 GRID_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>'
+SPARK_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M18 6l-2.5 2.5M8.5 15.5L6 18"/><circle cx="12" cy="12" r="2.4"/></svg>'
+
+# Migration pipeline (Google Workspace signature visual): FROM → Velivance → Workspace suite
+PIPELINE_SVG = (
+    '<svg viewBox="0 0 1080 340" role="img" aria-hidden="true">'
+    '<defs><radialGradient id="hubHalo" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(255,107,43,0.32)"/><stop offset="100%" stop-color="rgba(255,107,43,0)"/></radialGradient></defs>'
+    '<text class="pipe-cap" x="150" y="40">From</text><text class="pipe-cap" x="540" y="40">Velivance</text><text class="pipe-cap" x="930" y="40">To Google Workspace</text>'
+    '<circle cx="540" cy="180" r="110" fill="url(#hubHalo)"/>'
+    '<g><path class="pipe-base" d="M225 100 C330 100 360 180 455 180"/><path class="pipe-base" d="M225 180 H455"/><path class="pipe-base" d="M225 260 C330 260 360 180 455 180"/>'
+    '<path class="pipe-flow" d="M225 100 C330 100 360 180 455 180"/><path class="pipe-flow" d="M225 180 H455"/><path class="pipe-flow" d="M225 260 C330 260 360 180 455 180"/></g>'
+    '<g><path class="pipe-base" d="M625 180 C720 180 760 100 830 100"/><path class="pipe-base" d="M625 180 C720 180 760 100 950 100"/><path class="pipe-base" d="M625 180 H830"/><path class="pipe-base" d="M625 180 H950"/><path class="pipe-base" d="M625 180 C720 180 760 260 830 260"/><path class="pipe-base" d="M625 180 C720 180 760 260 950 260"/>'
+    '<path class="pipe-flow" d="M625 180 C720 180 760 100 830 100"/><path class="pipe-flow" d="M625 180 C720 180 760 100 950 100"/><path class="pipe-flow" d="M625 180 H830"/><path class="pipe-flow" d="M625 180 H950"/><path class="pipe-flow" d="M625 180 C720 180 760 260 830 260"/><path class="pipe-flow" d="M625 180 C720 180 760 260 950 260"/></g>'
+    '<g><rect class="pipe-node src" x="75" y="78" width="150" height="44" rx="11"/><text class="pipe-label" x="150" y="105">Microsoft 365</text>'
+    '<rect class="pipe-node src" x="75" y="158" width="150" height="44" rx="11"/><text class="pipe-label" x="150" y="185">Legacy Email</text>'
+    '<rect class="pipe-node src" x="75" y="238" width="150" height="44" rx="11"/><text class="pipe-label" x="150" y="265">Disconnected Tools</text></g>'
+    '<g><rect class="pipe-hub" x="455" y="135" width="170" height="90" rx="18"/><text class="pipe-hub-label" x="540" y="178">Velivance</text><text class="pipe-hub-sub" x="540" y="200">MIGRATE · SECURE · ADOPT</text></g>'
+    '<g><rect class="pipe-node" x="784" y="80" width="92" height="40" rx="10"/><circle cx="800" cy="100" r="4" fill="#EA4335"/><text class="pipe-label" x="838" y="105">Gmail</text>'
+    '<rect class="pipe-node" x="904" y="80" width="92" height="40" rx="10"/><circle cx="920" cy="100" r="4" fill="#FBBC04"/><text class="pipe-label" x="958" y="105">Drive</text>'
+    '<rect class="pipe-node" x="784" y="160" width="92" height="40" rx="10"/><circle cx="800" cy="180" r="4" fill="#34A853"/><text class="pipe-label" x="838" y="185">Meet</text>'
+    '<rect class="pipe-node" x="904" y="160" width="92" height="40" rx="10"/><circle cx="920" cy="180" r="4" fill="#4285F4"/><text class="pipe-label" x="958" y="185">Docs</text>'
+    '<rect class="pipe-node" x="784" y="240" width="92" height="40" rx="10"/><circle cx="800" cy="260" r="4" fill="#34A853"/><text class="pipe-label" x="838" y="265">Sheets</text>'
+    '<rect class="pipe-node" x="904" y="240" width="92" height="40" rx="10"/><circle cx="920" cy="260" r="4" fill="#4285F4"/><text class="pipe-label" x="958" y="265">Calendar</text></g>'
+    '</svg>')
 
 CORE = [
     dict(slug="cloud-migration-modernization", name="Google Cloud Migration & Modernization", icon=CLOUD_ICON,
@@ -99,6 +122,8 @@ CORE = [
 # CONTENT — Insights articles (case studies + white papers / points of view)
 # Add a dict here + re-run build.py to publish a new article.
 # ----------------------------------------------------------------------------
+SVC_IMG = {"enterprise-ai-agents": "agentic-ai", "ai-knowledge-search": "insight-pilot", "agentic-data-decision-intelligence": "insight-data", "workspace-ai-transformation": "team-collab", "custom-gemini-applications": "platform", "ai-customer-experience": "consultant", "secure-ai-adoption-governance": "insight-google", "cloud-migration-modernization": "core-services", "data-analytics-reporting": "people-work", "google-workspace": "team-collab2"}
+
 ARTICLES = [
     dict(slug="enterprise-ai-agents-from-pilot-to-production", kind="Point of view", topic="Agentic AI", date="2026",
         title="From pilots to production: making enterprise AI agents real",
@@ -148,9 +173,10 @@ CARET = '<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor
 
 def logo(stroke, dot):
     return ('<svg class="logo" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
-            '<path d="M6 31 L16 22 L25 26 L34 9" stroke="%s" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>'
-            '<circle cx="6" cy="31" r="3.4" fill="%s"/><circle cx="16" cy="22" r="3.4" fill="%s"/>'
-            '<circle cx="25" cy="26" r="3.4" fill="%s"/><circle cx="34" cy="9" r="4.6" fill="#e97451"/></svg>' % (stroke, dot, dot, dot))
+            '<path d="M5 14h9M5 20h6M5 26h9" stroke="%s" stroke-width="2.6" stroke-linecap="round"/>'
+            '<path d="M19 10 L30 20 L19 30" stroke="%s" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>'
+            '<circle cx="14" cy="14" r="2.2" fill="%s"/><circle cx="14" cy="26" r="2.2" fill="%s"/>'
+            '<circle cx="30" cy="20" r="4.6" fill="#e97451"/></svg>' % (stroke, stroke, dot, dot))
 
 def rel(p, href):
     if href.startswith(("http", "#", "mailto:")):
@@ -184,7 +210,7 @@ def header(p, active):
     '<ul class="nav-links" id="navLinks">%s</ul>'
     '<div class="nav-cta"><a href="%scontact.html" class="btn btn-primary">Talk to us</a>'
     '<button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button></div>'
-    '</div></header>' % (p, BRAND, logo("#0b2a4a", "#16466e"), BRAND, nav_html(p, active), p))
+    '</div></header>' % (p, BRAND, logo("#ffffff", "#9fb3cc"), BRAND, nav_html(p, active), p))
 
 def footer(p):
     ag = "".join('<li><a href="%s">%s</a></li>' % (rel(p, "agentic-ai/%s.html" % s["slug"]), s["name"].split(" &")[0]) for s in AGENTIC[:5])
@@ -202,6 +228,7 @@ def footer(p):
     '<li><a href="%sinsights.html">Insights</a></li><li><a href="%scontact.html">Contact</a></li>'
     '<li><a href="https://www.avanciers.com" target="_blank" rel="noopener">Avanciers</a></li></ul></div>'
     '</div><div class="footer-bottom"><span>© %s %s. All rights reserved.</span>'
+    '<span class="f-status"><i></i>Operating across Canada · USA · India</span>'
     '<span class="footer-legal"><a href="%sprivacy.html">Privacy</a><a href="%sprivacy.html">Cookies</a><a href="%sprivacy.html">Terms</a></span>'
     '</div></div></footer>' % (p, logo("#ffffff", "#9fb3cc"), BRAND, ag, co, p, p, p, p, YEAR, BRAND, p, p, p))
 
@@ -213,8 +240,10 @@ def head(p, title, desc):
     '<title>%s</title><meta name="description" content="%s">'
     '<meta property="og:title" content="%s"><meta property="og:description" content="%s"><meta property="og:type" content="website">'
     '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
-    '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">'
-    '<link rel="stylesheet" href="%sassets/css/styles.css"></head><body>' % (title, desc, title, desc, p))
+    '<link rel="preconnect" href="https://cdnjs.cloudflare.com">'
+    '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">'
+    '<link rel="stylesheet" href="%sassets/css/styles.css">'
+    '<link rel="stylesheet" href="%sassets/css/aurora.css"></head><body>' % (title, desc, title, desc, p, p))
 
 def cta_simple(p, heading, text, aside=""):
     return ('<section class="cta-band"><div class="container"><div class="cta-inner">'
@@ -238,6 +267,29 @@ def lead_form():
 def steps_html(steps):
     return '<div class="steps">%s</div>' % "".join('<div class="step"><h3>%s</h3><p>%s</p></div>' % (n, d) for n, d in steps)
 
+def svc_bento(items):
+    """v3 'What's included' — asymmetric bento of capability tiles (first = feature)."""
+    tiles = "".join(
+        '<div class="svc-tile%s"><span class="svc-ico">%s</span><h3>%s</h3></div>'
+        % (" svc-tile--feature" if i == 0 else "", SPARK_ICON, it) for i, it in enumerate(items))
+    return '<div class="svc-bento">%s</div>' % tiles
+
+def vtimeline(steps):
+    """v3 'How we work' — vertical alternating timeline with a scroll-drawn spine."""
+    rows = "".join(
+        '<div class="vstep"><div class="vcard"><span class="vn">%02d · %s</span><h3>%s</h3><p>%s</p></div>'
+        '<span class="vdot"></span><span class="vspacer"></span></div>' % (i + 1, n, n, d)
+        for i, (n, d) in enumerate(steps))
+    return '<div class="vtl"><div class="vline"><span class="vfill"></span></div>%s</div>' % rows
+
+def migration_pipeline():
+    """Signature migration visual for the Google Workspace page."""
+    return (
+    '<section class="section section--alt"><div class="container">'
+    '<div class="section-head center"><p class="eyebrow">The migration</p><h2>From scattered tools to one secure suite.</h2>'
+    '<p class="lead" style="margin:0 auto">Microsoft 365, legacy email and disconnected tools, consolidated through Velivance into a single Google Workspace your teams actually want to use.</p></div>'
+    '<div class="pipeline">%s</div></div></section>' % PIPELINE_SVG)
+
 def checks(items):
     half = (len(items) + 1) // 2
     def col(group): return '<ul class="list-check">%s</ul>' % "".join('<li>%s</li>' % i for i in group)
@@ -248,7 +300,13 @@ def impact_box(items):
 
 def write(path, title, desc, body, active):
     p = "../" * path.count("/")
-    htmlout = head(p, title, desc) + header(p, active) + body + footer(p) + ('<script src="%sassets/js/main.js"></script></body></html>' % p)
+    scripts = (
+        '<script src="%sassets/js/main.js"></script>'
+        '<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>'
+        '<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>'
+        '<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>'
+        '<script src="%sassets/js/aurora.js"></script>' % (p, p))
+    htmlout = head(p, title, desc) + header(p, active) + body + footer(p) + scripts + '</body></html>'
     full = os.path.join(BASE, path)
     os.makedirs(os.path.dirname(full), exist_ok=True)
     with open(full, "w", encoding="utf-8") as f:
@@ -262,10 +320,10 @@ def service_body(s, hub, hub_label):
     p = "../"
     siblings = [x for x in (AGENTIC if hub == "agentic-ai" else CORE) if x["slug"] != s["slug"]][:3]
     rel_cards = "".join(
-        '<a class="mini" href="%s.html"><span class="tag">%s</span><h3>%s</h3><p>%s</p><span class="more">Learn more →</span></a>'
-        % (x["slug"], x.get("tag", "Service"), x["name"], x["nav"]) for x in siblings)
-    svc_img = {"enterprise-ai-agents":"agentic-ai","ai-knowledge-search":"insight-pilot","agentic-data-decision-intelligence":"insight-data","workspace-ai-transformation":"team-collab","custom-gemini-applications":"platform","ai-customer-experience":"consultant","secure-ai-adoption-governance":"insight-google","cloud-migration-modernization":"core-services","data-analytics-reporting":"people-work","google-workspace":"team-collab2"}
-    ph_bg = '<img class="ph-bg" src="%sassets/img/%s.webp" alt="" aria-hidden="true">' % (p, svc_img.get(s["slug"], hub))
+        '<a class="mini" href="%s.html"><div class="mini-media"><img src="%sassets/img/%s.webp" alt="" loading="lazy"></div><span class="tag">%s</span><h3>%s</h3><p>%s</p><span class="more">Learn more →</span></a>'
+        % (x["slug"], p, SVC_IMG.get(x["slug"], hub), x.get("tag", "Service"), x["name"], x["nav"]) for x in siblings)
+    ph_bg = '<img class="ph-bg" src="%sassets/img/%s.webp" alt="" aria-hidden="true">' % (p, SVC_IMG.get(s["slug"], hub))
+    pipe_section = migration_pipeline() if s["slug"] == "google-workspace" else ""
     return (
     '<section class="page-hero">%s<div class="container"><div class="inner">'
     '<p class="crumb"><a href="%sindex.html">Home</a> › <a href="index.html">%s</a> › %s</p>'
@@ -274,14 +332,16 @@ def service_body(s, hub, hub_label):
     '</div></div></section>'
     '<section class="section"><div class="container"><div class="two-col"><div>'
     '<p class="eyebrow">What it is</p><h2>%s</h2><p class="lead">%s</p></div>%s</div></div></section>'
+    '%s'
     '<section class="section section--alt"><div class="container"><div class="section-head"><p class="eyebrow">What we deliver</p><h2>What\'s included.</h2></div>%s</div></section>'
     '<section class="section"><div class="container"><div class="section-head center"><p class="eyebrow">How we work</p><h2>A clear path to value.</h2></div>%s</div></section>'
     '<section class="section section--soft"><div class="container"><div class="section-head"><p class="eyebrow">Related</p><h2>Explore more %s.</h2></div><div class="related">%s</div></div></section>'
     '%s'
     % (ph_bg, p, hub_label, s["name"], s["eyebrow"], s["name"], s["intro"], p,
        s["name"] + ".", s["intro"], impact_box(s["impact"]),
-       checks(s["deliver"]),
-       steps_html(s["steps"]),
+       pipe_section,
+       svc_bento(s["deliver"]),
+       vtimeline(s["steps"]),
        hub_label.lower(), rel_cards,
        cta_simple(p, "Ready to start?", "Tell us what you want to tackle first and we'll scope a focused way to begin.")))
 
@@ -290,14 +350,14 @@ def hub_body(items, hub, eyebrow, title, intro, kind):
     ph_bg = '<img class="ph-bg" src="%sassets/img/%s.webp" alt="" aria-hidden="true">' % (p, hub)
     if kind == "agentic":
         cards = "".join(
-            '<a class="mini" href="%s.html"><span class="tag">%s</span><h3>%s</h3><p>%s</p><span class="more">Learn more →</span></a>'
-            % (s["slug"], s["tag"], s["name"], s["nav"]) for s in items)
+            '<a class="mini" href="%s.html"><div class="mini-media"><img src="%sassets/img/%s.webp" alt="" loading="lazy"></div><span class="tag">%s</span><h3>%s</h3><p>%s</p><span class="more">Learn more →</span></a>'
+            % (s["slug"], p, SVC_IMG.get(s["slug"], hub), s["tag"], s["name"], s["nav"]) for s in items)
         grid = '<div class="cards-7">%s</div>' % cards
     else:
         cards = "".join(
-            '<div class="card"><div class="ic">%s</div><h3>%s</h3><p>%s</p>'
+            '<div class="card"><div class="card-media"><img src="%sassets/img/%s.webp" alt="" loading="lazy"></div><div class="ic">%s</div><h3>%s</h3><p>%s</p>'
             '<ul class="deliver">%s</ul><a href="%s.html" class="card-link">Learn more →</a></div>'
-            % (s["icon"], s["name"], s["intro"], "".join('<li>%s</li>' % c for c in s["chips"]), s["slug"]) for s in items)
+            % (p, SVC_IMG.get(s["slug"], hub), s["icon"], s["name"], s["intro"], "".join('<li>%s</li>' % c for c in s["chips"]), s["slug"]) for s in items)
         grid = '<div class="cards">%s</div>' % cards
     return (
     '<section class="page-hero">%s<div class="container"><div class="inner">'
@@ -316,13 +376,14 @@ def media_row(p, img, eyebrow, title, body_html, side="right", cls=""):
 def home_body():
     p = ""
     ph_platform = '<img class="ph-bg" src="assets/img/platform.webp" alt="" aria-hidden="true">'
+    core_img = {"cloud-migration-modernization": "core-services", "data-analytics-reporting": "insight-data", "google-workspace": "team-collab2"}
     core_cards = "".join(
-        '<div class="card"><div class="ic">%s</div><h3>%s</h3><p>%s</p>'
+        '<div class="card"><div class="card-media"><img src="assets/img/%s.webp" alt="" loading="lazy"></div><div class="ic">%s</div><h3>%s</h3><p>%s</p>'
         '<ul class="deliver">%s</ul><a href="core-services/%s.html" class="card-link">Learn more →</a></div>'
-        % (s["icon"], s["name"], s["intro"], "".join('<li>%s</li>' % c for c in s["chips"]), s["slug"]) for s in CORE)
+        % (core_img[s["slug"]], s["icon"], s["name"], s["intro"], "".join('<li>%s</li>' % c for c in s["chips"]), s["slug"]) for s in CORE)
     ag_cards = "".join(
-        '<a class="mini" href="agentic-ai/%s.html"><span class="tag">%s</span><h3>%s</h3><p>%s</p><span class="more">Learn more →</span></a>'
-        % (s["slug"], s["tag"], s["name"], s["nav"]) for s in AGENTIC)
+        '<a class="mini" href="agentic-ai/%s.html"><div class="mini-media"><img src="assets/img/%s.webp" alt="" loading="lazy"></div><span class="tag">%s</span><h3>%s</h3><p>%s</p><span class="more">Learn more →</span></a>'
+        % (s["slug"], SVC_IMG.get(s["slug"], "agentic-ai"), s["tag"], s["name"], s["nav"]) for s in AGENTIC)
     gproducts = [("Gemini","Agents & generative AI"),("Vertex AI","Model platform & MLOps"),("BigQuery","Data warehouse & analytics"),
                  ("Looker","BI & decision intelligence"),("Google Workspace","Productivity & collaboration"),("Cloud Run","Serverless applications"),
                  ("Firebase","App & product platform"),("Maps Platform","Location intelligence")]
@@ -330,8 +391,11 @@ def home_body():
     return (
     # hero
     '<section class="hero"><img class="hero-bg" src="assets/img/hero.webp" alt="" aria-hidden="true" fetchpriority="high">'
+    '<canvas class="hero-mesh" id="mesh" aria-hidden="true"></canvas>'
+    '<div class="orb orb-a" aria-hidden="true"></div><div class="orb orb-b" aria-hidden="true"></div>'
+    '<div class="hero-scan" aria-hidden="true"></div>'
     '<div class="container"><div class="hero-inner"><p class="eyebrow eyebrow--light">Google-first · AI · Data · Cloud</p>'
-    '<h1>Build your AI-first business on Google.</h1>'
+    '<h1>Build your <span class="rot"><span class="grad">AI-first</span><span class="grad">data-driven</span><span class="grad">cloud-native</span></span> business on Google.</h1>'
     '<p class="lead">We help enterprises modernize on Google Cloud and put Gemini-powered AI agents to work across the business — turning Google technology into measurable outcomes, securely and at scale.</p>'
     '<div class="hero-cta"><a href="contact.html" class="btn btn-primary btn-lg">Request a consultation <span class="arrow">→</span></a>'
     '<a href="agentic-ai/index.html" class="btn btn-outline btn-lg">Explore services</a></div>'
@@ -340,20 +404,33 @@ def home_body():
     # stat band
     '<section class="stat-band"><div class="container"><div class="stat-grid">'
     '<div class="stat"><div class="num">Strategic</div><div class="label">Google Cloud Partner</div></div>'
-    '<div class="stat"><div class="num">10<span>+</span> yrs</div><div class="label">Enterprise delivery heritage</div></div>'
-    '<div class="stat"><div class="num">4</div><div class="label">Countries · 4 entities</div></div>'
-    '<div class="stat"><div class="num">1,500<span>+</span></div><div class="label">Specialists placed since 2015</div></div>'
-    '<div class="stat"><div class="num">300<span>+</span></div><div class="label">Consultants on tap</div></div></div>'
+    '<div class="stat"><div class="num"><span data-count="10">10</span><span>+</span> yrs</div><div class="label">Enterprise delivery heritage</div></div>'
+    '<div class="stat"><div class="num"><span data-count="4">4</span></div><div class="label">Countries · 4 entities</div></div>'
+    '<div class="stat"><div class="num"><span data-count="1500">1,500</span><span>+</span></div><div class="label">Specialists placed since 2015</div></div>'
+    '<div class="stat"><div class="num"><span data-count="300">300</span><span>+</span></div><div class="label">Consultants on tap</div></div></div>'
     '<p class="stat-note">Credentials and delivery scale of our parent and operating engine, Avanciers — a women-owned global talent &amp; technology firm.</p></div></section>'
+    # tech marquee
+    '<div class="marquee" aria-hidden="true"><div class="marquee-track">'
+    '<span class="mq-item">Gemini</span><span class="mq-dot"></span><span class="mq-item">Vertex AI</span><span class="mq-dot"></span>'
+    '<span class="mq-item">BigQuery</span><span class="mq-dot"></span><span class="mq-item">Looker</span><span class="mq-dot"></span>'
+    '<span class="mq-item">Google Workspace</span><span class="mq-dot"></span><span class="mq-item">Cloud Run</span><span class="mq-dot"></span>'
+    '<span class="mq-item">GKE</span><span class="mq-dot"></span><span class="mq-item">Firebase</span><span class="mq-dot"></span>'
+    '<span class="mq-item">Maps Platform</span><span class="mq-dot"></span><span class="mq-item">Cloud SQL</span><span class="mq-dot"></span>'
+    '<span class="mq-item">Gemini</span><span class="mq-dot"></span><span class="mq-item">Vertex AI</span><span class="mq-dot"></span>'
+    '<span class="mq-item">BigQuery</span><span class="mq-dot"></span><span class="mq-item">Looker</span><span class="mq-dot"></span>'
+    '<span class="mq-item">Google Workspace</span><span class="mq-dot"></span><span class="mq-item">Cloud Run</span><span class="mq-dot"></span>'
+    '<span class="mq-item">GKE</span><span class="mq-dot"></span><span class="mq-item">Firebase</span><span class="mq-dot"></span>'
+    '<span class="mq-item">Maps Platform</span><span class="mq-dot"></span><span class="mq-item">Cloud SQL</span><span class="mq-dot"></span>'
+    '</div></div>'
     # overview + props
     '<section class="section" data-reveal><div class="container"><div class="section-head"><p class="eyebrow">Who we are</p>'
     '<h2>A Google-first organization, built for the AI era.</h2>'
     '<p class="lead">We work with companies to unlock performance using Google\'s AI, cloud, data, productivity, location and security technologies — from Workspace and Google Cloud through to Gemini-powered agents, BigQuery analytics, custom applications and workflow automation.</p></div>'
     '<div class="props">'
-    '<div class="prop"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0b2a4a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><h3>Google specialist</h3><p>One ecosystem, mastered — not a generalist juggling three clouds.</p></div>'
-    '<div class="prop"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0b2a4a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 1 4 4c1.5 0 3 1.5 3 3a3.5 3.5 0 0 1 0 7c0 1.5-1.5 3-3 3a4 4 0 0 1-8 0c-1.5 0-3-1.5-3-3a3.5 3.5 0 0 1 0-7c0-1.5 1.5-3 3-3a4 4 0 0 1 4-4z"/></svg></div><h3>Agentic-AI first</h3><p>We design Gemini agents that act, not just answer.</p></div>'
-    '<div class="prop"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0b2a4a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg></div><h3>Outcome &amp; ROI-led</h3><p>Every engagement is scoped to a result and measured.</p></div>'
-    '<div class="prop"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0b2a4a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Secure &amp; governed</h3><p>Responsible AI and data governance built in. ISO 27001, ISO 42001, SOC 2 &amp; GDPR in progress.</p></div></div></div></section>'
+    '<div class="prop"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8fb7e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><h3>Google specialist</h3><p>One ecosystem, mastered — not a generalist juggling three clouds.</p></div>'
+    '<div class="prop"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8fb7e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 1 4 4c1.5 0 3 1.5 3 3a3.5 3.5 0 0 1 0 7c0 1.5-1.5 3-3 3a4 4 0 0 1-8 0c-1.5 0-3-1.5-3-3a3.5 3.5 0 0 1 0-7c0-1.5 1.5-3 3-3a4 4 0 0 1 4-4z"/></svg></div><h3>Agentic-AI first</h3><p>We design Gemini agents that act, not just answer.</p></div>'
+    '<div class="prop"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8fb7e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg></div><h3>Outcome &amp; ROI-led</h3><p>Every engagement is scoped to a result and measured.</p></div>'
+    '<div class="prop"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8fb7e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Secure &amp; governed</h3><p>Responsible AI and data governance built in. ISO 27001, ISO 42001, SOC 2 &amp; GDPR in progress.</p></div></div></div></section>'
     # why now
     '<section class="section section--alt" data-reveal><div class="container"><div class="whynow"><div>'
     '<p class="eyebrow">Why now</p><h2>The AI window is open. Most enterprises can\'t walk through it alone.</h2>'
@@ -372,7 +449,7 @@ def home_body():
     '<section class="section section--soft" id="agentic" data-reveal><div class="container"><div class="section-head"><p class="eyebrow">Advanced AI-first services</p>'
     '<h2>Agentic AI that does the work.</h2>'
     '<p class="lead">Gemini-powered agents and intelligent systems that automate workflows, surface knowledge and turn data into decisions — deployed responsibly across your organization.</p></div>'
-    '<div class="cards-7">%s</div>'
+    '<div class="cards-7 bento">%s</div>'
     '<p style="margin-top:26px"><a href="agentic-ai/index.html" class="card-link">See all agentic AI services →</a></p></div></section>'
     # approach
     '<section class="section" data-reveal><div class="container"><div class="section-head center"><p class="eyebrow">Our approach</p>'
@@ -383,6 +460,17 @@ def home_body():
     '<div class="step"><h3>Build &amp; Migrate</h3><p>Modernize systems and ship agents, apps and analytics.</p></div>'
     '<div class="step"><h3>Govern</h3><p>Access control, human-in-the-loop and responsible AI.</p></div>'
     '<div class="step"><h3>Scale</h3><p>Adopt, measure ROI and expand the operating model.</p></div></div></div></section>'
+    # artwork reel
+    '<section class="reel-band" data-reveal><div class="reel"><div class="reel-track">'
+    '<img src="assets/img/agentic-ai.webp" alt="" loading="lazy"><img src="assets/img/core-services.webp" alt="" loading="lazy">'
+    '<img src="assets/img/platform.webp" alt="" loading="lazy"><img src="assets/img/insight-pilot.webp" alt="" loading="lazy">'
+    '<img src="assets/img/insight-google.webp" alt="" loading="lazy"><img src="assets/img/insight-data.webp" alt="" loading="lazy">'
+    '<img src="assets/img/about.webp" alt="" loading="lazy">'
+    '<img src="assets/img/agentic-ai.webp" alt="" loading="lazy"><img src="assets/img/core-services.webp" alt="" loading="lazy">'
+    '<img src="assets/img/platform.webp" alt="" loading="lazy"><img src="assets/img/insight-pilot.webp" alt="" loading="lazy">'
+    '<img src="assets/img/insight-google.webp" alt="" loading="lazy"><img src="assets/img/insight-data.webp" alt="" loading="lazy">'
+    '<img src="assets/img/about.webp" alt="" loading="lazy">'
+    '</div></div></section>'
     '%s'
     # partnership
     '<section class="section partner" id="partnership" data-reveal>%s<div class="container"><div class="section-head"><p class="eyebrow eyebrow--light">The Google advantage</p>'
@@ -446,6 +534,7 @@ def about_body():
     '<section class="section"><div class="container"><div class="two-col"><div>'
     '<p class="eyebrow">Our story</p><h2>Specialist by design.</h2>'
     '<p class="lead">The market is full of generalists juggling three clouds. We chose the opposite path: go deep on Google. As a Certified Google Cloud Partner, we pair that focus with a decade of enterprise delivery from our parent, Avanciers — so clients get a specialist\'s edge with an established firm\'s backbone.</p>'
+    '<p>The name carries the mandate: <em>velox</em> — Latin for swift — joined with <em>advance</em>. Move fast, move forward — securely.</p>'
     '<p>We prove every capability on our own business before we sell it, then deliver it with secure, governed, ROI-led engagements.</p></div>'
     '<div class="impact-box"><p style="font-weight:700;color:var(--navy-800);font-family:var(--display);margin-bottom:6px">What we believe</p><ul>'
     '<li>Specialization beats breadth</li><li>Agents should act, not just answer</li><li>Every engagement has a measurable result</li><li>AI must be secure and governed</li><li>Prove it on ourselves first</li></ul></div></div></div></section>'
@@ -487,9 +576,10 @@ def contact_body():
     '<p class="eyebrow eyebrow--light">Talk to us</p><h1>Let\'s scope your first win.</h1>'
     '<p class="lead">Tell us the workflow, decision or migration you want to tackle. We\'ll come back with a focused, fixed-scope way to start.</p></div></div></section>'
     '<section class="section"><div class="container"><div class="contact-grid"><div class="contact-info">'
-    '<div class="ci"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0b2a4a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="m4 6 8 6 8-6"/></svg></div><div><h3>Email</h3><p><a href="mailto:hello@ascendia.ai">hello@ascendia.ai</a></p></div></div>'
-    '<div class="ci"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0b2a4a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div><h3>Response time</h3><p>We reply within one business day.</p></div></div>'
-    '<div class="ci"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0b2a4a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><h3>Where we operate</h3><p>Through Avanciers, across four countries.</p><div class="offices"><span class="office">Canada</span><span class="office">USA</span><span class="office">Mexico</span><span class="office">India</span></div></div></div>'
+    '<div class="mr-media" style="aspect-ratio:16/10;margin-bottom:26px"><img src="assets/img/consultant.webp" alt="" loading="lazy"></div>'
+    '<div class="ci"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8fb7e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="m4 6 8 6 8-6"/></svg></div><div><h3>Email</h3><p><a href="mailto:hello@velivance.com">hello@velivance.com</a></p></div></div>'
+    '<div class="ci"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8fb7e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div><h3>Response time</h3><p>We reply within one business day.</p></div></div>'
+    '<div class="ci"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8fb7e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><h3>Where we operate</h3><p>Through Avanciers, across four countries.</p><div class="offices"><span class="office">Canada</span><span class="office">USA</span><span class="office">Mexico</span><span class="office">India</span></div></div></div>'
     '</div><div>%s</div></div></div></section>' % lead_form())
 
 def legal_body():
@@ -501,7 +591,7 @@ def legal_body():
     body = (
         '<h2 id="privacy">Privacy</h2><p class="muted">We collect only the information you provide through our contact form '
         '(name, work email, company and your message) to respond to your enquiry. We do not sell your data. You can request '
-        'access to or deletion of your information at any time by emailing <a href="mailto:hello@ascendia.ai">hello@ascendia.ai</a>.</p>'
+        'access to or deletion of your information at any time by emailing <a href="mailto:hello@velivance.com">hello@velivance.com</a>.</p>'
         + sec("Cookies", "We use essential cookies to run the site and privacy-respecting analytics to understand traffic. You can control cookies in your browser settings.")
         + sec("Terms of use", f"Content on this site is provided for general information about {BRAND} services and is offered without warranty. Trademarks and product names (including Google, Google Cloud, Gemini, BigQuery and Looker) belong to their respective owners.")
         + sec("Data security", "Information is handled in line with our information-security program (ISO 27001, ISO 42001, SOC 2 and GDPR — in progress, targeted 2026). Contact us for our current security posture.")

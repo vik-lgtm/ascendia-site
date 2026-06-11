@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+  google-workspace-compare.html  ·  Variant comparison harness (not a site page)
+  Loads google-workspace-v2.html (Variant A) and google-workspace-v3.html
+  (Variant B) in live, interactive iframes. Two modes:
+    • Flip       — one frame, swap A<->B in place (Space / ← →). Blink-compare.
+    • Side-by-side — both frames at once, scaled to fit.
+  Device selector renders the real Desktop/Tablet/Mobile layout (desktop is
+  scaled down to fit, so you see the true layout, not the mobile breakpoint).
+  Frames scroll independently (file:// origins are opaque — no cross-frame sync).
+-->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Compare · Google Workspace v2 vs v3 — Velivance</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#050C1A; --bar:#0A1628; --elev:#0F2040; --border:#1A3050;
+      --tx:#F0F4FF; --tx2:#8BA4C4; --orange:#FF6B2B; --blue:#00D4FF; --gold:#FFB800;
+      --mono:'JetBrains Mono',ui-monospace,monospace; --disp:'Space Grotesk',sans-serif;
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    html,body{height:100%}
+    body{background:var(--bg);color:var(--tx);font-family:var(--disp);overflow:hidden}
+    button{font-family:inherit;cursor:pointer}
+
+    /* toolbar */
+    .bar{
+      height:64px;display:flex;align-items:center;gap:20px;padding:0 20px;
+      background:var(--bar);border-bottom:1px solid var(--border);position:relative;z-index:5;
+      flex-wrap:wrap;
+    }
+    .ttl{font-weight:700;letter-spacing:0.06em;font-size:15px}
+    .ttl b{color:var(--gold)}
+    .grp{display:flex;align-items:center;gap:8px}
+    .grp .lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--tx2)}
+    .seg{display:flex;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:3px}
+    .seg button{
+      background:transparent;border:0;color:var(--tx2);font-size:12.5px;font-weight:600;
+      padding:7px 13px;border-radius:7px;transition:.18s ease;font-family:var(--mono);letter-spacing:0.04em;
+    }
+    .seg button.on{background:var(--elev);color:var(--tx)}
+    .seg button.on[data-accent="A"]{box-shadow:inset 0 0 0 1px rgba(0,212,255,.5);color:var(--blue)}
+    .seg button.on[data-accent="B"]{box-shadow:inset 0 0 0 1px rgba(255,184,0,.5);color:var(--gold)}
+    .spacer{flex:1}
+    .hint{font-family:var(--mono);font-size:11px;color:var(--tx2);letter-spacing:0.04em}
+    .hint kbd{background:var(--bg);border:1px solid var(--border);border-radius:5px;padding:1px 6px;color:var(--tx);font-size:10.5px}
+
+    /* stage */
+    .stage{position:absolute;top:64px;left:0;right:0;bottom:0;display:flex;justify-content:center;align-items:flex-start;gap:24px;padding:22px;overflow:hidden}
+    .panel{position:relative;display:flex;flex-direction:column;align-items:center;gap:10px}
+    .panel .tag{
+      font-family:var(--mono);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;
+      display:flex;align-items:center;gap:8px;color:var(--tx2);
+    }
+    .panel .tag .badge{font-weight:700;padding:3px 10px;border-radius:100px;border:1px solid var(--border)}
+    .panel[data-v="A"] .tag .badge{color:var(--blue);border-color:rgba(0,212,255,.4)}
+    .panel[data-v="B"] .tag .badge{color:var(--gold);border-color:rgba(255,184,0,.4)}
+    .panel .tag a{color:var(--tx2);text-decoration:none;border-bottom:1px dotted var(--border)}
+    .panel .tag a:hover{color:var(--tx)}
+    .frame{position:relative;overflow:hidden;border:1px solid var(--border);border-radius:14px;background:var(--bar);box-shadow:0 24px 70px rgba(0,0,0,.5)}
+    .frame iframe{border:0;display:block;background:var(--bg)}
+    .panel.hidden{display:none}
+
+    /* flip pulse */
+    .frame.flash{animation:flash .4s ease}
+    @keyframes flash{0%{box-shadow:0 0 0 2px var(--orange),0 24px 70px rgba(0,0,0,.5)}100%{box-shadow:0 24px 70px rgba(0,0,0,.5)}}
+
+    @media(max-width:720px){
+      .bar{height:auto;padding:10px 14px;gap:12px}
+      .hint{display:none}
+    }
+  </style>
+</head>
+<body>
+  <div class="bar">
+    <div class="ttl">Google Workspace · <b>A/B</b></div>
+
+    <div class="grp">
+      <span class="lbl">View</span>
+      <div class="seg" id="modeSeg">
+        <button data-mode="flip" class="on">Flip</button>
+        <button data-mode="side">Side by side</button>
+      </div>
+    </div>
+
+    <div class="grp">
+      <span class="lbl">Width</span>
+      <div class="seg" id="devSeg">
+        <button data-w="1280" class="on">Desktop</button>
+        <button data-w="768">Tablet</button>
+        <button data-w="375">Mobile</button>
+      </div>
+    </div>
+
+    <div class="grp" id="flipPick">
+      <span class="lbl">Showing</span>
+      <div class="seg" id="varSeg">
+        <button data-v="A" data-accent="A" class="on">A · v2</button>
+        <button data-v="B" data-accent="B">B · v3</button>
+      </div>
+    </div>
+
+    <div class="spacer"></div>
+    <div class="hint" id="hint"><kbd>Space</kbd> flip · <kbd>←</kbd><kbd>→</kbd> switch</div>
+  </div>
+
+  <div class="stage" id="stage">
+    <div class="panel" data-v="A" id="panelA">
+      <div class="tag"><span class="badge">A · v2</span> Radial orbit · 3×2 grid · horizontal <a href="google-workspace-v2.html" target="_blank" rel="noopener">open ↗</a></div>
+      <div class="frame"><iframe src="google-workspace-v2.html" title="Variant A — v2" loading="eager"></iframe></div>
+    </div>
+    <div class="panel" data-v="B" id="panelB">
+      <div class="tag"><span class="badge">B · v3</span> Migration pipeline · bento · vertical <a href="google-workspace-v3.html" target="_blank" rel="noopener">open ↗</a></div>
+      <div class="frame"><iframe src="google-workspace-v3.html" title="Variant B — v3" loading="eager"></iframe></div>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      "use strict";
+      var state = { mode:'flip', dev:1280, active:'A' };
+      // deep-link / bookmark a view, e.g. #mode=side  or  #mode=flip&w=375&v=B
+      (function(h){
+        if(!h) return;
+        h.replace('#','').split('&').forEach(function(kv){
+          var p = kv.split('='); if(p[0]==='mode'&&(p[1]==='side'||p[1]==='flip')) state.mode=p[1];
+          if(p[0]==='w'&&['1280','768','375'].indexOf(p[1])>-1) state.dev=parseInt(p[1],10);
+          if(p[0]==='v'&&(p[1]==='A'||p[1]==='B')) state.active=p[1];
+        });
+      })(location.hash);
+      var stage = document.getElementById('stage');
+      var panelA = document.getElementById('panelA'), panelB = document.getElementById('panelB');
+      var flipPick = document.getElementById('flipPick');
+      var hint = document.getElementById('hint');
+
+      function frameEls(p){ return { frame:p.querySelector('.frame'), iframe:p.querySelector('iframe') }; }
+
+      function sizePanel(p, panelW, panelH){
+        var DW = state.dev;
+        var scale = Math.min(1, panelW / DW);
+        var f = frameEls(p);
+        f.frame.style.width  = Math.round(DW*scale) + 'px';
+        f.frame.style.height = Math.round(panelH) + 'px';
+        f.iframe.style.width  = DW + 'px';
+        f.iframe.style.height = Math.round(panelH/scale) + 'px';
+        f.iframe.style.transform = 'scale(' + scale + ')';
+        f.iframe.style.transformOrigin = 'top left';
+      }
+
+      function layout(){
+        var pad = 22, gap = 24, tagH = 30;
+        var stageW = stage.clientWidth - pad*2;
+        var stageH = stage.clientHeight - pad*2 - tagH;
+
+        if(state.mode === 'flip'){
+          flipPick.style.display = '';
+          hint.querySelector('kbd') && (hint.style.visibility='visible');
+          panelA.classList.toggle('hidden', state.active !== 'A');
+          panelB.classList.toggle('hidden', state.active !== 'B');
+          var p = state.active === 'A' ? panelA : panelB;
+          sizePanel(p, stageW, stageH);
+        } else {
+          flipPick.style.display = 'none';
+          hint.style.visibility = 'hidden';
+          panelA.classList.remove('hidden');
+          panelB.classList.remove('hidden');
+          var pw = (stageW - gap) / 2;
+          sizePanel(panelA, pw, stageH);
+          sizePanel(panelB, pw, stageH);
+        }
+      }
+
+      function setActive(v){
+        state.active = v;
+        document.querySelectorAll('#varSeg button').forEach(function(b){ b.classList.toggle('on', b.dataset.v === v); });
+        layout();
+        var p = v === 'A' ? panelA : panelB;
+        var fr = p.querySelector('.frame');
+        fr.classList.remove('flash'); void fr.offsetWidth; fr.classList.add('flash');
+      }
+
+      // mode
+      document.getElementById('modeSeg').addEventListener('click', function(e){
+        var b = e.target.closest('button'); if(!b) return;
+        state.mode = b.dataset.mode;
+        document.querySelectorAll('#modeSeg button').forEach(function(x){ x.classList.toggle('on', x===b); });
+        layout();
+      });
+      // device width
+      document.getElementById('devSeg').addEventListener('click', function(e){
+        var b = e.target.closest('button'); if(!b) return;
+        state.dev = parseInt(b.dataset.w, 10);
+        document.querySelectorAll('#devSeg button').forEach(function(x){ x.classList.toggle('on', x===b); });
+        layout();
+      });
+      // variant pick
+      document.getElementById('varSeg').addEventListener('click', function(e){
+        var b = e.target.closest('button'); if(!b) return;
+        setActive(b.dataset.v);
+      });
+
+      // keyboard
+      window.addEventListener('keydown', function(e){
+        if(state.mode !== 'flip') return;
+        if(e.code === 'Space'){ e.preventDefault(); setActive(state.active === 'A' ? 'B' : 'A'); }
+        else if(e.key === 'ArrowLeft'){ setActive('A'); }
+        else if(e.key === 'ArrowRight'){ setActive('B'); }
+      });
+
+      window.addEventListener('resize', layout);
+
+      // reconcile toolbar highlights with initial (possibly hash-set) state
+      document.querySelectorAll('#modeSeg button').forEach(function(b){ b.classList.toggle('on', b.dataset.mode===state.mode); });
+      document.querySelectorAll('#devSeg button').forEach(function(b){ b.classList.toggle('on', parseInt(b.dataset.w,10)===state.dev); });
+      document.querySelectorAll('#varSeg button').forEach(function(b){ b.classList.toggle('on', b.dataset.v===state.active); });
+      layout();
+    })();
+  </script>
+</body>
+</html>

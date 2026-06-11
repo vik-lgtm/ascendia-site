@@ -1,15 +1,23 @@
-/* Ascendia — site interactions (vanilla, no deps) */
+/* Velivance — site interactions (vanilla, no deps) */
 (function () {
   "use strict";
   document.documentElement.classList.add("js");
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // Sticky header shadow
+  // Scroll progress bar (injected, styled in CSS)
+  var bar = document.createElement("div");
+  bar.className = "scroll-progress";
+  document.body.appendChild(bar);
+
+  // Sticky header shadow + progress width
   var header = document.getElementById("header");
-  if (header) {
-    var onScroll = function () { header.classList.toggle("scrolled", window.scrollY > 8); };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-  }
+  var onScroll = function () {
+    if (header) header.classList.toggle("scrolled", window.scrollY > 8);
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + "%";
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
 
   // Mobile drawer toggle
   var toggle = document.getElementById("navToggle");
@@ -26,7 +34,6 @@
         e.preventDefault();
         var li = top.parentElement;
         var wasOpen = li.classList.contains("open");
-        // close siblings
         li.parentElement.querySelectorAll(".has-menu.open").forEach(function (s) {
           if (s !== li) s.classList.remove("open");
         });
@@ -34,7 +41,6 @@
       }
     });
   });
-  // Close drawer when a real link is tapped
   if (links) {
     links.addEventListener("click", function (e) {
       var a = e.target.closest("a");
@@ -42,16 +48,141 @@
     });
   }
 
-  // Scroll reveal
+  // Scroll reveal with per-child stagger
   var reveals = document.querySelectorAll("[data-reveal]");
   if ("IntersectionObserver" in window && reveals.length) {
-    reveals.forEach(function (el) { el.classList.add("reveal"); });
+    reveals.forEach(function (el) {
+      el.classList.add("reveal");
+      el.querySelectorAll(".card,.mini,.prop,.post,.gp,.member,.step").forEach(function (child, i) {
+        child.style.setProperty("--i", i);
+      });
+    });
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
         if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
       });
     }, { threshold: 0.1, rootMargin: "0px 0px -8% 0px" });
     reveals.forEach(function (el) { io.observe(el); });
+  }
+
+  // Count-up numbers ([data-count])
+  var counters = document.querySelectorAll("[data-count]");
+  if (counters.length && "IntersectionObserver" in window) {
+    var fmt = function (n) { return n >= 1000 ? n.toLocaleString("en-US") : String(n); };
+    var cio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        cio.unobserve(en.target);
+        var el = en.target, target = parseInt(el.getAttribute("data-count"), 10) || 0;
+        if (reduceMotion) { el.textContent = fmt(target); return; }
+        var t0 = null, dur = 1200;
+        var tick = function (t) {
+          if (!t0) t0 = t;
+          var p = Math.min((t - t0) / dur, 1), e = 1 - Math.pow(1 - p, 3);
+          el.textContent = fmt(Math.round(target * e));
+          if (p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      });
+    }, { threshold: 0.6 });
+    counters.forEach(function (el) { cio.observe(el); });
+  }
+
+  // Card spotlight — pointer-tracked glow (delegated)
+  document.addEventListener("pointermove", function (e) {
+    var t = e.target.closest && e.target.closest(".card,.mini,.prop,.post");
+    if (!t) return;
+    var r = t.getBoundingClientRect();
+    t.style.setProperty("--mx", (e.clientX - r.left) + "px");
+    t.style.setProperty("--my", (e.clientY - r.top) + "px");
+  }, { passive: true });
+
+  // Hero particle mesh (homepage only; static frame under reduced motion)
+  var canvas = document.getElementById("mesh");
+  if (canvas && canvas.getContext) {
+    var ctx = canvas.getContext("2d");
+    var w, h, dpr, nodes = [], raf;
+    var resize = function () {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var r = canvas.parentElement.getBoundingClientRect();
+      w = r.width; h = r.height;
+      canvas.width = w * dpr; canvas.height = h * dpr;
+      canvas.style.width = w + "px"; canvas.style.height = h + "px";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      var count = Math.max(22, Math.min(56, Math.floor((w * h) / 26000)));
+      nodes = [];
+      for (var i = 0; i < count; i++) nodes.push({
+        x: Math.random() * w, y: Math.random() * h,
+        vx: (Math.random() - .5) * .18, vy: (Math.random() - .5) * .18,
+        a: Math.random() < .16
+      });
+    };
+    var frame = function () {
+      ctx.clearRect(0, 0, w, h);
+      for (var i = 0; i < nodes.length; i++) {
+        var a = nodes[i];
+        a.x += a.vx; a.y += a.vy;
+        if (a.x < 0 || a.x > w) a.vx *= -1;
+        if (a.y < 0 || a.y > h) a.vy *= -1;
+        for (var j = i + 1; j < nodes.length; j++) {
+          var b = nodes[j], dx = a.x - b.x, dy = a.y - b.y, d = Math.hypot(dx, dy);
+          if (d < 130) {
+            ctx.globalAlpha = (1 - d / 130) * .18;
+            ctx.strokeStyle = "#7fb2e8";
+            ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+          }
+        }
+      }
+      for (var k = 0; k < nodes.length; k++) {
+        var n = nodes[k];
+        ctx.globalAlpha = n.a ? .95 : .5;
+        ctx.fillStyle = n.a ? "#e97451" : "#9cc1ea";
+        ctx.beginPath(); ctx.arc(n.x, n.y, n.a ? 2.1 : 1.4, 0, 7); ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+      if (!reduceMotion) raf = requestAnimationFrame(frame);
+    };
+    var start = function () { if (raf) cancelAnimationFrame(raf); resize(); frame(); };
+    var rto;
+    window.addEventListener("resize", function () { clearTimeout(rto); rto = setTimeout(start, 160); });
+    start();
+  }
+
+  // Hero headline — word-by-word entrance (progressive enhancement)
+  var h1 = document.querySelector(".hero h1");
+  if (h1 && !reduceMotion) {
+    var parts = [];
+    h1.childNodes.forEach(function (n) {
+      if (n.nodeType === 3) {
+        n.textContent.split(/\s+/).forEach(function (w) { if (w) parts.push('<span class="w">' + w + "</span>"); });
+      } else if (n.nodeType === 1) {
+        if (n.classList && n.classList.contains("rot")) {
+          parts.push('<span class="w">' + n.outerHTML + "</span>");
+        } else {
+          var cls = n.className || "";
+          n.textContent.split(/\s+/).forEach(function (w) { if (w) parts.push('<span class="w ' + cls + '">' + w + "</span>"); });
+        }
+      }
+    });
+    if (parts.length) {
+      h1.innerHTML = parts.join(" ");
+      h1.querySelectorAll(".w").forEach(function (w, i) { w.style.animationDelay = (90 * i) + "ms"; });
+      h1.classList.add("split");
+    }
+  }
+
+  // 3D tilt on feature surfaces
+  if (!reduceMotion) {
+    document.querySelectorAll(".bento .mini:first-child,.case--feature,.mr-media").forEach(function (el) {
+      el.addEventListener("pointermove", function (e) {
+        var r = el.getBoundingClientRect();
+        var rx = ((e.clientY - r.top) / r.height - .5) * -5;
+        var ry = ((e.clientX - r.left) / r.width - .5) * 6;
+        el.style.transform = "perspective(900px) rotateX(" + rx.toFixed(2) + "deg) rotateY(" + ry.toFixed(2) + "deg)";
+      });
+      el.addEventListener("pointerleave", function () { el.style.transform = ""; });
+    });
   }
 
   // Lead form (demo handler — wire to Formspree/Firebase before launch)
@@ -66,7 +197,7 @@
       form.innerHTML =
         '<h3>Thank you — we\'ll be in touch.</h3>' +
         '<p class="muted">We\'ve received your request and will reply within one business day. ' +
-        'Reach us anytime at <a href="mailto:hello@ascendia.ai">hello@ascendia.ai</a>.</p>' +
+        'Reach us anytime at <a href="mailto:hello@velivance.com">hello@velivance.com</a>.</p>' +
         '<p class="form-note">Demo form — connect to Formspree or Firebase to deliver submissions.</p>';
     });
   });

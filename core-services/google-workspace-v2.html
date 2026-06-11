@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+  ============================================================================
+  google-workspace-v2.html  ·  Ground-up enterprise redesign (FABLE 5 brief)
+  ============================================================================
+  DESIGN DECISIONS & JUSTIFICATIONS (made, not asked — per brief):
+
+  1. BRAND = "Velivance", not "Ascendia".
+     The brief's "Ascendia" is labelled a working placeholder ("domain TBD").
+     This file lives inside a real, consistently-branded Velivance site (nav,
+     footer, OG tags, avanciers.com link). Branding one page differently would
+     break the system. The full design language from the brief is applied;
+     only the wordmark stays true to the live brand.
+
+  2. DISPLAY FONT = "Space Grotesk" (Google Fonts).
+     Clash Display is Fontshare-only and not on the Google Fonts CDN, which the
+     brief hard-requires as the sole external dependency. Space Grotesk is the
+     brief's own listed fallback. 'Clash Display' is kept first in the font
+     stack so it is used automatically if ever installed locally.
+
+  3. TRUST BAR = Google ecosystem, not competitor logos.
+     The brief's suggested logos (Deloitte/Capgemini/Wipro/Cognizant/TELUS) are
+     the competitors named in the same brief. Claiming them as clients on a
+     live site would be false. The section keeps its fade-in logo-strip design
+     but lists technologies Velivance genuinely works on.
+
+  4. CASE STUDY = real internal article, not an invented metric.
+     Points to insights/we-ran-our-own-company-on-google.html — an authentic
+     case study — instead of a fabricated "40% reduction" placeholder.
+
+  All page content (headings, deliverables, process, business impact) is
+  preserved from the original google-workspace.html and re-expressed, not lost.
+  Single file · all CSS/JS inline · Google Fonts only · prefers-reduced-motion
+  respected · semantic landmarks · keyboard-accessible.
+  ============================================================================
+-->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Google Workspace Setup, Migration & Optimization — Velivance</title>
+  <meta name="description" content="Velivance helps enterprises set up, migrate and optimize Google Workspace so teams collaborate securely and efficiently — a seamless transition from Microsoft 365 or legacy email to Gmail, Drive, Docs, Meet and the full Suite.">
+  <meta property="og:title" content="Your Entire Enterprise. One Intelligent Workspace. — Velivance">
+  <meta property="og:description" content="Enterprise Google Workspace migration, configuration, security and adoption — delivered without the downtime.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#050C1A">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===================== DESIGN TOKENS ===================== */
+    :root{
+      --bg-primary:#050C1A;
+      --bg-secondary:#0A1628;
+      --bg-elevated:#0F2040;
+      --accent-orange:#FF6B2B;
+      --accent-blue:#00D4FF;
+      --accent-gold:#FFB800;
+      --text-primary:#F0F4FF;
+      --text-secondary:#8BA4C4;
+      --border:#1A3050;
+      --glow-orange:rgba(255,107,43,0.15);
+      --glow-blue:rgba(0,212,255,0.12);
+
+      --display:'Clash Display','Space Grotesk',sans-serif;
+      --body:'Inter',system-ui,sans-serif;
+      --mono:'JetBrains Mono',ui-monospace,monospace;
+
+      --container:1280px;
+      --radius-card:16px;
+      --radius-btn:8px;
+      --radius-pill:100px;
+
+      --ease:cubic-bezier(0.16,1,0.3,1);
+    }
+
+    /* ===================== RESET / BASE ===================== */
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:var(--body);
+      background:var(--bg-primary);
+      color:var(--text-primary);
+      line-height:1.65;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+      overflow-x:hidden;
+    }
+    a{color:inherit;text-decoration:none}
+    ul{list-style:none}
+    img,svg{display:block;max-width:100%}
+    h1,h2,h3,h4{font-family:var(--display);font-weight:600;line-height:1.08;letter-spacing:-0.02em}
+    ::selection{background:var(--accent-orange);color:#fff}
+    :focus-visible{outline:2px solid var(--accent-blue);outline-offset:3px;border-radius:4px}
+
+    .container{max-width:var(--container);margin-inline:auto;padding-inline:24px}
+    .section{padding-block:96px}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:8px;
+      font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:0.12em;
+      text-transform:uppercase;color:var(--accent-blue);
+    }
+
+    /* ===================== BUTTONS ===================== */
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      font-family:var(--body);font-weight:600;font-size:15px;
+      padding:14px 24px;border-radius:var(--radius-btn);border:1px solid transparent;
+      cursor:pointer;transition:transform .25s var(--ease),background .25s var(--ease),
+      box-shadow .25s var(--ease),filter .25s var(--ease),border-color .25s var(--ease);
+      white-space:nowrap;
+    }
+    .btn .arr{transition:transform .25s var(--ease)}
+    .btn:hover .arr{transform:translateX(4px)}
+    .btn-primary{background:var(--accent-orange);color:#0A0500;box-shadow:0 8px 30px var(--glow-orange)}
+    .btn-primary:hover{filter:brightness(1.06);transform:scale(1.02);box-shadow:0 12px 40px rgba(255,107,43,0.3)}
+    .btn-ghost{background:transparent;color:var(--accent-blue);border-color:rgba(0,212,255,0.45)}
+    .btn-ghost:hover{background:var(--glow-blue);border-color:var(--accent-blue);transform:scale(1.02)}
+    .btn-lg{padding:18px 32px;font-size:16px;height:56px}
+
+    /* ===================== NAV ===================== */
+    .nav{
+      position:fixed;inset:0 0 auto 0;z-index:100;
+      transition:background .35s var(--ease),border-color .35s var(--ease),backdrop-filter .35s var(--ease);
+      border-bottom:1px solid transparent;
+    }
+    .nav.scrolled{
+      background:rgba(10,22,40,0.82);
+      backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+      border-bottom-color:var(--border);
+    }
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;height:76px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand .mark{width:34px;height:34px}
+    .brand-name{
+      font-family:var(--display);font-weight:700;font-size:20px;
+      letter-spacing:0.08em;color:#fff;text-transform:uppercase;
+    }
+    .nav-links{display:flex;align-items:center;gap:36px}
+    .nav-links a{
+      font-size:15px;font-weight:500;color:var(--text-secondary);
+      transition:color .2s var(--ease);position:relative;
+    }
+    .nav-links a::after{
+      content:"";position:absolute;left:0;bottom:-6px;height:2px;width:0;
+      background:var(--accent-blue);transition:width .25s var(--ease);
+    }
+    .nav-links a:hover,.nav-links a[aria-current="page"]{color:var(--text-primary)}
+    .nav-links a:hover::after,.nav-links a[aria-current="page"]::after{width:100%}
+    .nav-right{display:flex;align-items:center;gap:16px}
+    .nav-toggle{
+      display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:8px;
+    }
+    .nav-toggle span{width:24px;height:2px;background:var(--text-primary);border-radius:2px;transition:.3s var(--ease)}
+
+    /* mobile overlay */
+    .mobile-nav{
+      position:fixed;inset:0;z-index:99;background:rgba(5,12,26,0.97);
+      backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+      display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;
+      opacity:0;visibility:hidden;transition:opacity .35s var(--ease),visibility .35s var(--ease);
+    }
+    .mobile-nav.open{opacity:1;visibility:visible}
+    .mobile-nav a{font-family:var(--display);font-size:28px;font-weight:600;color:var(--text-primary);padding:10px}
+    .mobile-nav .btn{margin-top:24px}
+
+    /* ===================== HERO ===================== */
+    .hero{position:relative;padding-top:160px;padding-bottom:80px;overflow:hidden}
+    .hero::before{
+      content:"";position:absolute;top:-10%;left:-10%;width:60%;height:80%;
+      background:radial-gradient(circle,var(--glow-blue),transparent 70%);
+      filter:blur(40px);pointer-events:none;z-index:0;
+    }
+    .hero::after{
+      content:"";position:absolute;bottom:-20%;right:-5%;width:55%;height:80%;
+      background:radial-gradient(circle,var(--glow-orange),transparent 70%);
+      filter:blur(40px);pointer-events:none;z-index:0;
+    }
+    .hero-grid{
+      position:relative;z-index:1;display:grid;grid-template-columns:1.05fr 0.95fr;
+      gap:56px;align-items:center;
+    }
+    .crumb{font-family:var(--mono);font-size:12px;color:var(--text-secondary);margin-bottom:22px;letter-spacing:0.04em}
+    .crumb a{color:var(--text-secondary);transition:color .2s}
+    .crumb a:hover{color:var(--accent-blue)}
+    .chip{
+      border:1px solid rgba(0,212,255,0.45);color:var(--accent-blue);
+      padding:7px 16px;border-radius:var(--radius-pill);
+      font-family:var(--mono);font-size:11.5px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;
+      display:inline-flex;align-items:center;gap:8px;background:var(--glow-blue);
+    }
+    .chip .dot{width:7px;height:7px;border-radius:50%;background:var(--accent-blue);box-shadow:0 0 10px var(--accent-blue)}
+    .hero h1{
+      font-size:clamp(40px,5.4vw,64px);font-weight:700;margin:24px 0 22px;
+      letter-spacing:-0.03em;
+    }
+    .hero h1 .grad{
+      background:linear-gradient(100deg,var(--accent-blue),#7FE9FF 60%,var(--accent-blue));
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+    }
+    .hero-sub{font-size:20px;font-weight:450;color:var(--text-secondary);max-width:560px;margin-bottom:34px}
+    .hero-cta{display:flex;gap:16px;flex-wrap:wrap}
+
+    /* hero stat bar */
+    .stat-bar{
+      position:relative;z-index:1;display:grid;grid-template-columns:repeat(3,1fr);
+      gap:24px;margin-top:72px;padding-top:40px;border-top:1px solid var(--border);
+    }
+    .stat .num{font-family:var(--display);font-weight:700;font-size:clamp(34px,4vw,48px);color:var(--text-primary);letter-spacing:-0.03em}
+    .stat .num .suffix{color:var(--accent-orange)}
+    .stat .lbl{font-family:var(--mono);font-size:12.5px;color:var(--text-secondary);margin-top:6px;letter-spacing:0.03em}
+
+    /* ===================== HERO SVG VISUAL ===================== */
+    .hero-visual{position:relative;width:100%;aspect-ratio:560/460}
+    .hero-visual svg{width:100%;height:100%;overflow:visible}
+
+    .conn-base{stroke:var(--border);stroke-width:1.4;fill:none}
+    .conn-flow{
+      stroke:var(--accent-blue);stroke-width:1.8;fill:none;
+      stroke-dasharray:5 11;stroke-linecap:round;
+      filter:drop-shadow(0 0 4px rgba(0,212,255,0.6));
+      animation:flow 1.6s linear infinite;
+    }
+    @keyframes flow{to{stroke-dashoffset:-32}}
+
+    .node-group{transform-box:fill-box;transform-origin:center;animation:pulse 2.4s ease-in-out infinite alternate}
+    .node-group:nth-child(1){animation-delay:0s}
+    .node-group:nth-child(2){animation-delay:.3s}
+    .node-group:nth-child(3){animation-delay:.6s}
+    .node-group:nth-child(4){animation-delay:.9s}
+    .node-group:nth-child(5){animation-delay:1.2s}
+    @keyframes pulse{from{opacity:.72}to{opacity:1}}
+
+    .node-box{fill:var(--bg-elevated);stroke:var(--border);stroke-width:1.2;rx:14}
+    .node-ring{fill:none;stroke:rgba(0,212,255,0.35);stroke-width:1}
+    .node-label{font-family:var(--mono);font-size:11px;font-weight:500;fill:var(--text-secondary);text-anchor:middle}
+    .glyph{stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+    .hub-glow{animation:breathe 3.6s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:center}
+    @keyframes breathe{from{opacity:.5;transform:scale(.94)}to{opacity:.9;transform:scale(1.04)}}
+    .hub-box{fill:url(#hubGrad);stroke:rgba(255,107,43,0.5);stroke-width:1.4}
+    .hub-label{font-family:var(--display);font-weight:600;font-size:13px;fill:#fff;text-anchor:middle}
+
+    /* ===================== TRUST BAR ===================== */
+    .trust{padding-block:56px;border-block:1px solid var(--border);background:var(--bg-secondary)}
+    .trust-label{text-align:center;font-family:var(--mono);font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-secondary);margin-bottom:30px}
+    .trust-row{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:18px 40px}
+    .trust-row .logo{
+      font-family:var(--display);font-weight:600;font-size:19px;color:var(--text-secondary);
+      letter-spacing:0.01em;opacity:.85;transition:color .3s var(--ease),opacity .3s var(--ease);
+      display:inline-flex;align-items:center;gap:9px;
+    }
+    .trust-row .logo:hover{color:var(--text-primary);opacity:1}
+    .trust-row .logo .pip{width:9px;height:9px;border-radius:2px;background:var(--accent-blue)}
+    .trust-row .logo:nth-child(2n) .pip{background:var(--accent-orange)}
+    .trust-row .logo:nth-child(3n) .pip{background:var(--accent-gold)}
+
+    /* ===================== SECTION HEAD ===================== */
+    .head{max-width:680px;margin-bottom:56px}
+    .head.center{margin-inline:auto;text-align:center}
+    .head h2{font-size:clamp(30px,3.6vw,42px);font-weight:600;margin-top:16px;letter-spacing:-0.025em}
+    .head p{color:var(--text-secondary);font-size:18px;margin-top:16px}
+
+    /* ===================== PILLARS ===================== */
+    .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+    .pillar{
+      background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-card);
+      padding:32px;transition:transform .3s var(--ease),border-color .3s var(--ease),box-shadow .3s var(--ease);
+    }
+    .pillar:hover{transform:translateY(-4px);border-color:var(--accent-orange);box-shadow:0 16px 50px var(--glow-orange)}
+    .pillar .ico{
+      width:52px;height:52px;border-radius:13px;background:var(--glow-blue);
+      border:1px solid rgba(0,212,255,0.25);
+      display:flex;align-items:center;justify-content:center;margin-bottom:22px;color:var(--accent-blue);
+    }
+    .pillar .ico svg{width:26px;height:26px}
+    .pillar .cat{font-family:var(--body);font-weight:500;font-size:12px;text-transform:uppercase;letter-spacing:0.12em;color:var(--accent-blue)}
+    .pillar h3{font-size:22px;font-weight:600;margin:10px 0 12px}
+    .pillar p{color:var(--text-secondary);font-size:15.5px}
+
+    /* ===================== PROCESS ===================== */
+    .process{background:linear-gradient(180deg,var(--bg-secondary),var(--bg-primary));border-block:1px solid var(--border)}
+    .timeline{position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:18px;margin-top:24px}
+    .timeline-track{position:absolute;top:38px;left:6%;right:6%;height:2px;background:var(--border);overflow:hidden}
+    .timeline-track .fill{position:absolute;inset:0 100% 0 0;background:linear-gradient(90deg,var(--accent-blue),var(--accent-orange));transition:right 1.4s var(--ease)}
+    .timeline-track.in .fill{right:0}
+    .step{position:relative}
+    .step .n{
+      font-family:var(--display);font-weight:700;font-size:80px;line-height:1;
+      color:var(--accent-orange);opacity:.15;position:absolute;top:-22px;left:-6px;z-index:0;
+    }
+    .step .pin{position:relative;z-index:1;width:16px;height:16px;border-radius:50%;background:var(--accent-blue);box-shadow:0 0 0 5px var(--bg-primary),0 0 14px var(--accent-blue);margin-bottom:26px;margin-top:30px}
+    .step h3{position:relative;z-index:1;font-size:20px;font-weight:600;margin-bottom:8px}
+    .step p{position:relative;z-index:1;color:var(--text-secondary);font-size:15px}
+
+    /* ===================== WHY ===================== */
+    .why-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:64px;align-items:center}
+    .why-statement{font-family:var(--display);font-weight:600;font-size:clamp(28px,3.4vw,38px);line-height:1.2;letter-spacing:-0.02em}
+    .why-statement .hl{color:var(--accent-orange)}
+    .proof{display:flex;flex-direction:column;gap:24px}
+    .proof-item{display:flex;gap:18px;align-items:flex-start}
+    .proof-item .pi-ico{flex:0 0 auto;width:44px;height:44px;border-radius:11px;background:var(--glow-orange);border:1px solid rgba(255,107,43,0.25);display:flex;align-items:center;justify-content:center;color:var(--accent-orange)}
+    .proof-item .pi-ico svg{width:22px;height:22px}
+    .proof-item h4{font-size:17px;font-weight:600;font-family:var(--display)}
+    .proof-item p{color:var(--text-secondary);font-size:15px;margin-top:3px}
+
+    /* ===================== CASE STUDY ===================== */
+    .case{
+      display:grid;grid-template-columns:0.85fr 1.15fr;gap:0;overflow:hidden;
+      border:1px solid var(--border);border-radius:var(--radius-card);background:var(--bg-secondary);
+    }
+    .case-media{position:relative;min-height:340px;overflow:hidden;background:var(--bg-elevated)}
+    .case-media .art{position:absolute;inset:0;transition:transform .6s var(--ease)}
+    .case:hover .case-media .art{transform:scale(1.06)}
+    .case-media .badge{
+      position:absolute;left:24px;top:24px;z-index:2;font-family:var(--mono);font-size:11px;
+      letter-spacing:0.1em;text-transform:uppercase;color:var(--accent-gold);
+      border:1px solid rgba(255,184,0,0.4);padding:6px 12px;border-radius:var(--radius-pill);background:rgba(5,12,26,0.5);
+    }
+    .case-body{padding:48px}
+    .case-body .ck{font-family:var(--mono);font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent-blue)}
+    .case-body h3{font-size:28px;font-weight:600;margin:14px 0 16px}
+    .case-body p{color:var(--text-secondary);font-size:16px;margin-bottom:28px}
+    .case-metrics{display:flex;gap:40px;margin-bottom:30px;flex-wrap:wrap}
+    .case-metrics .m .v{font-family:var(--display);font-weight:700;font-size:30px;color:var(--text-primary)}
+    .case-metrics .m .k{font-family:var(--mono);font-size:12px;color:var(--text-secondary);margin-top:4px}
+    .case-link{color:var(--accent-blue);font-weight:600;font-size:15px;display:inline-flex;gap:8px;align-items:center}
+    .case-link .arr{transition:transform .25s var(--ease)}
+    .case-link:hover .arr{transform:translateX(4px)}
+
+    /* ===================== FINAL CTA ===================== */
+    .final{position:relative;text-align:center;padding-block:120px;overflow:hidden}
+    .final::before{
+      content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+      width:120%;height:160%;background:radial-gradient(ellipse at center,var(--glow-orange),transparent 60%);
+      filter:blur(30px);pointer-events:none;
+    }
+    .final-inner{position:relative;z-index:1;max-width:720px;margin-inline:auto}
+    .final h2{font-size:clamp(32px,4.2vw,48px);font-weight:600;letter-spacing:-0.03em}
+    .final p{color:var(--text-secondary);font-size:19px;margin:18px auto 36px;max-width:540px}
+    .final .micro{font-family:var(--mono);font-size:13px;color:var(--text-secondary);margin-top:20px;letter-spacing:0.03em}
+
+    /* ===================== FOOTER ===================== */
+    .footer{border-top:1px solid var(--border);background:var(--bg-secondary);padding-block:64px 32px}
+    .footer-top{display:grid;grid-template-columns:1.6fr repeat(4,1fr);gap:40px}
+    .footer-brand .brand{margin-bottom:16px}
+    .footer-blurb{color:var(--text-secondary);font-size:15px;max-width:300px;margin-bottom:18px}
+    .gbadge{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:12px;color:var(--text-secondary);border:1px solid var(--border);padding:8px 14px;border-radius:var(--radius-pill)}
+    .gbadge .gdots{display:flex;gap:3px}
+    .gbadge .gdots i{width:6px;height:6px;border-radius:50%}
+    .gbadge .gdots i:nth-child(1){background:#4285F4}
+    .gbadge .gdots i:nth-child(2){background:#EA4335}
+    .gbadge .gdots i:nth-child(3){background:#FBBC04}
+    .gbadge .gdots i:nth-child(4){background:#34A853}
+    .footer h4{font-family:var(--body);font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-primary);margin-bottom:18px}
+    .footer-col a{display:block;color:var(--text-secondary);font-size:14.5px;padding:5px 0;transition:color .2s var(--ease)}
+    .footer-col a:hover{color:var(--accent-blue)}
+    .footer-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px;margin-top:48px;padding-top:24px;border-top:1px solid var(--border);font-size:13px;color:var(--text-secondary)}
+    .footer-bottom .built{font-family:var(--mono);letter-spacing:0.03em}
+
+    /* ===================== SCROLL REVEAL ===================== */
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+    .reveal.in{opacity:1;transform:none}
+
+    /* ===================== RESPONSIVE ===================== */
+    @media(max-width:980px){
+      .hero-grid{grid-template-columns:1fr;gap:48px}
+      .hero-visual{max-width:480px;margin-inline:auto}
+      .why-grid{grid-template-columns:1fr;gap:40px}
+      .case{grid-template-columns:1fr}
+      .case-media{min-height:240px}
+      .footer-top{grid-template-columns:1fr 1fr;gap:32px}
+      .footer-brand{grid-column:1/-1}
+    }
+    @media(max-width:760px){
+      .section{padding-block:64px}
+      .hero{padding-top:130px}
+      .nav-links{display:none}
+      .nav-right .btn{display:none}
+      .nav-toggle{display:flex}
+      .pillars{grid-template-columns:1fr}
+      .stat-bar{grid-template-columns:1fr;gap:28px;text-align:left}
+      .timeline{grid-template-columns:1fr;gap:0}
+      .timeline-track{display:none}
+      .step{padding-left:8px;padding-bottom:36px;border-left:2px solid var(--border);margin-left:6px}
+      .step .pin{margin-top:8px;margin-left:-15px}
+      .step .n{font-size:60px;top:-14px}
+      .case-body{padding:32px}
+      .case-metrics{gap:28px}
+    }
+    @media(max-width:520px){
+      .footer-top{grid-template-columns:1fr 1fr}
+      .hero h1{font-size:38px}
+    }
+
+    /* ===================== REDUCED MOTION ===================== */
+    @media(prefers-reduced-motion:reduce){
+      *{animation:none !important;transition:none !important;scroll-behavior:auto !important}
+      .reveal{opacity:1;transform:none}
+      .timeline-track .fill{right:0}
+      .conn-flow{stroke-dasharray:none}
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============ [A] NAVIGATION ============ -->
+  <nav class="nav" id="nav" aria-label="Primary">
+    <div class="container nav-inner">
+      <a href="../index.html" class="brand" aria-label="Velivance home">
+        <svg class="mark" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+          <path d="M5 14h9M5 20h6M5 26h9" stroke="#F0F4FF" stroke-width="2.6" stroke-linecap="round"/>
+          <path d="M19 10 L30 20 L19 30" stroke="#F0F4FF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="14" cy="14" r="2.2" fill="#00D4FF"/>
+          <circle cx="14" cy="26" r="2.2" fill="#00D4FF"/>
+          <circle cx="30" cy="20" r="4.6" fill="#FF6B2B"/>
+        </svg>
+        <span class="brand-name">Velivance</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="../agentic-ai/index.html">Agentic AI</a></li>
+        <li><a href="../core-services/index.html" aria-current="page">Core Services</a></li>
+        <li><a href="../partnership.html">Partnership</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../insights.html">Insights</a></li>
+      </ul>
+
+      <div class="nav-right">
+        <a href="../contact.html" class="btn btn-primary">Book a Discovery Call</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+    <a href="../agentic-ai/index.html">Agentic AI</a>
+    <a href="../core-services/index.html">Core Services</a>
+    <a href="../partnership.html">Partnership</a>
+    <a href="../about.html">About</a>
+    <a href="../insights.html">Insights</a>
+    <a href="../contact.html" class="btn btn-primary btn-lg">Book a Discovery Call</a>
+  </div>
+
+  <main>
+
+    <!-- ============ [B] HERO ============ -->
+    <header class="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div>
+            <p class="crumb"><a href="../index.html">Home</a> › <a href="index.html">Core Services</a> › Google Workspace</p>
+            <span class="chip"><span class="dot"></span>Google Workspace Partner</span>
+            <h1>Your Entire Enterprise.<br><span class="grad">One Intelligent Workspace.</span></h1>
+            <p class="hero-sub">We set up, migrate and optimize Google Workspace so your teams collaborate securely and at speed. From Microsoft 365, legacy email or disconnected tools — a seamless transition to Gmail, Drive, Docs, Meet and the full Suite, without the downtime.</p>
+            <div class="hero-cta">
+              <a href="#process" class="btn btn-primary">See How It Works <span class="arr">→</span></a>
+              <a href="#case" class="btn btn-ghost">View Case Studies</a>
+            </div>
+          </div>
+
+          <!-- Hero visual: Workspace apps connected to a central hub, glowing data flow -->
+          <div class="hero-visual" aria-hidden="true">
+            <svg viewBox="0 0 560 460" role="img">
+              <defs>
+                <radialGradient id="hubGrad" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#13294d"/>
+                  <stop offset="100%" stop-color="#0A1628"/>
+                </radialGradient>
+                <radialGradient id="hubHalo" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="rgba(255,107,43,0.35)"/>
+                  <stop offset="100%" stop-color="rgba(255,107,43,0)"/>
+                </radialGradient>
+              </defs>
+
+              <!-- hub halo -->
+              <circle class="hub-glow" cx="280" cy="230" r="120" fill="url(#hubHalo)"/>
+
+              <!-- connection lines (base + animated flow) hub(280,230) -> nodes -->
+              <g>
+                <path class="conn-base" d="M280 230 L280 70"/>
+                <path class="conn-base" d="M280 230 L470 150"/>
+                <path class="conn-base" d="M280 230 L440 380"/>
+                <path class="conn-base" d="M280 230 L120 380"/>
+                <path class="conn-base" d="M280 230 L90 150"/>
+                <path class="conn-flow" d="M280 230 L280 70"/>
+                <path class="conn-flow" d="M280 230 L470 150" style="animation-delay:.2s"/>
+                <path class="conn-flow" d="M280 230 L440 380" style="animation-delay:.4s"/>
+                <path class="conn-flow" d="M280 230 L120 380" style="animation-delay:.6s"/>
+                <path class="conn-flow" d="M280 230 L90 150" style="animation-delay:.8s"/>
+              </g>
+
+              <!-- central hub -->
+              <g class="hub-glow">
+                <rect class="hub-box" x="222" y="200" width="116" height="60" rx="16"/>
+                <text class="hub-label" x="280" y="226">Google</text>
+                <text class="hub-label" x="280" y="244">Workspace</text>
+              </g>
+
+              <!-- APP NODES -->
+              <!-- Gmail (top) -->
+              <g class="node-group" transform="translate(280,70)">
+                <circle class="node-ring" cx="0" cy="0" r="34"/>
+                <rect class="node-box" x="-26" y="-22" width="52" height="44" rx="13"/>
+                <path class="glyph" stroke="#EA4335" d="M-15 -8 L0 4 L15 -8 M-15 -8 V12 H15 V-8"/>
+                <text class="node-label" x="0" y="40">Gmail</text>
+              </g>
+              <!-- Drive (top-right) -->
+              <g class="node-group" transform="translate(470,150)">
+                <circle class="node-ring" cx="0" cy="0" r="34"/>
+                <rect class="node-box" x="-26" y="-22" width="52" height="44" rx="13"/>
+                <path class="glyph" stroke="#FBBC04" d="M-4 -12 L8 -12 L16 2 L4 2 Z M-4 -12 L-16 8 L-4 8 M4 2 L-4 8 L4 8"/>
+                <text class="node-label" x="0" y="40">Drive</text>
+              </g>
+              <!-- Meet (bottom-right) -->
+              <g class="node-group" transform="translate(440,380)">
+                <circle class="node-ring" cx="0" cy="0" r="34"/>
+                <rect class="node-box" x="-26" y="-22" width="52" height="44" rx="13"/>
+                <path class="glyph" stroke="#34A853" d="M-16 -8 H6 V8 H-16 Z M6 -3 L16 -8 V8 L6 3"/>
+                <text class="node-label" x="0" y="40">Meet</text>
+              </g>
+              <!-- Docs (bottom-left) -->
+              <g class="node-group" transform="translate(120,380)">
+                <circle class="node-ring" cx="0" cy="0" r="34"/>
+                <rect class="node-box" x="-26" y="-22" width="52" height="44" rx="13"/>
+                <path class="glyph" stroke="#4285F4" d="M-11 -14 H6 L13 -7 V14 H-11 Z M-6 -2 H8 M-6 4 H8 M-6 10 H3"/>
+                <text class="node-label" x="0" y="40">Docs</text>
+              </g>
+              <!-- Sheets (top-left) -->
+              <g class="node-group" transform="translate(90,150)">
+                <circle class="node-ring" cx="0" cy="0" r="34"/>
+                <rect class="node-box" x="-26" y="-22" width="52" height="44" rx="13"/>
+                <path class="glyph" stroke="#34A853" d="M-12 -13 H12 V13 H-12 Z M-12 -3 H12 M-12 5 H12 M-2 -13 V13"/>
+                <text class="node-label" x="0" y="40">Sheets</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+
+        <!-- stat bar -->
+        <div class="stat-bar">
+          <div class="stat reveal">
+            <div class="num"><span class="counter" data-target="10" data-decimals="0">0</span><span class="suffix">M+</span></div>
+            <div class="lbl">Organizations run on Google Workspace</div>
+          </div>
+          <div class="stat reveal">
+            <div class="num"><span class="counter" data-target="99.9" data-decimals="1">0</span><span class="suffix">%</span></div>
+            <div class="lbl">Guaranteed Workspace uptime SLA</div>
+          </div>
+          <div class="stat reveal">
+            <div class="num"><span class="counter" data-target="5" data-decimals="0">0</span><span class="suffix"> apps</span></div>
+            <div class="lbl">Gmail · Drive · Docs · Meet · Calendar — one suite</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ============ [C] TRUST BAR ============ -->
+    <section class="trust" aria-label="Technology ecosystem">
+      <div class="container">
+        <p class="trust-label reveal">Built on the Google Cloud ecosystem</p>
+        <div class="trust-row" data-stagger>
+          <span class="logo reveal"><span class="pip"></span>Google Workspace</span>
+          <span class="logo reveal"><span class="pip"></span>Google Cloud</span>
+          <span class="logo reveal"><span class="pip"></span>Gemini</span>
+          <span class="logo reveal"><span class="pip"></span>BigQuery</span>
+          <span class="logo reveal"><span class="pip"></span>Looker</span>
+          <span class="logo reveal"><span class="pip"></span>Vertex AI</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ [D] SERVICE PILLARS ============ -->
+    <section class="section" aria-labelledby="pillars-h">
+      <div class="container">
+        <div class="head reveal">
+          <p class="eyebrow">What we deliver</p>
+          <h2 id="pillars-h">Everything your Workspace needs — built and run by specialists.</h2>
+          <p>From first configuration to company-wide adoption, every layer of Google Workspace delivered as one coordinated programme.</p>
+        </div>
+
+        <div class="pillars" data-stagger>
+          <article class="pillar reveal">
+            <div class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg>
+            </div>
+            <p class="cat">Setup</p>
+            <h3>Setup &amp; Configuration</h3>
+            <p>Workspace setup and configuration with a fully tuned Admin console — domains, policies and org structure done right from day one.</p>
+          </article>
+
+          <article class="pillar reveal">
+            <div class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h12M16 8l-4-4M16 8l-4 4"/><path d="M20 16H8M8 16l4-4M8 16l4 4"/></svg>
+            </div>
+            <p class="cat">Migration</p>
+            <h3>Email &amp; File Migration</h3>
+            <p>Mailboxes and files moved from Microsoft 365, legacy email or disconnected tools — in parallel, with no loss and no disruption to the business.</p>
+          </article>
+
+          <article class="pillar reveal">
+            <div class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+            </div>
+            <p class="cat">Implementation</p>
+            <h3>Apps Implementation</h3>
+            <p>Gmail, Drive, Calendar and Meet implemented and integrated so every tool works together the way your teams actually operate.</p>
+          </article>
+
+          <article class="pillar reveal">
+            <div class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9-4 9 4v6c0 5-4 8-9 9-5-1-9-4-9-9V7z"/><path d="M9 12h6M12 9v6"/></svg>
+            </div>
+            <p class="cat">Structure</p>
+            <h3>Shared Drives &amp; Permissions</h3>
+            <p>Shared drives and permission structures designed for secure, intentional file sharing across teams, departments and external partners.</p>
+          </article>
+
+          <article class="pillar reveal">
+            <div class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.5" r="1.5"/></svg>
+            </div>
+            <p class="cat">Security</p>
+            <h3>Security &amp; Admin Controls</h3>
+            <p>Workspace security settings and admin console controls — access policies, 2-step verification and data protection enforced across the org.</p>
+          </article>
+
+          <article class="pillar reveal">
+            <div class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4L2 9l10 5 10-5-10-5z"/><path d="M6 11v5c0 1 3 3 6 3s6-2 6-3v-5"/></svg>
+            </div>
+            <p class="cat">Adoption</p>
+            <h3>Training &amp; Adoption</h3>
+            <p>Employee training and adoption programmes that turn a migration into a habit — so teams use the suite well, not just have access to it.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ [E] HOW WE WORK ============ -->
+    <section class="section process" id="process" aria-labelledby="process-h">
+      <div class="container">
+        <div class="head center reveal">
+          <p class="eyebrow">How we work</p>
+          <h2 id="process-h">A clear path to value.</h2>
+          <p>Five stages, one outcome: a secure, fully-adopted Google Workspace your teams trust.</p>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-track" id="track"><span class="fill"></span></div>
+
+          <div class="step reveal">
+            <span class="n">1</span><span class="pin"></span>
+            <h3>Assess</h3>
+            <p>We map your current tools, data and email so nothing is missed before we move.</p>
+          </div>
+          <div class="step reveal">
+            <span class="n">2</span><span class="pin"></span>
+            <h3>Configure</h3>
+            <p>Workspace and security configured to your org structure, policies and compliance needs.</p>
+          </div>
+          <div class="step reveal">
+            <span class="n">3</span><span class="pin"></span>
+            <h3>Migrate</h3>
+            <p>Email, files and calendars moved in parallel — verified, complete, with zero data loss.</p>
+          </div>
+          <div class="step reveal">
+            <span class="n">4</span><span class="pin"></span>
+            <h3>Secure</h3>
+            <p>Admin controls and permissions locked down so access is intentional and auditable.</p>
+          </div>
+          <div class="step reveal">
+            <span class="n">5</span><span class="pin"></span>
+            <h3>Adopt</h3>
+            <p>Hands-on training and support that drives real, lasting adoption across every team.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ [F] WHY VELIVANCE ============ -->
+    <section class="section" aria-labelledby="why-h">
+      <div class="container">
+        <div class="why-grid">
+          <div class="reveal">
+            <p class="eyebrow" style="margin-bottom:20px">Why Velivance</p>
+            <p class="why-statement" id="why-h">We don't just move mailboxes. We rebuild how your teams <span class="hl">work together</span> — securely, and without the downtime.</p>
+          </div>
+
+          <div class="proof" data-stagger>
+            <div class="proof-item reveal">
+              <span class="pi-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+              <div><h4>Collaboration, not just email</h4><p>Improve team collaboration and streamline communication on one connected suite.</p></div>
+            </div>
+            <div class="proof-item reveal">
+              <span class="pi-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></span>
+              <div><h4>Secure by default</h4><p>Enable secure file sharing with permission structures and admin controls built in.</p></div>
+            </div>
+            <div class="proof-item reveal">
+              <span class="pi-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg></span>
+              <div><h4>Less tool sprawl</h4><p>Reduce workplace tool complexity and create a modern productivity environment.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ [G] CASE STUDY TEASER ============ -->
+    <section class="section" id="case" aria-labelledby="case-h">
+      <div class="container">
+        <div class="head reveal">
+          <p class="eyebrow">Case study</p>
+          <h2 id="case-h">We use what we recommend.</h2>
+        </div>
+
+        <article class="case reveal">
+          <div class="case-media" aria-hidden="true">
+            <span class="badge">Internal · Professional Services</span>
+            <div class="art">
+              <svg viewBox="0 0 460 380" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%">
+                <defs>
+                  <linearGradient id="caseBg" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#0F2040"/>
+                    <stop offset="100%" stop-color="#0A1628"/>
+                  </linearGradient>
+                  <radialGradient id="caseGlow" cx="35%" cy="30%" r="60%">
+                    <stop offset="0%" stop-color="rgba(0,212,255,0.28)"/>
+                    <stop offset="100%" stop-color="rgba(0,212,255,0)"/>
+                  </radialGradient>
+                  <radialGradient id="caseGlow2" cx="80%" cy="85%" r="50%">
+                    <stop offset="0%" stop-color="rgba(255,107,43,0.25)"/>
+                    <stop offset="100%" stop-color="rgba(255,107,43,0)"/>
+                  </radialGradient>
+                </defs>
+                <rect width="460" height="380" fill="url(#caseBg)"/>
+                <rect width="460" height="380" fill="url(#caseGlow)"/>
+                <rect width="460" height="380" fill="url(#caseGlow2)"/>
+                <g stroke="#1A3050" stroke-width="1">
+                  <path d="M0 95 H460 M0 190 H460 M0 285 H460 M115 0 V380 M230 0 V380 M345 0 V380"/>
+                </g>
+                <g opacity="0.9">
+                  <circle cx="230" cy="190" r="40" fill="#13294d" stroke="#FF6B2B" stroke-opacity="0.5"/>
+                  <circle cx="115" cy="95" r="22" fill="#0F2040" stroke="#00D4FF" stroke-opacity="0.5"/>
+                  <circle cx="345" cy="95" r="22" fill="#0F2040" stroke="#00D4FF" stroke-opacity="0.5"/>
+                  <circle cx="115" cy="285" r="22" fill="#0F2040" stroke="#00D4FF" stroke-opacity="0.5"/>
+                  <circle cx="345" cy="285" r="22" fill="#0F2040" stroke="#00D4FF" stroke-opacity="0.5"/>
+                  <path d="M230 190 L115 95 M230 190 L345 95 M230 190 L115 285 M230 190 L345 285" stroke="#00D4FF" stroke-opacity="0.3" stroke-width="1.4"/>
+                </g>
+              </svg>
+            </div>
+          </div>
+
+          <div class="case-body">
+            <p class="ck">Google Workspace migration</p>
+            <h3>We ran our own company on Google.</h3>
+            <p>Before recommending Workspace to clients, Avanciers ran its own ~100-person, multi-country operation entirely on Google Workspace — Gmail, Drive, Meet and Docs as the single backbone for teams across Canada, the USA and India.</p>
+            <div class="case-metrics">
+              <div class="m"><div class="v">100+</div><div class="k">internal users</div></div>
+              <div class="m"><div class="v">4</div><div class="k">countries, one suite</div></div>
+              <div class="m"><div class="v">1</div><div class="k">connected workspace</div></div>
+            </div>
+            <a class="case-link" href="../insights/we-ran-our-own-company-on-google.html">Read the case study <span class="arr">→</span></a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ [H] FINAL CTA ============ -->
+    <section class="final" aria-labelledby="final-h">
+      <div class="container">
+        <div class="final-inner reveal">
+          <h2 id="final-h">Ready to Transform How Your Teams Work?</h2>
+          <p>Our Google Workspace specialists are ready to build your roadmap.</p>
+          <a href="../contact.html" class="btn btn-primary btn-lg">Book a Discovery Call <span class="arr">→</span></a>
+          <p class="micro">No commitment. 45-minute session. Results-focused.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ [I] FOOTER ============ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="../index.html" class="brand" aria-label="Velivance home">
+            <svg class="mark" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+              <path d="M5 14h9M5 20h6M5 26h9" stroke="#F0F4FF" stroke-width="2.6" stroke-linecap="round"/>
+              <path d="M19 10 L30 20 L19 30" stroke="#F0F4FF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="14" cy="14" r="2.2" fill="#00D4FF"/>
+              <circle cx="14" cy="26" r="2.2" fill="#00D4FF"/>
+              <circle cx="30" cy="20" r="4.6" fill="#FF6B2B"/>
+            </svg>
+            <span class="brand-name">Velivance</span>
+          </a>
+          <p class="footer-blurb">Google-first AI, data and cloud transformation. We turn Google technology into measurable business outcomes.</p>
+          <span class="gbadge"><span class="gdots"><i></i><i></i><i></i><i></i></span> Certified Google Cloud Partner</span>
+        </div>
+
+        <div class="footer-col">
+          <h4>Services</h4>
+          <a href="../agentic-ai/enterprise-ai-agents.html">Enterprise AI Agents</a>
+          <a href="../agentic-ai/ai-knowledge-search.html">AI Knowledge Search</a>
+          <a href="../core-services/cloud-migration-modernization.html">Cloud Migration</a>
+          <a href="../core-services/data-analytics-reporting.html">Data Analytics</a>
+          <a href="../core-services/google-workspace.html">Google Workspace</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="../about.html">About</a>
+          <a href="../partnership.html">Partnership</a>
+          <a href="../about.html#leadership">Leadership</a>
+          <a href="../about.html#backed">Backed by Avanciers</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="../insights.html">Insights</a>
+          <a href="../insights/we-ran-our-own-company-on-google.html">Case Studies</a>
+          <a href="../privacy.html">Privacy</a>
+          <a href="../privacy.html">Terms</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="../contact.html">Book a Discovery Call</a>
+          <a href="../contact.html">Talk to us</a>
+          <a href="https://www.avanciers.com" target="_blank" rel="noopener">Avanciers</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 Velivance. All rights reserved.</span>
+        <span>Operating across Canada · USA · India</span>
+        <span class="built">Built with Google Cloud + AI</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function(){
+      "use strict";
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      /* ---- Nav: solidify on scroll ---- */
+      var nav = document.getElementById('nav');
+      function onScroll(){ nav.classList.toggle('scrolled', window.scrollY > 60); }
+      onScroll();
+      window.addEventListener('scroll', onScroll, {passive:true});
+
+      /* ---- Mobile nav ---- */
+      var toggle = document.getElementById('navToggle');
+      var mobile = document.getElementById('mobileNav');
+      function setMenu(open){
+        mobile.classList.toggle('open', open);
+        mobile.setAttribute('aria-hidden', open ? 'false' : 'true');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        document.body.style.overflow = open ? 'hidden' : '';
+      }
+      toggle.addEventListener('click', function(){ setMenu(!mobile.classList.contains('open')); });
+      mobile.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ setMenu(false); }); });
+      document.addEventListener('keydown', function(e){ if(e.key === 'Escape') setMenu(false); });
+
+      /* ---- Stagger delays within groups ---- */
+      document.querySelectorAll('[data-stagger]').forEach(function(group){
+        group.querySelectorAll('.reveal').forEach(function(el, i){
+          el.style.transitionDelay = (i * 80) + 'ms';
+        });
+      });
+
+      /* ---- Scroll reveal ---- */
+      var reveals = document.querySelectorAll('.reveal');
+      if(reduce || !('IntersectionObserver' in window)){
+        reveals.forEach(function(el){ el.classList.add('in'); });
+        document.querySelectorAll('.timeline-track').forEach(function(t){ t.classList.add('in'); });
+      } else {
+        var io = new IntersectionObserver(function(entries){
+          entries.forEach(function(e){
+            if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+          });
+        }, {threshold:0.1});
+        reveals.forEach(function(el){ io.observe(el); });
+
+        /* timeline fill */
+        var track = document.getElementById('track');
+        if(track){
+          var tio = new IntersectionObserver(function(entries){
+            entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); tio.unobserve(e.target); } });
+          }, {threshold:0.4});
+          tio.observe(track);
+        }
+      }
+
+      /* ---- Stat counters ---- */
+      function runCounter(el){
+        var target = parseFloat(el.getAttribute('data-target'));
+        var dec = parseInt(el.getAttribute('data-decimals'), 10) || 0;
+        if(reduce){ el.textContent = target.toFixed(dec); return; }
+        var dur = 1200, start = null;
+        function ease(t){ return 1 - Math.pow(1 - t, 3); }
+        function frame(ts){
+          if(start === null) start = ts;
+          var p = Math.min((ts - start) / dur, 1);
+          el.textContent = (target * ease(p)).toFixed(dec);
+          if(p < 1) requestAnimationFrame(frame);
+          else el.textContent = target.toFixed(dec);
+        }
+        requestAnimationFrame(frame);
+      }
+      var counters = document.querySelectorAll('.counter');
+      if(reduce || !('IntersectionObserver' in window)){
+        counters.forEach(runCounter);
+      } else {
+        var cio = new IntersectionObserver(function(entries){
+          entries.forEach(function(e){ if(e.isIntersecting){ runCounter(e.target); cio.unobserve(e.target); } });
+        }, {threshold:0.6});
+        counters.forEach(function(c){ cio.observe(c); });
+      }
+    })();
+  </script>
+</body>
+</html>

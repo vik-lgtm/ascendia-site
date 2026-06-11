@@ -340,9 +340,12 @@ MOTIF_CLOUD = (
  '<circle class="m-halo" cx="332" cy="160" r="84" fill="url(#mHaloB)"/>'
  '<g><path class="m-link" d="M156 84 C236 84 256 160 298 160"/><path class="m-link" d="M156 160 H298"/><path class="m-link" d="M156 236 C236 236 256 160 298 160"/>'
  '<path class="m-flow" d="M156 84 C236 84 256 160 298 160"/><path class="m-flow" d="M156 160 H298" style="animation-delay:.25s"/><path class="m-flow" d="M156 236 C236 236 256 160 298 160" style="animation-delay:.5s"/></g>'
- '<g><rect class="m-node m-node--soft" x="34" y="60" width="122" height="48" rx="9"/><line class="m-link" x1="48" y1="76" x2="128" y2="76"/><line class="m-link" x1="48" y1="92" x2="106" y2="92"/>'
- '<rect class="m-node m-node--soft" x="34" y="136" width="122" height="48" rx="9"/><line class="m-link" x1="48" y1="152" x2="128" y2="152"/><line class="m-link" x1="48" y1="168" x2="106" y2="168"/>'
- '<rect class="m-node m-node--soft" x="34" y="212" width="122" height="48" rx="9"/><line class="m-link" x1="48" y1="228" x2="128" y2="228"/><line class="m-link" x1="48" y1="244" x2="106" y2="244"/></g>'
+ '<g><rect class="m-node m-node--soft" x="34" y="60" width="122" height="48" rx="9"/><text class="m-tag" x="48" y="81">APPS</text><line class="m-link" x1="48" y1="94" x2="118" y2="94"/><circle class="m-dot" cx="140" cy="78" r="3" fill="#00D4FF"/>'
+ '<rect class="m-node m-node--soft" x="34" y="136" width="122" height="48" rx="9"/><text class="m-tag" x="48" y="157">DATABASES</text><line class="m-link" x1="48" y1="170" x2="118" y2="170"/><circle class="m-dot" cx="140" cy="154" r="3" fill="#00D4FF"/>'
+ '<rect class="m-node m-node--soft" x="34" y="212" width="122" height="48" rx="9"/><text class="m-tag" x="48" y="233">VMS · FILES</text><line class="m-link" x1="48" y1="246" x2="118" y2="246"/><circle class="m-dot" cx="140" cy="230" r="3" fill="#00D4FF"/></g>'
+ '<circle class="m-traveler" r="3"><animateMotion dur="2.8s" repeatCount="indefinite" path="M156 84 C236 84 256 160 298 160"/></circle>'
+ '<circle class="m-traveler" r="3"><animateMotion dur="2.8s" repeatCount="indefinite" begin="-0.9s" path="M156 160 H298"/></circle>'
+ '<circle class="m-traveler" r="3"><animateMotion dur="2.8s" repeatCount="indefinite" begin="-1.8s" path="M156 236 C236 236 256 160 298 160"/></circle>'
  '<rect class="m-hub" x="284" y="118" width="96" height="84" rx="18"/>'
  '<g class="m-glyph" stroke="#fff" transform="translate(312,138) scale(1.05)"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></g>'
  '<text class="m-sub" x="332" y="190">GOOGLE CLOUD</text><text class="m-cap" x="95" y="292">On-prem · legacy → Cloud</text>'
@@ -433,6 +436,41 @@ MOTIF_WS = (
  '<rect class="m-node" x="76" y="234" width="68" height="36" rx="9"/><text class="m-label" x="110" y="257">Docs</text>'
  '<rect class="m-node" x="56" y="92" width="68" height="36" rx="9"/><text class="m-label" x="90" y="115">Sheets</text></g>'
  '<rect class="m-hub" x="180" y="134" width="80" height="52" rx="15"/><text class="m-title" x="220" y="158" style="font-size:12px">Workspace</text><text class="m-sub" x="220" y="176">SUITE</text>'
+ '</svg>')
+
+MOTIF_HUB_AGENTIC = (
+ '<svg viewBox="0 0 440 320" aria-hidden="true">'
+ '<circle class="m-halo" cx="220" cy="160" r="95" fill="url(#mHaloO)"/>'
+ '<ellipse class="m-orbit" cx="220" cy="160" rx="152" ry="98"/><ellipse class="m-orbit" cx="220" cy="160" rx="100" ry="64"/>'
+ '<g><path class="m-link" d="M220 160 L220 57"/><path class="m-link" d="M220 160 L357 107"/><path class="m-link" d="M220 160 L352 224"/><path class="m-link" d="M220 160 L220 267"/><path class="m-link" d="M220 160 L88 224"/><path class="m-link" d="M220 160 L83 107"/>'
+ '<path class="m-flow" d="M220 160 L220 57"/><path class="m-flow" d="M220 160 L357 107" style="animation-delay:.2s"/><path class="m-flow" d="M220 160 L352 224" style="animation-delay:.4s"/><path class="m-flow" d="M220 160 L220 267" style="animation-delay:.6s"/><path class="m-flow" d="M220 160 L88 224" style="animation-delay:.8s"/><path class="m-flow" d="M220 160 L83 107" style="animation-delay:1s"/></g>'
+ '<circle class="m-traveler" r="3"><animateMotion dur="3s" repeatCount="indefinite" path="M220 160 L220 57"/></circle>'
+ '<circle class="m-traveler" r="3"><animateMotion dur="3s" repeatCount="indefinite" begin="-1s" path="M220 160 L352 224"/></circle>'
+ '<circle class="m-traveler" r="3"><animateMotion dur="3s" repeatCount="indefinite" begin="-2s" path="M220 160 L83 107"/></circle>'
+ '<g><rect class="m-node" x="174" y="39" width="92" height="36" rx="10"/><text class="m-label" x="220" y="61">Agents</text>'
+ '<rect class="m-node" x="305" y="89" width="104" height="36" rx="10"/><text class="m-label" x="357" y="111">Knowledge</text>'
+ '<rect class="m-node" x="302" y="206" width="100" height="36" rx="10"/><text class="m-label" x="352" y="228">Decisions</text>'
+ '<rect class="m-node" x="184" y="249" width="72" height="36" rx="10"/><text class="m-label" x="220" y="271">CX</text>'
+ '<rect class="m-node" x="48" y="206" width="80" height="36" rx="10"/><text class="m-label" x="88" y="228">Apps</text>'
+ '<rect class="m-node" x="27" y="89" width="112" height="36" rx="10"/><text class="m-label" x="83" y="111">Governance</text></g>'
+ '<rect class="m-hub" x="178" y="130" width="84" height="60" rx="16"/>'
+ '<path class="m-glyph" stroke="#FFB800" transform="translate(220,150)" d="M0 -13 C1.6 -3.4 3.4 -1.6 13 0 C3.4 1.6 1.6 3.4 0 13 C-1.6 3.4 -3.4 1.6 -13 0 C-3.4 -1.6 -1.6 -3.4 0 -13 Z"/>'
+ '<text class="m-sub" x="220" y="182">GEMINI</text>'
+ '<text class="m-cap" x="220" y="306">Every workflow · one Gemini core</text>'
+ '</svg>')
+
+MOTIF_HUB_CORE = (
+ '<svg viewBox="0 0 440 320" aria-hidden="true">'
+ '<circle class="m-halo" cx="218" cy="160" r="100" fill="url(#mHaloB)"/>'
+ '<path class="m-link" d="M218 256 V64"/>'
+ '<g><path class="m-plate" d="M84 252 L296 252 L352 218 L140 218 Z"/><text class="m-label" x="218" y="241">GOOGLE CLOUD</text>'
+ '<path class="m-plate" d="M84 178 L296 178 L352 144 L140 144 Z"/><text class="m-label" x="218" y="167">BIGQUERY · LOOKER</text>'
+ '<path class="m-plate" d="M84 104 L296 104 L352 70 L140 70 Z"/><text class="m-label" x="218" y="93">GOOGLE WORKSPACE</text></g>'
+ '<path class="m-flow" d="M218 256 V64"/>'
+ '<circle class="m-traveler" r="3"><animateMotion dur="2.4s" repeatCount="indefinite" path="M218 256 V64"/></circle>'
+ '<circle class="m-traveler--gold" r="3"><animateMotion dur="2.4s" repeatCount="indefinite" begin="-1.2s" path="M218 256 V64"/></circle>'
+ '<g><circle class="m-dot" cx="352" cy="218" r="4" fill="#00D4FF"/><circle class="m-dot" cx="352" cy="144" r="4" fill="#00D4FF"/><circle class="m-dot" cx="352" cy="70" r="4" fill="#FFB800"/></g>'
+ '<text class="m-cap" x="218" y="300">Cloud · Data · Workspace — one foundation</text>'
  '</svg>')
 
 MOTIFS = {
@@ -528,7 +566,8 @@ def hub_body(items, hub, eyebrow, title, intro, kind):
     '<p class="eyebrow eyebrow--light">%s</p><h1>%s</h1><p class="lead">%s</p></div>'
     '<div class="ph-motif">%s</div></div></div></section>'
     '<section class="section"><div class="container">%s</div></section>'
-    '%s' % (ph_bg, p, title, eyebrow, title, intro, MOTIF_DEFAULT, grid,
+    '%s' % (ph_bg, p, title, eyebrow, title, intro,
+            MOTIF_HUB_AGENTIC if kind == "agentic" else MOTIF_HUB_CORE, grid,
             cta_simple(p, "Not sure where to start?", "Most clients begin with one focused pilot, then expand. Let's find your highest-value first step.")))
 
 def media_row(p, img, eyebrow, title, body_html, side="right", cls=""):

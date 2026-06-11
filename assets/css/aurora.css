@@ -363,8 +363,14 @@ body::after{
 @keyframes m-grow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
 .m-draw{animation:m-draw 1.8s var(--ez) forwards}
 @keyframes m-draw{to{stroke-dashoffset:0}}
+.m-orbit{fill:none;stroke:rgba(139,164,196,.22);stroke-width:1;stroke-dasharray:2 8}
+.m-plate{fill:rgba(16,26,46,.78);stroke:rgba(139,164,196,.34);stroke-width:1.2}
+.m-tag{font-family:var(--mono);font-size:10px;letter-spacing:.12em;fill:var(--slate);text-anchor:start}
+.m-traveler{fill:var(--blue);filter:drop-shadow(0 0 6px rgba(0,212,255,.9))}
+.m-traveler--gold{fill:var(--gold);filter:drop-shadow(0 0 6px rgba(255,184,0,.85))}
 @media(prefers-reduced-motion:reduce){
   .m-flow{animation:none;stroke-dasharray:none}
   .m-bar,.m-dot,.m-halo{animation:none}
   .m-draw{animation:none;stroke-dashoffset:0}
+  .m-traveler,.m-traveler--gold{display:none}
 }

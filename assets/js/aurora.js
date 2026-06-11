@@ -139,7 +139,7 @@
   }
 
   if (hasTHREE && !reduce) {
-    var hero = document.querySelector(".hero, .page-hero");
+    var hero = document.querySelector(".hero");  // 3D sphere = homepage signature only; inner pages use SVG motifs
     if (hero) { try { initHero(hero); } catch (e) { /* WebGL unavailable → dimmed image + glow fallback remains */ } }
   }
 

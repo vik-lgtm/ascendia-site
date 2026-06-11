@@ -323,3 +323,48 @@ body::after{
   .ed-cards .card:first-child{grid-column:1}
   .ed-cards .card:first-child .card-media{height:160px}
 }
+
+/* ============================================================================
+   10 · BESPOKE HERO MOTIFS — one topical, code-generated visual per service
+   Replaces the identical 3D sphere on inner pages. Two-column hero (text +
+   motif) reads distinct from the homepage's centered 3D hero. (FINDING-007)
+   ============================================================================ */
+/* two-column motif hero (service + hub pages) */
+.page-hero .ph-grid{display:grid;grid-template-columns:1.06fr .94fr;gap:clamp(30px,5vw,60px);align-items:center}
+.page-hero .ph-motif{position:relative;z-index:3}
+.page-hero .ph-motif svg{width:100%;height:auto;overflow:visible;display:block}
+@media(max-width:860px){
+  .page-hero .ph-grid{grid-template-columns:1fr;gap:34px}
+  .page-hero .ph-motif{max-width:520px;margin-inline:auto}
+}
+@media(max-width:560px){.page-hero .ph-motif{display:none}}  /* keep mobile hero lean */
+
+/* shared motif primitives — one visual DNA across every motif */
+.m-link{stroke:var(--line);stroke-width:1.4;fill:none}
+.m-flow{stroke:var(--blue);stroke-width:1.8;fill:none;stroke-dasharray:5 10;stroke-linecap:round;filter:drop-shadow(0 0 4px rgba(0,212,255,.55));animation:m-flow 1.6s linear infinite}
+@keyframes m-flow{to{stroke-dashoffset:-30}}
+.m-flow--gold{stroke:var(--gold);filter:drop-shadow(0 0 4px rgba(255,184,0,.5))}
+.m-node{fill:var(--surface);stroke:var(--line);stroke-width:1.2}
+.m-node--soft{fill:var(--bg-alt);stroke:rgba(139,164,196,.38)}
+.m-hub{fill:var(--surface-2);stroke:rgba(255,107,43,.6);stroke-width:1.5}
+.m-glyph{fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.m-label{font-family:var(--mono);font-size:12px;fill:var(--slate);text-anchor:middle}
+.m-cap{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;fill:var(--slate-300);text-anchor:middle}
+.m-title{font-family:var(--display);font-weight:600;font-size:14px;fill:#fff;text-anchor:middle}
+.m-sub{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;fill:var(--gold);text-anchor:middle}
+.m-halo{animation:m-breathe 3.6s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:center}
+@keyframes m-breathe{from{opacity:.45;transform:scale(.92)}to{opacity:.85;transform:scale(1.05)}}
+.m-dot{animation:m-pulse 2.4s ease-in-out infinite}
+.m-dot:nth-of-type(3n){animation-delay:.5s}.m-dot:nth-of-type(3n+1){animation-delay:1s}
+@keyframes m-pulse{0%,100%{opacity:.45}50%{opacity:1}}
+.m-bar{fill:var(--blue);transform-box:fill-box;transform-origin:50% 100%;animation:m-grow 1.1s var(--ez) both}
+.m-bar:nth-of-type(2){animation-delay:.12s}.m-bar:nth-of-type(3){animation-delay:.24s}
+.m-bar:nth-of-type(4){animation-delay:.36s}.m-bar:nth-of-type(5){animation-delay:.48s}
+@keyframes m-grow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.m-draw{animation:m-draw 1.8s var(--ez) forwards}
+@keyframes m-draw{to{stroke-dashoffset:0}}
+@media(prefers-reduced-motion:reduce){
+  .m-flow{animation:none;stroke-dasharray:none}
+  .m-bar,.m-dot,.m-halo{animation:none}
+  .m-draw{animation:none;stroke-dashoffset:0}
+}

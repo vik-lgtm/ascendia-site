@@ -232,6 +232,13 @@ def footer(p):
     '<span class="footer-legal"><a href="%sprivacy.html">Privacy</a><a href="%sprivacy.html">Cookies</a><a href="%sprivacy.html">Terms</a></span>'
     '</div></div></footer>' % (p, logo("#ffffff", "#9fb3cc"), BRAND, ag, co, p, p, p, p, YEAR, BRAND, p, p, p))
 
+# shared motif gradient defs — literal % chars, kept OUT of the %-formatted head string
+MOTIF_DEFS = (
+    '<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>'
+    '<radialGradient id="mHaloO" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(255,107,43,0.40)"/><stop offset="100%" stop-color="rgba(255,107,43,0)"/></radialGradient>'
+    '<radialGradient id="mHaloB" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(0,212,255,0.32)"/><stop offset="100%" stop-color="rgba(0,212,255,0)"/></radialGradient>'
+    '</defs></svg>')
+
 def head(p, title, desc):
     return (
     '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">'
@@ -242,7 +249,7 @@ def head(p, title, desc):
     '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
     '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">'
     '<link rel="stylesheet" href="%sassets/css/styles.css">'
-    '<link rel="stylesheet" href="%sassets/css/aurora.css"></head><body>' % (title, desc, title, desc, p, p))
+    '<link rel="stylesheet" href="%sassets/css/aurora.css"></head><body>' % (title, desc, title, desc, p, p)) + MOTIF_DEFS
 
 def cta_simple(p, heading, text, aside=""):
     return ('<section class="cta-band"><div class="container"><div class="cta-inner">'
@@ -289,6 +296,160 @@ def migration_pipeline():
     '<p class="lead" style="margin:0 auto">Microsoft 365, legacy email and disconnected tools, consolidated through Velivance into a single Google Workspace your teams actually want to use.</p></div>'
     '<div class="pipeline">%s</div></div></section>' % PIPELINE_SVG)
 
+# ----------------------------------------------------------------------------
+# HERO MOTIFS — one topical, code-generated visual per service (shared DNA)
+# viewBox 0 0 440 320. Fallback constellation covers anything unmapped.
+# ----------------------------------------------------------------------------
+MOTIF_DEFAULT = (
+ '<svg viewBox="0 0 440 320" aria-hidden="true">'
+ '<circle class="m-halo" cx="220" cy="160" r="98" fill="url(#mHaloB)"/>'
+ '<g><path class="m-link" d="M220 160 L220 56"/><path class="m-link" d="M220 160 L356 104"/><path class="m-link" d="M220 160 L356 224"/><path class="m-link" d="M220 160 L220 264"/><path class="m-link" d="M220 160 L84 224"/><path class="m-link" d="M220 160 L84 104"/>'
+ '<path class="m-flow" d="M220 160 L220 56"/><path class="m-flow" d="M220 160 L356 104" style="animation-delay:.2s"/><path class="m-flow" d="M220 160 L356 224" style="animation-delay:.4s"/><path class="m-flow" d="M220 160 L220 264" style="animation-delay:.6s"/><path class="m-flow" d="M220 160 L84 224" style="animation-delay:.8s"/><path class="m-flow" d="M220 160 L84 104" style="animation-delay:1s"/></g>'
+ '<g><circle class="m-node m-dot" cx="220" cy="56" r="12"/><circle class="m-node m-dot" cx="356" cy="104" r="12"/><circle class="m-node m-dot" cx="356" cy="224" r="12"/><circle class="m-node m-dot" cx="220" cy="264" r="12"/><circle class="m-node m-dot" cx="84" cy="224" r="12"/><circle class="m-node m-dot" cx="84" cy="104" r="12"/></g>'
+ '<rect class="m-hub" x="186" y="134" width="68" height="52" rx="15"/><circle cx="220" cy="160" r="5" fill="#FFB800"/>'
+ '</svg>')
+
+MOTIF_DATA = (
+ '<svg viewBox="0 0 440 320" aria-hidden="true">'
+ '<path class="m-link" d="M56 56 V252 H410"/>'
+ '<rect class="m-bar" x="84" y="182" width="42" height="70" rx="4"/>'
+ '<rect class="m-bar" x="150" y="132" width="42" height="120" rx="4"/>'
+ '<rect class="m-bar" x="216" y="160" width="42" height="92" rx="4"/>'
+ '<rect class="m-bar" x="282" y="96" width="42" height="156" rx="4"/>'
+ '<rect class="m-bar" x="348" y="58" width="42" height="194" rx="4" fill="#FFB800"/>'
+ '<path class="m-flow" d="M105 182 L171 132 L237 160 L303 96 L369 58"/>'
+ '<g><circle class="m-dot" cx="105" cy="182" r="4" fill="#00D4FF"/><circle class="m-dot" cx="171" cy="132" r="4" fill="#00D4FF"/><circle class="m-dot" cx="237" cy="160" r="4" fill="#00D4FF"/><circle class="m-dot" cx="303" cy="96" r="4" fill="#00D4FF"/><circle class="m-dot" cx="369" cy="58" r="5" fill="#FFB800"/></g>'
+ '<text class="m-cap" x="232" y="290">BigQuery · Looker · Forecast</text>'
+ '</svg>')
+
+MOTIF_AGENTS = (
+ '<svg viewBox="0 0 440 320" aria-hidden="true">'
+ '<circle class="m-halo" cx="220" cy="160" r="92" fill="url(#mHaloO)"/>'
+ '<g><path class="m-link" d="M220 160 L78 64"/><path class="m-link" d="M220 160 L362 64"/><path class="m-link" d="M220 160 L78 256"/><path class="m-link" d="M220 160 L362 256"/>'
+ '<path class="m-flow" d="M220 160 L78 64"/><path class="m-flow" d="M220 160 L362 64" style="animation-delay:.25s"/><path class="m-flow" d="M220 160 L78 256" style="animation-delay:.5s"/><path class="m-flow" d="M220 160 L362 256" style="animation-delay:.75s"/></g>'
+ '<g><rect class="m-node" x="24" y="44" width="108" height="40" rx="11"/><text class="m-label" x="78" y="69">Support</text>'
+ '<rect class="m-node" x="308" y="44" width="108" height="40" rx="11"/><text class="m-label" x="362" y="69">Sales</text>'
+ '<rect class="m-node" x="24" y="236" width="108" height="40" rx="11"/><text class="m-label" x="78" y="261">Finance</text>'
+ '<rect class="m-node" x="308" y="236" width="108" height="40" rx="11"/><text class="m-label" x="362" y="261">Ops</text></g>'
+ '<rect class="m-hub" x="178" y="130" width="84" height="60" rx="16"/><text class="m-title" x="220" y="156">Agent</text><text class="m-sub" x="220" y="174">GEMINI</text>'
+ '</svg>')
+
+MOTIF_CLOUD = (
+ '<svg viewBox="0 0 440 320" aria-hidden="true">'
+ '<circle class="m-halo" cx="332" cy="160" r="84" fill="url(#mHaloB)"/>'
+ '<g><path class="m-link" d="M156 84 C236 84 256 160 298 160"/><path class="m-link" d="M156 160 H298"/><path class="m-link" d="M156 236 C236 236 256 160 298 160"/>'
+ '<path class="m-flow" d="M156 84 C236 84 256 160 298 160"/><path class="m-flow" d="M156 160 H298" style="animation-delay:.25s"/><path class="m-flow" d="M156 236 C236 236 256 160 298 160" style="animation-delay:.5s"/></g>'
+ '<g><rect class="m-node m-node--soft" x="34" y="60" width="122" height="48" rx="9"/><line class="m-link" x1="48" y1="76" x2="128" y2="76"/><line class="m-link" x1="48" y1="92" x2="106" y2="92"/>'
+ '<rect class="m-node m-node--soft" x="34" y="136" width="122" height="48" rx="9"/><line class="m-link" x1="48" y1="152" x2="128" y2="152"/><line class="m-link" x1="48" y1="168" x2="106" y2="168"/>'
+ '<rect class="m-node m-node--soft" x="34" y="212" width="122" height="48" rx="9"/><line class="m-link" x1="48" y1="228" x2="128" y2="228"/><line class="m-link" x1="48" y1="244" x2="106" y2="244"/></g>'
+ '<rect class="m-hub" x="284" y="118" width="96" height="84" rx="18"/>'
+ '<g class="m-glyph" stroke="#fff" transform="translate(312,138) scale(1.05)"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></g>'
+ '<text class="m-sub" x="332" y="190">GOOGLE CLOUD</text><text class="m-cap" x="95" y="292">On-prem · legacy → Cloud</text>'
+ '</svg>')
+
+MOTIF_KNOWLEDGE = (
+ '<svg viewBox="0 0 440 320" aria-hidden="true">'
+ '<path class="m-flow" d="M82 160 H160"/><path class="m-flow" d="M308 152 H346" style="animation-delay:.4s"/>'
+ '<path class="m-link" d="M228 90 L250 140 M199 110 L189 190 M279 160 L277 200 M218 110 L248 210"/>'
+ '<circle class="m-node" cx="56" cy="160" r="26"/><text class="m-title" x="56" y="167" style="font-size:20px">?</text>'
+ '<g><rect class="m-node" x="170" y="70" width="58" height="40" rx="8"/><rect class="m-node" x="250" y="120" width="58" height="40" rx="8"/><rect class="m-node" x="160" y="190" width="58" height="40" rx="8"/><rect class="m-node" x="248" y="200" width="58" height="40" rx="8"/></g>'
+ '<rect class="m-hub" x="346" y="138" width="78" height="46" rx="12" style="stroke:rgba(255,184,0,.6)"/><text class="m-title" x="385" y="165" style="font-size:13px">Answer</text>'
+ '<text class="m-cap" x="220" y="292">Ask → grounded answer</text>'
+ '</svg>')
+
+MOTIF_DECISIONS = (
+ '<svg viewBox="0 0 440 320" aria-hidden="true">'
+ '<circle class="m-halo" cx="350" cy="160" r="64" fill="url(#mHaloO)"/>'
+ '<path class="m-link" d="M210 160 H300"/><path class="m-flow" d="M210 160 H300"/>'
+ '<rect class="m-node" x="30" y="86" width="180" height="148" rx="12"/>'
+ '<rect class="m-bar" x="54" y="170" width="22" height="44" rx="3"/><rect class="m-bar" x="90" y="146" width="22" height="68" rx="3"/><rect class="m-bar" x="126" y="158" width="22" height="56" rx="3"/><rect class="m-bar" x="162" y="124" width="22" height="90" rx="3" fill="#FFB800"/>'
+ '<path class="m-flow" d="M48 116 L86 100 L124 110 L172 88" style="animation-delay:.2s"/>'
+ '<rect class="m-hub" x="306" y="132" width="88" height="56" rx="16" style="stroke:rgba(255,184,0,.6)"/><text class="m-title" x="350" y="156">Decision</text><text class="m-sub" x="350" y="174">GEMINI</text>'
+ '<text class="m-cap" x="120" y="292">Data → decision</text>'
+ '</svg>')
+
+MOTIF_GEMINI = (
+ '<svg viewBox="0 0 440 320" aria-hidden="true">'
+ '<circle class="m-halo" cx="220" cy="160" r="86" fill="url(#mHaloO)"/>'
+ '<g><path class="m-link" d="M220 160 L96 84"/><path class="m-link" d="M220 160 L344 84"/><path class="m-link" d="M220 160 L96 236"/><path class="m-link" d="M220 160 L344 236"/>'
+ '<path class="m-flow m-flow--gold" d="M220 160 L96 84"/><path class="m-flow m-flow--gold" d="M220 160 L344 84" style="animation-delay:.25s"/><path class="m-flow m-flow--gold" d="M220 160 L96 236" style="animation-delay:.5s"/><path class="m-flow m-flow--gold" d="M220 160 L344 236" style="animation-delay:.75s"/></g>'
+ '<g><rect class="m-node" x="46" y="64" width="100" height="40" rx="11"/><text class="m-label" x="96" y="89">Gmail</text>'
+ '<rect class="m-node" x="294" y="64" width="100" height="40" rx="11"/><text class="m-label" x="344" y="89">Docs</text>'
+ '<rect class="m-node" x="46" y="216" width="100" height="40" rx="11"/><text class="m-label" x="96" y="241">Sheets</text>'
+ '<rect class="m-node" x="294" y="216" width="100" height="40" rx="11"/><text class="m-label" x="344" y="241">Meet</text></g>'
+ '<rect class="m-hub" x="184" y="130" width="72" height="60" rx="16"/>'
+ '<path class="m-glyph" stroke="#FFB800" transform="translate(220,150)" d="M0 -13 C1.6 -3.4 3.4 -1.6 13 0 C3.4 1.6 1.6 3.4 0 13 C-1.6 3.4 -3.4 1.6 -13 0 C-3.4 -1.6 -1.6 -3.4 0 -13 Z"/>'
+ '<text class="m-sub" x="220" y="182">GEMINI</text>'
+ '</svg>')
+
+MOTIF_CUSTOM = (
+ '<svg viewBox="0 0 440 320" aria-hidden="true">'
+ '<g><path class="m-link" d="M122 96 C200 96 210 160 268 160"/><path class="m-link" d="M122 160 H268"/><path class="m-link" d="M122 224 C200 224 210 160 268 160"/>'
+ '<path class="m-flow" d="M122 96 C200 96 210 160 268 160"/><path class="m-flow" d="M122 160 H268" style="animation-delay:.25s"/><path class="m-flow" d="M122 224 C200 224 210 160 268 160" style="animation-delay:.5s"/></g>'
+ '<g><rect class="m-node" x="30" y="74" width="92" height="44" rx="9"/><circle class="m-dot" cx="50" cy="96" r="5" fill="#00D4FF"/>'
+ '<rect class="m-node" x="30" y="138" width="92" height="44" rx="9"/><circle class="m-dot" cx="50" cy="160" r="5" fill="#FFB800"/>'
+ '<rect class="m-node" x="30" y="202" width="92" height="44" rx="9"/><circle class="m-dot" cx="50" cy="224" r="5" fill="#FF6B2B"/></g>'
+ '<rect class="m-hub" x="268" y="96" width="142" height="128" rx="14"/>'
+ '<line class="m-link" x1="268" y1="124" x2="410" y2="124"/>'
+ '<circle cx="284" cy="110" r="3.5" fill="#FF6B2B"/><circle cx="298" cy="110" r="3.5" fill="#FFB800"/><circle cx="312" cy="110" r="3.5" fill="#00D4FF"/>'
+ '<line class="m-link" x1="286" y1="146" x2="392" y2="146"/><line class="m-link" x1="286" y1="166" x2="372" y2="166"/><line class="m-link" x1="286" y1="186" x2="392" y2="186"/><line class="m-link" x1="286" y1="206" x2="356" y2="206"/>'
+ '<text class="m-cap" x="116" y="292">Components → app</text>'
+ '</svg>')
+
+MOTIF_CX = (
+ '<svg viewBox="0 0 440 320" aria-hidden="true">'
+ '<circle class="m-halo" cx="338" cy="160" r="78" fill="url(#mHaloB)"/>'
+ '<g><path class="m-link" d="M132 94 C220 94 240 160 292 160"/><path class="m-link" d="M132 160 H292"/><path class="m-link" d="M132 226 C220 226 240 160 292 160"/>'
+ '<path class="m-flow" d="M132 94 C220 94 240 160 292 160"/><path class="m-flow" d="M132 160 H292" style="animation-delay:.25s"/><path class="m-flow" d="M132 226 C220 226 240 160 292 160" style="animation-delay:.5s"/></g>'
+ '<g><rect class="m-node" x="28" y="74" width="104" height="40" rx="11"/><text class="m-label" x="80" y="99">Chat</text>'
+ '<rect class="m-node" x="28" y="140" width="104" height="40" rx="11"/><text class="m-label" x="80" y="165">Voice</text>'
+ '<rect class="m-node" x="28" y="206" width="104" height="40" rx="11"/><text class="m-label" x="80" y="231">Email</text></g>'
+ '<rect class="m-hub" x="292" y="128" width="92" height="64" rx="18"/>'
+ '<rect x="306" y="146" width="64" height="22" rx="8" fill="none" stroke="#00D4FF" stroke-width="1.4"/><circle cx="320" cy="157" r="2" fill="#00D4FF"/><circle cx="332" cy="157" r="2" fill="#00D4FF"/><circle cx="344" cy="157" r="2" fill="#00D4FF"/>'
+ '<text class="m-sub" x="338" y="184">ASSISTANT</text><text class="m-cap" x="120" y="292">Every channel · one assistant</text>'
+ '</svg>')
+
+MOTIF_GOV = (
+ '<svg viewBox="0 0 440 320" aria-hidden="true">'
+ '<circle class="m-halo" cx="220" cy="120" r="72" fill="url(#mHaloO)"/>'
+ '<path class="m-hub" d="M220 58 L268 78 V128 C268 162 246 178 220 188 C194 178 172 162 172 128 V78 Z"/>'
+ '<path class="m-glyph" stroke="#FFB800" d="M204 120 l12 12 l22 -26"/>'
+ '<g><rect class="m-node" x="28" y="236" width="104" height="40" rx="11"/><text class="m-label" x="80" y="261">Request</text>'
+ '<rect class="m-node" x="168" y="236" width="104" height="40" rx="11"/><text class="m-label" x="220" y="261">Review</text>'
+ '<rect class="m-node" x="308" y="236" width="104" height="40" rx="11"/><text class="m-label" x="360" y="261">Approve</text>'
+ '<path class="m-flow" d="M132 256 H168"/><path class="m-flow" d="M272 256 H308" style="animation-delay:.3s"/></g>'
+ '<text class="m-cap" x="220" y="300">Human-in-the-loop · governed</text>'
+ '</svg>')
+
+MOTIF_WS = (
+ '<svg viewBox="0 0 440 320" aria-hidden="true">'
+ '<circle class="m-halo" cx="220" cy="160" r="92" fill="url(#mHaloB)"/>'
+ '<g><path class="m-link" d="M220 160 L220 54"/><path class="m-link" d="M220 160 L350 110"/><path class="m-link" d="M220 160 L330 252"/><path class="m-link" d="M220 160 L110 252"/><path class="m-link" d="M220 160 L90 110"/>'
+ '<path class="m-flow" d="M220 160 L220 54"/><path class="m-flow" d="M220 160 L350 110" style="animation-delay:.2s"/><path class="m-flow" d="M220 160 L330 252" style="animation-delay:.4s"/><path class="m-flow" d="M220 160 L110 252" style="animation-delay:.6s"/><path class="m-flow" d="M220 160 L90 110" style="animation-delay:.8s"/></g>'
+ '<g><rect class="m-node" x="186" y="34" width="68" height="36" rx="9"/><text class="m-label" x="220" y="57">Gmail</text>'
+ '<rect class="m-node" x="316" y="92" width="68" height="36" rx="9"/><text class="m-label" x="350" y="115">Drive</text>'
+ '<rect class="m-node" x="296" y="234" width="68" height="36" rx="9"/><text class="m-label" x="330" y="257">Meet</text>'
+ '<rect class="m-node" x="76" y="234" width="68" height="36" rx="9"/><text class="m-label" x="110" y="257">Docs</text>'
+ '<rect class="m-node" x="56" y="92" width="68" height="36" rx="9"/><text class="m-label" x="90" y="115">Sheets</text></g>'
+ '<rect class="m-hub" x="180" y="134" width="80" height="52" rx="15"/><text class="m-title" x="220" y="158" style="font-size:12px">Workspace</text><text class="m-sub" x="220" y="176">SUITE</text>'
+ '</svg>')
+
+MOTIFS = {
+    "data-analytics-reporting": MOTIF_DATA,
+    "enterprise-ai-agents": MOTIF_AGENTS,
+    "cloud-migration-modernization": MOTIF_CLOUD,
+    "ai-knowledge-search": MOTIF_KNOWLEDGE,
+    "agentic-data-decision-intelligence": MOTIF_DECISIONS,
+    "workspace-ai-transformation": MOTIF_GEMINI,
+    "custom-gemini-applications": MOTIF_CUSTOM,
+    "ai-customer-experience": MOTIF_CX,
+    "secure-ai-adoption-governance": MOTIF_GOV,
+    "google-workspace": MOTIF_WS,
+}
+
+def hero_motif(slug):
+    return MOTIFS.get(slug, MOTIF_DEFAULT)
+
 def checks(items):
     half = (len(items) + 1) // 2
     def col(group): return '<ul class="list-check">%s</ul>' % "".join('<li>%s</li>' % i for i in group)
@@ -299,12 +460,14 @@ def impact_box(items):
 
 def write(path, title, desc, body, active):
     p = "../" * path.count("/")
+    # Three.js (603KB) powers the homepage 3D hero only — inner pages use
+    # lightweight SVG motifs, so they skip the download entirely.
+    three = ('<script defer src="%sassets/js/vendor/three.min.js"></script>' % p) if active == "home" else ""
     scripts = (
         '<script defer src="%sassets/js/main.js"></script>'
         '<script defer src="%sassets/js/vendor/gsap.min.js"></script>'
-        '<script defer src="%sassets/js/vendor/ScrollTrigger.min.js"></script>'
-        '<script defer src="%sassets/js/vendor/three.min.js"></script>'
-        '<script defer src="%sassets/js/aurora.js"></script>' % (p, p, p, p, p))
+        '<script defer src="%sassets/js/vendor/ScrollTrigger.min.js"></script>' % (p, p, p)
+        ) + three + ('<script defer src="%sassets/js/aurora.js"></script>' % p)
     htmlout = head(p, title, desc) + header(p, active) + body + footer(p) + scripts + '</body></html>'
     full = os.path.join(BASE, path)
     os.makedirs(os.path.dirname(full), exist_ok=True)
@@ -324,11 +487,11 @@ def service_body(s, hub, hub_label):
     ph_bg = '<img class="ph-bg" src="%sassets/img/%s.webp" alt="" aria-hidden="true">' % (p, SVC_IMG.get(s["slug"], hub))
     pipe_section = migration_pipeline() if s["slug"] == "google-workspace" else ""
     return (
-    '<section class="page-hero">%s<div class="container"><div class="inner">'
+    '<section class="page-hero">%s<div class="container"><div class="ph-grid"><div class="inner">'
     '<p class="crumb"><a href="%sindex.html">Home</a> › <a href="index.html">%s</a> › %s</p>'
     '<p class="eyebrow eyebrow--light">%s</p><h1>%s</h1><p class="lead">%s</p>'
     '<div class="hero-cta" style="margin-top:26px"><a href="%scontact.html" class="btn btn-primary btn-lg">Talk to us <span class="arrow">→</span></a></div>'
-    '</div></div></section>'
+    '</div><div class="ph-motif">%s</div></div></div></section>'
     '<section class="section"><div class="container"><div class="two-col"><div>'
     '<p class="eyebrow">What it is</p><h2>%s</h2><p class="lead">%s</p></div>%s</div></div></section>'
     '%s'
@@ -336,7 +499,7 @@ def service_body(s, hub, hub_label):
     '<section class="section"><div class="container"><div class="section-head center"><p class="eyebrow">How we work</p><h2>A clear path to value.</h2></div>%s</div></section>'
     '<section class="section section--soft"><div class="container"><div class="section-head"><p class="eyebrow">Related</p><h2>Explore more %s.</h2></div><div class="related">%s</div></div></section>'
     '%s'
-    % (ph_bg, p, hub_label, s["name"], s["eyebrow"], s["name"], s["intro"], p,
+    % (ph_bg, p, hub_label, s["name"], s["eyebrow"], s["name"], s["intro"], p, hero_motif(s["slug"]),
        s["name"] + ".", s["intro"], impact_box(s["impact"]),
        pipe_section,
        svc_bento(s["deliver"]),
@@ -359,11 +522,12 @@ def hub_body(items, hub, eyebrow, title, intro, kind):
             % (p, SVC_IMG.get(s["slug"], hub), s["icon"], s["name"], s["intro"], "".join('<li>%s</li>' % c for c in s["chips"]), s["slug"]) for s in items)
         grid = '<div class="cards ed-cards">%s</div>' % cards
     return (
-    '<section class="page-hero">%s<div class="container"><div class="inner">'
+    '<section class="page-hero">%s<div class="container"><div class="ph-grid"><div class="inner">'
     '<p class="crumb"><a href="%sindex.html">Home</a> › %s</p>'
-    '<p class="eyebrow eyebrow--light">%s</p><h1>%s</h1><p class="lead">%s</p></div></div></section>'
+    '<p class="eyebrow eyebrow--light">%s</p><h1>%s</h1><p class="lead">%s</p></div>'
+    '<div class="ph-motif">%s</div></div></div></section>'
     '<section class="section"><div class="container">%s</div></section>'
-    '%s' % (ph_bg, p, title, eyebrow, title, intro, grid,
+    '%s' % (ph_bg, p, title, eyebrow, title, intro, MOTIF_DEFAULT, grid,
             cta_simple(p, "Not sure where to start?", "Most clients begin with one focused pilot, then expand. Let's find your highest-value first step.")))
 
 def media_row(p, img, eyebrow, title, body_html, side="right", cls=""):

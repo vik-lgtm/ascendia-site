@@ -352,13 +352,13 @@ def hub_body(items, hub, eyebrow, title, intro, kind):
         cards = "".join(
             '<a class="mini" href="%s.html"><div class="mini-media"><img src="%sassets/img/%s.webp" alt="" loading="lazy"></div><span class="tag">%s</span><h3>%s</h3><p>%s</p><span class="more">Learn more →</span></a>'
             % (s["slug"], p, SVC_IMG.get(s["slug"], hub), s["tag"], s["name"], s["nav"]) for s in items)
-        grid = '<div class="cards-7">%s</div>' % cards
+        grid = '<div class="cards-7 ed-bento">%s</div>' % cards
     else:
         cards = "".join(
             '<div class="card"><div class="card-media"><img src="%sassets/img/%s.webp" alt="" loading="lazy"></div><div class="ic">%s</div><h3>%s</h3><p>%s</p>'
             '<ul class="deliver">%s</ul><a href="%s.html" class="card-link">Learn more →</a></div>'
             % (p, SVC_IMG.get(s["slug"], hub), s["icon"], s["name"], s["intro"], "".join('<li>%s</li>' % c for c in s["chips"]), s["slug"]) for s in items)
-        grid = '<div class="cards">%s</div>' % cards
+        grid = '<div class="cards ed-cards">%s</div>' % cards
     return (
     '<section class="page-hero">%s<div class="container"><div class="inner">'
     '<p class="crumb"><a href="%sindex.html">Home</a> › %s</p>'
@@ -443,13 +443,13 @@ def home_body():
     '<section class="section" id="core" data-reveal><div class="container"><div class="section-head"><p class="eyebrow">Core Google technology services</p>'
     '<h2>The foundation: cloud, data and a modern workplace.</h2>'
     '<p class="lead">Get the platform right first. We move workloads to Google Cloud, turn data into decisions, and modernize the way teams work in Google Workspace.</p></div>'
-    '<div class="cards">%s</div>'
+    '<div class="cards ed-cards">%s</div>'
     '<p style="margin-top:26px"><a href="core-services/index.html" class="card-link">See all core services →</a></p></div></section>'
     # agentic
     '<section class="section section--soft" id="agentic" data-reveal><div class="container"><div class="section-head"><p class="eyebrow">Advanced AI-first services</p>'
     '<h2>Agentic AI that does the work.</h2>'
     '<p class="lead">Gemini-powered agents and intelligent systems that automate workflows, surface knowledge and turn data into decisions — deployed responsibly across your organization.</p></div>'
-    '<div class="cards-7 bento">%s</div>'
+    '<div class="cards-7 ed-bento">%s</div>'
     '<p style="margin-top:26px"><a href="agentic-ai/index.html" class="card-link">See all agentic AI services →</a></p></div></section>'
     # approach
     '<section class="section" data-reveal><div class="container"><div class="section-head center"><p class="eyebrow">Our approach</p>'

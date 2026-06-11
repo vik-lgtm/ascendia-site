@@ -294,3 +294,32 @@ body::after{
     opacity:1 !important;transform:none !important;transition:none !important;
   }
 }
+
+/* ============================================================================
+   9 · SIGNATURE COMPONENTS — editorial asymmetric grids (FINDING-006)
+   Replaces uniform card grids on the service hubs + home with feature-led,
+   asymmetric compositions so the category pages read designed, not templated.
+   ============================================================================ */
+/* Agentic: 4-col grid, lead card spans 2 (7 cards → row1: feature+2, row2: 4) */
+.ed-bento{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.ed-bento .mini{display:flex;flex-direction:column}
+.ed-bento .mini .mini-media{margin:-24px -22px 16px}
+.ed-bento .mini:first-child{grid-column:span 2;background:linear-gradient(155deg,var(--surface),var(--surface-2))}
+.ed-bento .mini:first-child h3{font-size:1.5rem;letter-spacing:-.018em;color:#fff}
+.ed-bento .mini:first-child p{font-size:1.02rem;color:#C7D4E6;max-width:54ch}
+.ed-bento .mini:first-child .mini-media{min-height:172px}
+.ed-bento .mini:first-child .more{margin-top:auto;padding-top:14px}
+@media(max-width:900px){.ed-bento{grid-template-columns:repeat(2,1fr)}.ed-bento .mini:first-child{grid-column:span 2}}
+@media(max-width:560px){.ed-bento{grid-template-columns:1fr}.ed-bento .mini:first-child{grid-column:span 1}}
+
+/* Core: full-width lead banner card + two beneath */
+.ed-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.ed-cards .card:first-child{grid-column:1 / -1}
+.ed-cards .card:first-child .card-media{height:230px}
+.ed-cards .card:first-child h3{font-size:1.5rem;letter-spacing:-.018em}
+.ed-cards .card:first-child p{font-size:1.02rem;color:#C7D4E6;max-width:72ch}
+@media(max-width:760px){
+  .ed-cards{grid-template-columns:1fr}
+  .ed-cards .card:first-child{grid-column:1}
+  .ed-cards .card:first-child .card-media{height:160px}
+}

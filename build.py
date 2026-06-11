@@ -240,7 +240,6 @@ def head(p, title, desc):
     '<title>%s</title><meta name="description" content="%s">'
     '<meta property="og:title" content="%s"><meta property="og:description" content="%s"><meta property="og:type" content="website">'
     '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
-    '<link rel="preconnect" href="https://cdnjs.cloudflare.com">'
     '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">'
     '<link rel="stylesheet" href="%sassets/css/styles.css">'
     '<link rel="stylesheet" href="%sassets/css/aurora.css"></head><body>' % (title, desc, title, desc, p, p))
@@ -301,11 +300,11 @@ def impact_box(items):
 def write(path, title, desc, body, active):
     p = "../" * path.count("/")
     scripts = (
-        '<script src="%sassets/js/main.js"></script>'
-        '<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>'
-        '<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>'
-        '<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>'
-        '<script src="%sassets/js/aurora.js"></script>' % (p, p))
+        '<script defer src="%sassets/js/main.js"></script>'
+        '<script defer src="%sassets/js/vendor/gsap.min.js"></script>'
+        '<script defer src="%sassets/js/vendor/ScrollTrigger.min.js"></script>'
+        '<script defer src="%sassets/js/vendor/three.min.js"></script>'
+        '<script defer src="%sassets/js/aurora.js"></script>' % (p, p, p, p, p))
     htmlout = head(p, title, desc) + header(p, active) + body + footer(p) + scripts + '</body></html>'
     full = os.path.join(BASE, path)
     os.makedirs(os.path.dirname(full), exist_ok=True)

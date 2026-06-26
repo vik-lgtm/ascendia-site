@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Velivance static site generator.
+Avanciers Digital static site generator.
 One source of truth for the dropdown nav, header, footer and all page content.
 Run:  python3 build.py      → regenerates every .html under site/
 Edit content below (brand name, service copy, leadership) and re-run.
@@ -8,7 +8,7 @@ Edit content below (brand name, service copy, leadership) and re-run.
 import os
 
 BASE = os.path.dirname(os.path.abspath(__file__))
-BRAND = "Velivance"
+BRAND = "Avanciers Digital"
 TAGLINE = ""
 YEAR = "2026"
 
@@ -79,11 +79,11 @@ CHART_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linec
 GRID_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>'
 SPARK_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M18 6l-2.5 2.5M8.5 15.5L6 18"/><circle cx="12" cy="12" r="2.4"/></svg>'
 
-# Migration pipeline (Google Workspace signature visual): FROM → Velivance → Workspace suite
+# Migration pipeline (Google Workspace signature visual): FROM → Avanciers Digital → Workspace suite
 PIPELINE_SVG = (
     '<svg viewBox="0 0 1080 340" role="img" aria-hidden="true">'
     '<defs><radialGradient id="hubHalo" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(255,107,43,0.32)"/><stop offset="100%" stop-color="rgba(255,107,43,0)"/></radialGradient></defs>'
-    '<text class="pipe-cap" x="150" y="40">From</text><text class="pipe-cap" x="540" y="40">Velivance</text><text class="pipe-cap" x="930" y="40">To Google Workspace</text>'
+    '<text class="pipe-cap" x="150" y="40">From</text><text class="pipe-cap" x="540" y="40">Avanciers Digital</text><text class="pipe-cap" x="930" y="40">To Google Workspace</text>'
     '<circle cx="540" cy="180" r="110" fill="url(#hubHalo)"/>'
     '<g><path class="pipe-base" d="M225 100 C330 100 360 180 455 180"/><path class="pipe-base" d="M225 180 H455"/><path class="pipe-base" d="M225 260 C330 260 360 180 455 180"/>'
     '<path class="pipe-flow" d="M225 100 C330 100 360 180 455 180"/><path class="pipe-flow" d="M225 180 H455"/><path class="pipe-flow" d="M225 260 C330 260 360 180 455 180"/></g>'
@@ -92,7 +92,7 @@ PIPELINE_SVG = (
     '<g><rect class="pipe-node src" x="75" y="78" width="150" height="44" rx="11"/><text class="pipe-label" x="150" y="105">Microsoft 365</text>'
     '<rect class="pipe-node src" x="75" y="158" width="150" height="44" rx="11"/><text class="pipe-label" x="150" y="185">Legacy Email</text>'
     '<rect class="pipe-node src" x="75" y="238" width="150" height="44" rx="11"/><text class="pipe-label" x="150" y="265">Disconnected Tools</text></g>'
-    '<g><rect class="pipe-hub" x="455" y="135" width="170" height="90" rx="18"/><text class="pipe-hub-label" x="540" y="178">Velivance</text><text class="pipe-hub-sub" x="540" y="200">MIGRATE · SECURE · ADOPT</text></g>'
+    '<g><rect class="pipe-hub" x="455" y="135" width="170" height="90" rx="18"/><text class="pipe-hub-label" x="540" y="178">Avanciers</text><text class="pipe-hub-sub" x="540" y="200">MIGRATE · SECURE · ADOPT</text></g>'
     '<g><rect class="pipe-node" x="784" y="80" width="92" height="40" rx="10"/><circle cx="800" cy="100" r="4" fill="#EA4335"/><text class="pipe-label" x="838" y="105">Gmail</text>'
     '<rect class="pipe-node" x="904" y="80" width="92" height="40" rx="10"/><circle cx="920" cy="100" r="4" fill="#FBBC04"/><text class="pipe-label" x="958" y="105">Drive</text>'
     '<rect class="pipe-node" x="784" y="160" width="92" height="40" rx="10"/><circle cx="800" cy="180" r="4" fill="#34A853"/><text class="pipe-label" x="838" y="185">Meet</text>'
@@ -304,7 +304,7 @@ def migration_pipeline():
     return (
     '<section class="section section--alt"><div class="container">'
     '<div class="section-head center"><p class="eyebrow">The migration</p><h2>From scattered tools to one secure suite.</h2>'
-    '<p class="lead" style="margin:0 auto">Microsoft 365, legacy email and disconnected tools, consolidated through Velivance into a single Google Workspace your teams actually want to use.</p></div>'
+    '<p class="lead" style="margin:0 auto">Microsoft 365, legacy email and disconnected tools, consolidated through Avanciers Digital into a single Google Workspace your teams actually want to use.</p></div>'
     '<div class="pipeline">%s</div></div></section>' % PIPELINE_SVG)
 
 # ----------------------------------------------------------------------------
@@ -608,8 +608,9 @@ def home_body():
     '<div class="orb orb-a" aria-hidden="true"></div><div class="orb orb-b" aria-hidden="true"></div>'
     '<div class="hero-scan" aria-hidden="true"></div>'
     '<div class="container"><div class="hero-inner"><p class="eyebrow eyebrow--light">Google-first · AI · Data · Cloud</p>'
-    '<h1>Build your <span class="rot"><span class="grad">AI-first</span><span class="grad">data-driven</span><span class="grad">cloud-native</span></span> business on Google.</h1>'
-    '<p class="lead">We help enterprises modernize on Google Cloud and put Gemini-powered AI agents to work across the business — turning Google technology into measurable outcomes, securely and at scale.</p>'
+    '<span class="plat-badge">★ Powered by <b>Velocity</b> — our Google-AI delivery accelerator</span>'
+    '<h1>Your Google-first <span class="grad">AI transformation</span> partner.</h1>'
+    '<p class="lead">Avanciers Digital accelerates revenue growth and operational efficiency with Google AI and senior engineering teams — the seamless blend of technology, data and human ingenuity.</p>'
     '<div class="hero-cta"><a href="contact.html" class="btn btn-primary btn-lg">Request a consultation <span class="arrow">→</span></a>'
     '<a href="agentic-ai/index.html" class="btn btn-outline btn-lg">Explore services</a></div>'
     '<div class="hero-trust"><span class="badge"><span class="gdots"><i></i><i></i><i></i><i></i></span> Certified Google Cloud Partner</span>'
@@ -622,6 +623,9 @@ def home_body():
     '<div class="stat"><div class="num"><span data-count="1500">1,500</span><span>+</span></div><div class="label">Specialists placed since 2015</div></div>'
     '<div class="stat"><div class="num"><span data-count="300">300</span><span>+</span></div><div class="label">Consultants on tap</div></div></div>'
     '<p class="stat-note">Credentials and delivery scale of our parent and operating engine, Avanciers — a women-owned global talent &amp; technology firm.</p></div></section>'
+    # client logo strip (TELUS-style, up high)
+    '<section class="logo-strip" data-reveal><div class="container"><p class="ls-label">Trusted across enterprises &amp; system integrators</p>'
+    '<div class="ls-logos"><span>Deloitte</span><span>Wipro</span><span>Infosys</span><span>Cognizant</span><span>Tech&nbsp;Mahindra</span><span>Mphasis</span><span>Sonata</span><span>ABB</span></div></div></section>'
     # tech marquee
     '<div class="marquee" aria-hidden="true"><div class="marquee-track">'
     '<span class="mq-item">Gemini</span><span class="mq-dot"></span><span class="mq-item">Vertex AI</span><span class="mq-dot"></span>'
@@ -673,6 +677,15 @@ def home_body():
     '<div class="step"><h3>Build &amp; Migrate</h3><p>Modernize systems and ship agents, apps and analytics.</p></div>'
     '<div class="step"><h3>Govern</h3><p>Access control, human-in-the-loop and responsible AI.</p></div>'
     '<div class="step"><h3>Scale</h3><p>Adopt, measure ROI and expand the operating model.</p></div></div></div></section>'
+    # light outcomes band (TELUS white-section borrow + staffing→outcomes reframe)
+    '<section class="light-band" data-reveal><div class="container"><div class="section-head"><p class="eyebrow">Proof in outcomes</p>'
+    '<h2>Outcomes, not <span class="grad">headcount.</span></h2>'
+    '<p class="lead">A staffing company sells people. A digital partner sells results — and measures itself on yours.</p></div>'
+    '<div class="lb-grid">'
+    '<div class="lb-stat"><div class="n">60<span>%%</span></div><div class="l">Faster deployment after migrating core workloads to Google Cloud.</div></div>'
+    '<div class="lb-stat"><div class="n">40<span>%%</span></div><div class="l">Lower cloud spend through right-sizing and committed-use planning.</div></div>'
+    '<div class="lb-stat"><div class="n">days<span>→</span>min</div><div class="l">From question to decision with a Gemini ask-your-business layer.</div></div>'
+    '</div></div></section>'
     # artwork reel
     '<section class="reel-band" data-reveal><div class="reel"><div class="reel-track">'
     '<img src="assets/img/agentic-ai.webp" alt="" loading="lazy"><img src="assets/img/core-services.webp" alt="" loading="lazy">'
@@ -715,7 +728,7 @@ def home_body():
     '<section class="cta-band" id="contact"><div class="container"><div class="cta-inner"><div>'
     '<p class="eyebrow eyebrow--light">Let\'s build</p><h2>Build your AI-first business on Google.</h2>'
     '<p class="lead">Tell us the workflow, decision or migration you want to tackle first. We\'ll come back with a focused, fixed-scope way to start — usually a 4–6 week pilot.</p></div>%s</div></div></section>'
-    % (core_cards, ag_cards, media_row(p, "consultant", "The people", "Specialists who deliver, not just advise.", "<p>Certified Google Cloud architects and AI engineers who stay in the build from scoping to production — measured against your number, not ours.</p>", side="right"), ph_platform, gp, BRAND, lead_form()))
+    % (core_cards, ag_cards, media_row(p, "team-collab", "Why Avanciers Digital", "Technology, data &amp; <span class=\"grad\">human ingenuity.</span>", "<p>Google's AI is only half the answer. The other half is the senior engineers and delivery teams who've shipped for Tier-1 enterprises for a decade — the depth a staffing-born company has in abundance. We don't hide it; we lead with it.</p>", side="right"), ph_platform, gp, BRAND, lead_form()))
 
 def partnership_body():
     p = ""
@@ -747,7 +760,7 @@ def about_body():
     '<section class="section"><div class="container"><div class="two-col"><div>'
     '<p class="eyebrow">Our story</p><h2>Specialist by design.</h2>'
     '<p class="lead">The market is full of generalists juggling three clouds. We chose the opposite path: go deep on Google. As a Certified Google Cloud Partner, we pair that focus with a decade of enterprise delivery from our parent, Avanciers — so clients get a specialist\'s edge with an established firm\'s backbone.</p>'
-    '<p>The name carries the mandate: <em>velox</em> — Latin for swift — joined with <em>advance</em>. Move fast, move forward — securely.</p>'
+    '<p>Avanciers Digital is the AI, data and cloud arm of Avanciers — the same delivery muscle that has served Big-4 and Tier-1 enterprises since 2014, now pointed entirely at Google.</p>'
     '<p>We prove every capability on our own business before we sell it, then deliver it with secure, governed, ROI-led engagements.</p></div>'
     '<div class="impact-box"><p style="font-weight:700;color:var(--navy-800);font-family:var(--display);margin-bottom:6px">What we believe</p><ul>'
     '<li>Specialization beats breadth</li><li>Agents should act, not just answer</li><li>Every engagement has a measurable result</li><li>AI must be secure and governed</li><li>Prove it on ourselves first</li></ul></div></div></div></section>'
@@ -790,7 +803,7 @@ def contact_body():
     '<p class="lead">Tell us the workflow, decision or migration you want to tackle. We\'ll come back with a focused, fixed-scope way to start.</p></div></div></section>'
     '<section class="section"><div class="container"><div class="contact-grid"><div class="contact-info">'
     '<div class="mr-media" style="aspect-ratio:16/10;margin-bottom:26px"><img src="assets/img/consultant.webp" alt="" loading="lazy"></div>'
-    '<div class="ci"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8fb7e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="m4 6 8 6 8-6"/></svg></div><div><h3>Email</h3><p><a href="mailto:hello@velivance.com">hello@velivance.com</a></p></div></div>'
+    '<div class="ci"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8fb7e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="m4 6 8 6 8-6"/></svg></div><div><h3>Email</h3><p><a href="mailto:vik@avanciers.com">vik@avanciers.com</a></p></div></div>'
     '<div class="ci"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8fb7e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div><h3>Response time</h3><p>We reply within one business day.</p></div></div>'
     '<div class="ci"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8fb7e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><h3>Where we operate</h3><p>Through Avanciers, across four countries.</p><div class="offices"><span class="office">Canada</span><span class="office">USA</span><span class="office">Mexico</span><span class="office">India</span></div></div></div>'
     '</div><div>%s</div></div></div></section>' % lead_form())
@@ -804,7 +817,7 @@ def legal_body():
     body = (
         '<h2 id="privacy">Privacy</h2><p class="muted">We collect only the information you provide through our contact form '
         '(name, work email, company and your message) to respond to your enquiry. We do not sell your data. You can request '
-        'access to or deletion of your information at any time by emailing <a href="mailto:hello@velivance.com">hello@velivance.com</a>.</p>'
+        'access to or deletion of your information at any time by emailing <a href="mailto:vik@avanciers.com">vik@avanciers.com</a>.</p>'
         + sec("Cookies", "We use essential cookies to run the site and privacy-respecting analytics to understand traffic. You can control cookies in your browser settings.")
         + sec("Terms of use", f"Content on this site is provided for general information about {BRAND} services and is offered without warranty. Trademarks and product names (including Google, Google Cloud, Gemini, BigQuery and Looker) belong to their respective owners.")
         + sec("Data security", "Information is handled in line with our information-security program (ISO 27001, ISO 42001, SOC 2 and GDPR — in progress, targeted 2026). Contact us for our current security posture.")

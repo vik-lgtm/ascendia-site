@@ -513,3 +513,22 @@ ul{margin:0;padding:0}
   .step::before{animation:none}
   .mini-media img{transition:none}
 }
+
+/* ===== TELUS-playbook borrows (Avanciers Digital) ===== */
+.plat-badge{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:#ffd9c7;background:rgba(233,116,81,.12);border:1px solid rgba(233,116,81,.35);padding:7px 13px;border-radius:100px;margin:0 0 18px}
+.plat-badge b{color:#fff;font-family:var(--display);letter-spacing:0;font-weight:700}
+.logo-strip{padding:28px 0;background:var(--bg-alt);border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2)}
+.logo-strip .container{display:flex;align-items:center;gap:clamp(20px,4vw,46px);flex-wrap:wrap}
+.ls-label{font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--slate-300);white-space:nowrap;margin:0}
+.ls-logos{display:flex;align-items:center;gap:clamp(18px,3.2vw,42px);flex-wrap:wrap}
+.ls-logos span{font-family:var(--display);font-weight:700;font-size:1.04rem;color:#74849b}
+.light-band{background:#F4F6FA;color:#0B1220;padding:clamp(84px,11vw,116px) 0;border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2)}
+.light-band .eyebrow{color:#a85638}
+.light-band h2{color:#0B1220}
+.light-band .lead{color:#51607a}
+.lb-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:44px}
+.lb-stat{background:#fff;border:1px solid #e3e8f0;border-radius:16px;padding:30px 28px;box-shadow:0 10px 30px rgba(16,30,60,.06)}
+.lb-stat .n{font-family:var(--display);font-weight:800;font-size:clamp(2.4rem,4vw,3.2rem);letter-spacing:-.03em;color:#0B1220;line-height:1;font-variant-numeric:tabular-nums}
+.lb-stat .n span{color:var(--accent)}
+.lb-stat .l{color:#51607a;margin-top:8px;font-size:.95rem}
+@media(max-width:900px){.lb-grid{grid-template-columns:1fr}.logo-strip .container{gap:14px}}

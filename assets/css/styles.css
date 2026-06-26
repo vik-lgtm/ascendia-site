@@ -126,7 +126,7 @@ ul{margin:0;padding:0}
 .hero h1{color:#fff;margin-bottom:18px;font-size:clamp(2.8rem,6vw,4.7rem)}
 .hero h1 .w{display:inline-block}
 .hero h1.split .w{opacity:0;transform:translateY(30px);animation:wordup .75s cubic-bezier(.2,.65,.25,1) forwards}
-.grad{background:linear-gradient(94deg,#ff9d6b,var(--accent) 50%,#ffbe8f);-webkit-background-clip:text;background-clip:text;color:transparent}
+.grad{color:#ff9d77;background:none;-webkit-text-fill-color:#ff9d77}
 .hero .lead{color:#c4d2e4;font-size:1.24rem;max-width:60ch;margin-bottom:30px;animation:fadeup .7s .55s both}
 .hero .eyebrow{animation:fadeup .6s .1s both}
 .hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:34px;animation:fadeup .7s .75s both}
@@ -515,7 +515,7 @@ ul{margin:0;padding:0}
 }
 
 /* ===== TELUS-playbook borrows (Avanciers Digital) ===== */
-.plat-badge{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:#ffd9c7;background:rgba(233,116,81,.12);border:1px solid rgba(233,116,81,.35);padding:7px 13px;border-radius:100px;margin:0 0 18px}
+.plat-badge{display:flex;flex-wrap:wrap;width:fit-content;max-width:100%;align-items:center;gap:8px;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:#ffd9c7;background:rgba(233,116,81,.12);border:1px solid rgba(233,116,81,.35);padding:7px 13px;border-radius:100px;margin:0 0 18px}
 .plat-badge b{color:#fff;font-family:var(--display);letter-spacing:0;font-weight:700}
 .logo-strip{padding:28px 0;background:var(--bg-alt);border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2)}
 .logo-strip .container{display:flex;align-items:center;gap:clamp(20px,4vw,46px);flex-wrap:wrap}

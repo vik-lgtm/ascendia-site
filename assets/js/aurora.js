@@ -180,5 +180,10 @@
     document.querySelectorAll(".pipeline").forEach(function (pl) {
       gsap.from(pl, { opacity: 0, y: 24, duration: 0.9, ease: "power3.out", scrollTrigger: { trigger: pl, start: "top 85%" } });
     });
+    /* Recompute trigger positions after fonts/images settle, so in-view reveals
+       (svc-bento, vstep, pipeline) can never get stuck at opacity:0 from stale layout. */
+    var hardReveal = function () { if (window.ScrollTrigger) ScrollTrigger.refresh(); };
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(hardReveal);
+    window.addEventListener("load", hardReveal);
   }
 })();

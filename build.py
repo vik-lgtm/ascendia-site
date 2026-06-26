@@ -608,7 +608,7 @@ def home_body():
     '<div class="orb orb-a" aria-hidden="true"></div><div class="orb orb-b" aria-hidden="true"></div>'
     '<div class="hero-scan" aria-hidden="true"></div>'
     '<div class="container"><div class="hero-inner"><p class="eyebrow eyebrow--light">Google-first · AI · Data · Cloud</p>'
-    '<span class="plat-badge">★ Powered by <b>Velocity</b> — our Google-AI delivery accelerator</span>'
+    '<span class="plat-badge">★ <b>Avanciers Digital</b> — your Google-AI delivery accelerator</span>'
     '<h1>Your Google-first <span class="grad">AI transformation</span> partner.</h1>'
     '<p class="lead">Avanciers Digital accelerates revenue growth and operational efficiency with Google AI and senior engineering teams — the seamless blend of technology, data and human ingenuity.</p>'
     '<div class="hero-cta"><a href="contact.html" class="btn btn-primary btn-lg">Request a consultation <span class="arrow">→</span></a>'

@@ -9,6 +9,7 @@ import os
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 BRAND = "Avanciers Digital"
+SITE_ORIGIN = "https://avanciersdigital.com"  # apex; used for canonical, og:url, sitemap
 TAGLINE = ""
 YEAR = "2026"
 
@@ -67,7 +68,7 @@ AGENTIC = [
     dict(slug="secure-ai-adoption-governance", name="Secure AI Adoption & Governance", tag="Trust",
         nav="Adopt AI safely — governance, access control, oversight.",
         eyebrow="Trust · responsible AI",
-        intro="We help organizations adopt AI safely, responsibly and at scale. Our approach covers security, access control, data governance, human-approval workflows, responsible-AI practices and enterprise-ready deployment standards — so you use AI confidently without losing control of sensitive data, systems or decisions. Our own compliance program targets ISO 42001 (AI management), ISO 27001, SOC 2 and GDPR.",
+        intro="We help organizations adopt AI safely, responsibly and at scale. Our approach covers security, access control, data governance, human-approval workflows, responsible-AI practices and enterprise-ready deployment standards — so you use AI confidently without losing control of sensitive data, systems or decisions. Our own approach aligns to ISO 42001 (AI management), ISO 27001, SOC 2 and GDPR practices.",
         what="Ungoverned AI is how promising pilots get shut down. We set the guardrails — access control, human-approval workflows, usage policies, monitoring — aligned to standards like ISO 42001 and ISO 27001, so your teams move fast while data, systems and decisions stay under control.",
         deliver=["AI governance frameworks","Secure Gemini deployment plans","Access control & permission models","Human-in-the-loop approval workflows","AI usage policies","Cloud security foundations","Monitoring & compliance workflows"],
         impact=["Reduce AI adoption risk","Protect sensitive business data","Give leaders control over AI usage","Support responsible, compliant deployment","Build trust in enterprise AI"],
@@ -231,7 +232,7 @@ def footer(p):
     '<div><a href="%sindex.html" class="brand" style="margin-bottom:6px">%s'
     '<span class="brand-text"><span class="brand-name">%s</span></span></a>'
     '<p class="footer-blurb">Google-first AI, data and cloud transformation. We turn Google technology into measurable business outcomes.</p>'
-    '<span class="badge" style="background:rgba(255,255,255,.06)"><span class="gdots"><i></i><i></i><i></i><i></i></span> Certified Google Cloud Partner</span></div>'
+    '<span class="badge" style="background:rgba(255,255,255,.06)"><span class="gdots"><i></i><i></i><i></i><i></i></span> Google Cloud specialists</span></div>'
     '<div><h4>Agentic AI</h4><ul>%s</ul></div>'
     '<div><h4>Core Services</h4><ul>%s</ul></div>'
     '<div><h4>Company</h4><ul>'
@@ -250,21 +251,26 @@ MOTIF_DEFS = (
     '<radialGradient id="mHaloB" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(0,212,255,0.32)"/><stop offset="100%" stop-color="rgba(0,212,255,0)"/></radialGradient>'
     '</defs></svg>')
 
-def head(p, title, desc):
+def canon_path(path):
+    # served URL path for a generated file: index.html → its directory root
+    return path[:-10] if path.endswith("index.html") else path
+
+def head(p, title, desc, canonical):
     return (
     '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">'
     '<meta name="viewport" content="width=device-width, initial-scale=1.0">'
     '<meta name="theme-color" content="#0A0F1E"><meta name="referrer" content="strict-origin-when-cross-origin">'
     '<meta name="robots" content="noindex">'  # PRE-LAUNCH: remove this line + rebuild to allow search indexing at launch
     '<title>%s</title><meta name="description" content="%s">'
+    '<link rel="canonical" href="%s"><meta property="og:url" content="%s">'
     '<meta property="og:title" content="%s"><meta property="og:description" content="%s"><meta property="og:type" content="website">'
-    '<meta property="og:image" content="https://vik-lgtm.github.io/ascendia-site/assets/img/hero.jpg">'
+    '<meta property="og:image" content="https://avanciersdigital.com/assets/img/hero.jpg">'
     '<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="%s"><meta name="twitter:description" content="%s">'
-    '<meta name="twitter:image" content="https://vik-lgtm.github.io/ascendia-site/assets/img/hero.jpg">'
+    '<meta name="twitter:image" content="https://avanciersdigital.com/assets/img/hero.jpg">'
     '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
     '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">'
     '<link rel="stylesheet" href="%sassets/css/styles.css">'
-    '<link rel="stylesheet" href="%sassets/css/aurora.css"></head><body>' % (title, desc, title, desc, title, desc, p, p)) + MOTIF_DEFS
+    '<link rel="stylesheet" href="%sassets/css/aurora.css"></head><body>' % (title, desc, canonical, canonical, title, desc, title, desc, p, p)) + MOTIF_DEFS
 
 def cta_simple(p, heading, text, aside=""):
     return ('<section class="cta-band"><div class="container"><div class="cta-inner">'
@@ -513,6 +519,7 @@ def impact_box(items):
 
 def write(path, title, desc, body, active):
     p = "../" * path.count("/")
+    canonical = SITE_ORIGIN + "/" + canon_path(path)
     # Three.js (603KB) powers the homepage 3D hero only — inner pages use
     # lightweight SVG motifs, so they skip the download entirely.
     three = ('<script defer src="%sassets/js/vendor/three.min.js"></script>' % p) if active == "home" else ""
@@ -521,7 +528,7 @@ def write(path, title, desc, body, active):
         '<script defer src="%sassets/js/vendor/gsap.min.js"></script>'
         '<script defer src="%sassets/js/vendor/ScrollTrigger.min.js"></script>' % (p, p, p)
         ) + three + ('<script defer src="%sassets/js/aurora.js"></script>' % p)
-    htmlout = (head(p, title, desc) + header(p, active)
+    htmlout = (head(p, title, desc, canonical) + header(p, active)
                + '<a class="skip" href="#main">Skip to content</a><main id="main">' + body + '</main>'
                + footer(p) + scripts + '</body></html>')
     full = os.path.join(BASE, path)
@@ -619,19 +626,19 @@ def home_body():
     '<p class="lead">Avanciers Digital accelerates revenue growth and operational efficiency with Google AI and senior engineering teams — the seamless blend of technology, data and human ingenuity.</p>'
     '<div class="hero-cta"><a href="contact.html" class="btn btn-primary btn-lg">Request a consultation <span class="arrow">→</span></a>'
     '<a href="agentic-ai/index.html" class="btn btn-outline btn-lg">Explore services</a></div>'
-    '<div class="hero-trust"><span class="badge"><span class="gdots"><i></i><i></i><i></i><i></i></span> Certified Google Cloud Partner</span>'
-    '<span>Backed by <strong>Avanciers</strong> · operating since 2014 across 4 countries</span></div></div></div></section>'
+    '<div class="hero-trust"><span class="badge"><span class="gdots"><i></i><i></i><i></i><i></i></span> Google Cloud specialists</span>'
+    '<span>Backed by <strong>Avanciers</strong> · operating across 4 countries</span></div></div></div></section>'
     # stat band
     '<section class="stat-band"><div class="container"><div class="stat-grid">'
-    '<div class="stat"><div class="num">Strategic</div><div class="label">Google Cloud Partner</div></div>'
+    '<div class="stat"><div class="num">Google</div><div class="label">Our one and only cloud</div></div>'
     '<div class="stat"><div class="num"><span data-count="10">10</span><span>+</span> yrs</div><div class="label">Enterprise delivery heritage</div></div>'
     '<div class="stat"><div class="num"><span data-count="4">4</span></div><div class="label">Countries · 4 entities</div></div>'
-    '<div class="stat"><div class="num"><span data-count="1500">1,500</span><span>+</span></div><div class="label">Specialists placed since 2015</div></div>'
+    '<div class="stat"><div class="num"><span data-count="1500">1,500</span><span>+</span></div><div class="label">Specialists placed by Avanciers</div></div>'
     '<div class="stat"><div class="num"><span data-count="300">300</span><span>+</span></div><div class="label">Consultants on tap</div></div></div>'
     '<p class="stat-note">Credentials and delivery scale of our parent and operating engine, Avanciers — a women-owned global talent &amp; technology firm.</p></div></section>'
-    # client logo strip (TELUS-style, up high)
-    '<section class="logo-strip" data-reveal><div class="container"><p class="ls-label">Trusted across enterprises &amp; system integrators</p>'
-    '<div class="ls-logos"><span>Deloitte</span><span>Wipro</span><span>Infosys</span><span>Cognizant</span><span>Tech&nbsp;Mahindra</span><span>Mphasis</span><span>Sonata</span><span>ABB</span></div></div></section>'
+    # credibility strip (parent scale; no third-party logos)
+    '<section class="logo-strip" data-reveal><div class="container"><p class="ls-label">Backed by Avanciers — a decade of enterprise delivery across Canada, USA, Mexico &amp; India</p>'
+    '<div class="ls-logos"><span>Big-4 consultancies</span><span>Tier-1 system integrators</span><span>Global enterprises</span><span>Public sector</span></div></div></section>'
     # tech marquee
     '<div class="marquee" aria-hidden="true"><div class="marquee-track">'
     '<span class="mq-item">Gemini</span><span class="mq-dot"></span><span class="mq-item">Vertex AI</span><span class="mq-dot"></span>'
@@ -653,7 +660,7 @@ def home_body():
     '<div class="prop"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8fb7e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><h3>Google specialist</h3><p>One ecosystem, mastered — not a generalist juggling three clouds.</p></div>'
     '<div class="prop"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8fb7e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 1 4 4c1.5 0 3 1.5 3 3a3.5 3.5 0 0 1 0 7c0 1.5-1.5 3-3 3a4 4 0 0 1-8 0c-1.5 0-3-1.5-3-3a3.5 3.5 0 0 1 0-7c0-1.5 1.5-3 3-3a4 4 0 0 1 4-4z"/></svg></div><h3>Agentic-AI first</h3><p>We design Gemini agents that act, not just answer.</p></div>'
     '<div class="prop"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8fb7e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg></div><h3>Outcome &amp; ROI-led</h3><p>Every engagement is scoped to a result and measured.</p></div>'
-    '<div class="prop"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8fb7e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Secure &amp; governed</h3><p>Responsible AI and data governance built in. ISO 27001, ISO 42001, SOC 2 &amp; GDPR in progress.</p></div></div></div></section>'
+    '<div class="prop"><div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8fb7e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Secure &amp; governed</h3><p>Responsible AI and data governance built in, aligned to ISO 27001, ISO 42001, SOC 2 &amp; GDPR practices.</p></div></div></div></section>'
     # why now
     '<section class="section section--alt" data-reveal><div class="container"><div class="whynow"><div>'
     '<p class="eyebrow">Why now</p><h2>The AI window is open. Most enterprises can\'t walk through it alone.</h2>'
@@ -707,7 +714,7 @@ def home_body():
     # partnership
     '<section class="section partner" id="partnership" data-reveal>%s<div class="container"><div class="section-head"><p class="eyebrow eyebrow--light">The Google advantage</p>'
     '<h2>One ecosystem. Every layer of the AI-first enterprise.</h2>'
-    '<p class="lead">As a Certified Google Cloud Partner, we build across the full Google stack — and bring co-sell, funded proofs-of-concept and Marketplace access to every engagement.</p></div>'
+    '<p class="lead">We build across the full Google stack — Gemini, Vertex AI, BigQuery, Looker and more — with senior engineers who go deep on one ecosystem instead of spreading thin across three.</p></div>'
     '<div class="gproducts">%s</div>'
     '<p style="margin-top:28px"><a href="partnership.html" class="btn btn-outline">More on our partnership →</a></p></div></section>'
     # proof
@@ -723,12 +730,12 @@ def home_body():
     # backed
     '<section class="section" data-reveal><div class="container"><div class="backed"><div>'
     '<p class="eyebrow">Backed by Avanciers</p><h2>A startup\'s focus. An established firm\'s backbone.</h2>'
-    '<p class="lead">%s is launched and backed by <strong>Avanciers</strong> — a women-owned global talent and technology firm operating since 2014 across Canada, the USA, Mexico and India, serving Big-4 and Tier-1 enterprises.</p>'
-    '<div class="creds"><span class="cred">Certified Google Cloud Partner (Strategic)</span><span class="cred">Certified Salesforce Partner</span>'
-    '<span class="cred">Women-owned &amp; diversity-certified</span><span class="cred">OECM Supplier Partner</span><span class="cred">ISO 27001 · ISO 42001 · SOC 2 · GDPR — in progress</span></div>'
+    '<p class="lead">%s is launched and backed by <strong>Avanciers</strong> — a women-owned global talent and technology firm operating across Canada, the USA, Mexico and India, serving Big-4 and Tier-1 enterprises.</p>'
+    '<div class="creds"><span class="cred">Google Cloud specialists</span>'
+    '<span class="cred">Women-owned business</span><span class="cred">OECM Supplier Partner</span><span class="cred">Aligned to ISO 27001 · ISO 42001 · SOC 2 · GDPR</span></div>'
     '<p style="margin-top:18px"><a href="about.html" class="card-link">More about us →</a></p></div>'
-    '<div><div class="impact-box"><p style="font-weight:700;color:var(--navy-800);margin-bottom:14px;font-family:var(--display)">Trusted by leading enterprises &amp; system integrators</p>'
-    '<div class="logos-row"><span>Deloitte</span><span>Wipro</span><span>Infosys</span><span>Cognizant</span><span>Tech&nbsp;Mahindra</span><span>Mphasis</span><span>Sonata</span><span>ABB</span></div>'
+    '<div><div class="impact-box"><p style="font-weight:700;color:var(--navy-800);margin-bottom:14px;font-family:var(--display)">The scale behind us — Avanciers</p>'
+    '<div class="logos-row"><span>Big-4 consultancies</span><span>Tier-1 SIs</span><span>Global enterprises</span><span>Public sector</span></div>'
     '<p class="muted" style="font-size:.86rem;margin:20px 0 0">4 entities · 350+ families supported through our consultant network.</p></div></div></div></div></section>'
     # cta + form
     '<section class="cta-band" id="contact"><div class="container"><div class="cta-inner"><div>'
@@ -744,17 +751,17 @@ def partnership_body():
     gp = "".join('<div class="gp"><div class="gp-name">%s</div><div class="gp-desc">%s</div></div>' % (n, d) for n, d in gproducts)
     return (
     '<section class="page-hero"><div class="container"><div class="inner"><p class="crumb"><a href="index.html">Home</a> › Partnership</p>'
-    '<p class="eyebrow eyebrow--light">The Google advantage</p><h1>A Certified Google Cloud Partner.</h1>'
-    '<p class="lead">We concentrate on one ecosystem so you get depth, not breadth — and the benefits of Google\'s partner programs on every engagement.</p></div></div></section>'
+    '<p class="eyebrow eyebrow--light">The Google advantage</p><h1>All in on Google Cloud.</h1>'
+    '<p class="lead">We concentrate on one ecosystem so you get depth, not breadth — senior engineers who live in the Google stack every day.</p></div></div></section>'
     '<section class="section"><div class="container"><div class="props">'
-    '<div class="prop"><h3>Co-sell &amp; funding</h3><p>Access to Google co-sell motions and funded proofs-of-concept that lower the cost and risk of getting started.</p></div>'
-    '<div class="prop"><h3>Marketplace</h3><p>Procure our solutions through Google Cloud Marketplace, drawing down committed spend.</p></div>'
-    '<div class="prop"><h3>Certified expertise</h3><p>Engineers certified across Google Cloud, data and AI — kept current as the platform evolves.</p></div>'
-    '<div class="prop"><h3>Early access</h3><p>Hands-on with the latest Gemini, Vertex AI and Workspace capabilities as they ship.</p></div></div></div></section>'
+    '<div class="prop"><h3>One ecosystem, deep</h3><p>We go deep on Google Cloud, data and AI instead of spreading thin across three clouds.</p></div>'
+    '<div class="prop"><h3>Fixed-scope pilots</h3><p>Most engagements start as a focused 4–6 week pilot scoped to a measurable result.</p></div>'
+    '<div class="prop"><h3>Current expertise</h3><p>Engineers fluent across Google Cloud, data and AI — kept current as the platform evolves.</p></div>'
+    '<div class="prop"><h3>Always current</h3><p>Hands-on with the latest Gemini, Vertex AI and Workspace capabilities as they ship.</p></div></div></div></section>'
     '%s'
     '<section class="section section--alt partner" style="background:var(--navy-900)"><div class="container"><div class="section-head"><p class="eyebrow eyebrow--light">The stack</p>'
     '<h2 style="color:#fff">Every layer of the AI-first enterprise.</h2><p class="lead" style="color:#cdd9e8">We build across the full Google technology stack.</p></div><div class="gproducts">%s</div></div></section>'
-    '%s' % (media_row(p, "team-collab2", "Delivery", "A partner team that has done this before.", "<p>Co-sell, funded proofs of concept and Marketplace access — delivered by senior people who have shipped Google Cloud and AI for Tier-1 enterprises.</p>", side="left", cls="section--soft"), gp, cta_simple(p, "Build on Google with a partner.", "Bring us your goal — we'll bring the ecosystem.")))
+    '%s' % (media_row(p, "team-collab2", "Delivery", "A partner team that has done this before.", "<p>Focused, fixed-scope pilots delivered by senior people who have shipped Google Cloud and AI for Tier-1 enterprises.</p>", side="left", cls="section--soft"), gp, cta_simple(p, "Build on Google with a partner.", "Bring us your goal — we'll bring the ecosystem.")))
 
 def about_body():
     p = ""
@@ -765,26 +772,24 @@ def about_body():
     '<p class="lead">%s is a Google-first AI, data and cloud transformation firm — launched and backed by Avanciers, with a singular focus on turning Google technology into measurable business outcomes.</p></div></div></section>'
     '<section class="section"><div class="container"><div class="two-col"><div>'
     '<p class="eyebrow">Our story</p><h2>Specialist by design.</h2>'
-    '<p class="lead">The market is full of generalists juggling three clouds. We chose the opposite path: go deep on Google. As a Certified Google Cloud Partner, we pair that focus with a decade of enterprise delivery from our parent, Avanciers — so clients get a specialist\'s edge with an established firm\'s backbone.</p>'
-    '<p>Avanciers Digital is the AI, data and cloud arm of Avanciers — the same delivery muscle that has served Big-4 and Tier-1 enterprises since 2014, now pointed entirely at Google.</p>'
+    '<p class="lead">The market is full of generalists juggling three clouds. We chose the opposite path: go deep on Google. We pair that focus with a decade of enterprise delivery from our parent, Avanciers — so clients get a specialist\'s edge with an established firm\'s backbone.</p>'
+    '<p>Avanciers Digital is the AI, data and cloud arm of Avanciers — the same delivery muscle that has served Big-4 and Tier-1 enterprises, now pointed entirely at Google.</p>'
     '<p>We prove every capability on our own business before we sell it, then deliver it with secure, governed, ROI-led engagements.</p></div>'
     '<div class="impact-box"><p style="font-weight:700;color:var(--navy-800);font-family:var(--display);margin-bottom:6px">What we believe</p><ul>'
     '<li>Specialization beats breadth</li><li>Agents should act, not just answer</li><li>Every engagement has a measurable result</li><li>AI must be secure and governed</li><li>Prove it on ourselves first</li></ul></div></div></div></section>'
     '%s%s'
     # leadership
     '<section class="section section--soft" id="leadership"><div class="container"><div class="section-head center"><p class="eyebrow">Leadership</p><h2>Operators who have built this before.</h2></div>'
-    '<div class="team"><div class="member veteran"><div class="avatar">★</div><h3>[Industry Veteran]</h3><p class="role">Chairman &amp; Strategic Advisor</p>'
-    '<p class="ph">Three decades scaling enterprise technology and services businesses. Bio to confirm — placeholder for the new partner who authored the strategy.</p></div>'
-    '<div class="member"><div class="avatar">VW</div><h3>Vik Wahi</h3><p class="role">Co-Founder &amp; CEO</p><p>Co-founder of Avanciers. Builds the data, AI and analytics systems that prove the model before it ships to clients.</p></div>'
+    '<div class="team"><div class="member"><div class="avatar">VW</div><h3>Vik Wahi</h3><p class="role">Co-Founder &amp; CEO</p><p>Co-founder of Avanciers. Builds the data, AI and analytics systems that prove the model before it ships to clients.</p></div>'
     '<div class="member"><div class="avatar">AW</div><h3>Adi Wahi</h3><p class="role">Co-Founder</p><p>Co-founder of Avanciers. Leads partnerships and the Google-first go-to-market across North America.</p></div></div></div></section>'
     # backed
     '<section class="section" id="backed"><div class="container"><div class="backed"><div>'
     '<p class="eyebrow">Backed by Avanciers</p><h2>A startup\'s focus. An established firm\'s backbone.</h2>'
-    '<p class="lead">Avanciers is a women-owned global talent and technology firm operating since 2014 across Canada, the USA, Mexico and India, serving Big-4 and Tier-1 enterprises.</p>'
-    '<div class="creds"><span class="cred">Certified Google Cloud Partner (Strategic)</span><span class="cred">Certified Salesforce Partner</span>'
-    '<span class="cred">Women-owned &amp; diversity-certified</span><span class="cred">OECM Supplier Partner</span><span class="cred">ISO 27001 · ISO 42001 · SOC 2 · GDPR — in progress</span></div></div>'
-    '<div><div class="impact-box"><p style="font-weight:700;color:var(--navy-800);margin-bottom:14px;font-family:var(--display)">Trusted by leading enterprises &amp; system integrators</p>'
-    '<div class="logos-row"><span>Deloitte</span><span>Wipro</span><span>Infosys</span><span>Cognizant</span><span>Tech&nbsp;Mahindra</span><span>Mphasis</span><span>Sonata</span><span>ABB</span></div>'
+    '<p class="lead">Avanciers is a women-owned global talent and technology firm operating across Canada, the USA, Mexico and India, serving Big-4 and Tier-1 enterprises.</p>'
+    '<div class="creds"><span class="cred">Google Cloud specialists</span>'
+    '<span class="cred">Women-owned business</span><span class="cred">OECM Supplier Partner</span><span class="cred">Aligned to ISO 27001 · ISO 42001 · SOC 2 · GDPR</span></div></div>'
+    '<div><div class="impact-box"><p style="font-weight:700;color:var(--navy-800);margin-bottom:14px;font-family:var(--display)">The scale behind us — Avanciers</p>'
+    '<div class="logos-row"><span>Big-4 consultancies</span><span>Tier-1 SIs</span><span>Global enterprises</span><span>Public sector</span></div>'
     '<p class="muted" style="font-size:.86rem;margin:20px 0 0">4 entities · 350+ families supported through our consultant network.</p></div></div></div></div></section>'
     '%s' % (ph_bg, BRAND, media_row(p, "team-collab", "How we work", "Senior people, in the room with you.", "<p>You work with the architects and engineers who do the build — not a layer of account managers. Small, senior teams, with a human in the loop on every decision that matters.</p>", side="right"), media_row(p, "people-work", "Proof", "We prove it on ourselves first.", "<p>Before a pattern reaches a client it runs in our own business — our operating data on Google Cloud, our reporting in Looker, our questions answered by a Gemini agent.</p>", side="left", cls="section--soft"), cta_simple(p, "Work with us.", "Tell us what you want to build on Google.")))
 
@@ -873,8 +878,8 @@ for s in CORE:
     pages.append(write("core-services/%s.html" % s["slug"], "%s — %s" % (s["name"], BRAND), s["intro"][:155],
         service_body(s, "core-services", "Core Services"), "core"))
 
-pages.append(write("partnership.html", "Partnership — Certified Google Cloud Partner — %s" % BRAND,
-    "As a Certified Google Cloud Partner, we build across the full Google stack with co-sell, funded POCs and Marketplace access.", partnership_body(), "partnership"))
+pages.append(write("partnership.html", "Partnership — Built around Google Cloud — %s" % BRAND,
+    "We build across the full Google stack — Gemini, Vertex AI, BigQuery and Looker — with senior, Google-focused engineers.", partnership_body(), "partnership"))
 pages.append(write("about.html", "About — %s" % BRAND,
     "A Google-first AI, data and cloud transformation firm, launched and backed by Avanciers. Leadership, story and credentials.", about_body(), "about"))
 pages.append(write("insights.html", "Insights — %s" % BRAND,
@@ -889,3 +894,24 @@ for a in ARTICLES:
 print("Generated %d pages:" % len(pages))
 for p in pages:
     print("  ", p)
+
+# ---- launch artifacts: generated from the pages registry so they never drift ----
+canon_urls = [SITE_ORIGIN + "/" + canon_path(pp) for pp in pages]
+with open(os.path.join(BASE, "sitemap.xml"), "w", encoding="utf-8") as f:
+    f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n')
+    for u in canon_urls:
+        f.write("  <url><loc>%s</loc></url>\n" % u)
+    f.write("</urlset>\n")
+with open(os.path.join(BASE, "robots.txt"), "w", encoding="utf-8") as f:
+    f.write("User-agent: *\nAllow: /\nSitemap: %s/sitemap.xml\n" % SITE_ORIGIN)
+notfound = (head("/", "Page not found — %s" % BRAND,
+        "The page you’re looking for moved or never existed.", SITE_ORIGIN + "/404.html")
+    + '<main id="main"><section class="section" style="min-height:68vh;display:flex;align-items:center">'
+      '<div class="container" style="text-align:center">'
+      '<p class="eyebrow">404</p><h1>This page took a wrong turn.</h1>'
+      '<p class="lead" style="margin:0 auto;max-width:480px">The page moved or never existed. Let\'s get you back on track.</p>'
+      '<p style="margin-top:28px"><a href="/" class="btn btn-primary btn-lg">Back to home <span class="arrow">→</span></a></p>'
+      '</div></section></main></body></html>')
+with open(os.path.join(BASE, "404.html"), "w", encoding="utf-8") as f:
+    f.write(notfound)
+print("Wrote sitemap.xml (%d urls), robots.txt, 404.html" % len(canon_urls))

@@ -185,7 +185,10 @@
     });
   }
 
-  // Lead form → composes an email to vik@avanciers.com (no backend required)
+  // Lead form. If FORM_ENDPOINT is set (e.g. a Formspree URL) we POST via fetch and
+  // confirm success only on a 2xx. Otherwise we fall back to a mailto compose with
+  // HONEST copy — we must not claim "sent" when we only opened the visitor's mail app.
+  var FORM_ENDPOINT = "";  // ← set to your Formspree endpoint, e.g. "https://formspree.io/f/xxxxxxx", to capture leads server-side
   document.querySelectorAll("form[data-lead]").forEach(function (form) {
     form.addEventListener("submit", function (e) {
       e.preventDefault();
@@ -194,14 +197,27 @@
       if (!name.value.trim() || !email.value.trim() || !/.+@.+\..+/.test(email.value)) {
         (name.value.trim() ? email : name).focus(); return;
       }
-      var subject = "Consultation request — " + (val("company") || val("name"));
-      var body = "Name: " + val("name") + "\nWork email: " + val("email") + "\nCompany: " + val("company") +
-                 "\nInterested in: " + val("interest") + "\n\n" + val("msg");
-      window.location.href = "mailto:vik@avanciers.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
-      form.innerHTML =
-        '<h3>Thank you — opening your email…</h3>' +
-        '<p class="muted">Your request is pre-filled in your mail app. If it didn\'t open, write to ' +
-        '<a href="mailto:vik@avanciers.com">vik@avanciers.com</a> — we reply within one business day.</p>';
+      var ok = function () {
+        form.innerHTML = '<h3>Thank you — we\'ve got it.</h3>' +
+          '<p class="muted">Your request is in. We reply within one business day at the email you gave us.</p>';
+      };
+      var fallbackMailto = function () {
+        var subject = "Consultation request — " + (val("company") || val("name"));
+        var body = "Name: " + val("name") + "\nWork email: " + val("email") + "\nCompany: " + val("company") +
+                   "\nInterested in: " + val("interest") + "\n\n" + val("msg");
+        window.location.href = "mailto:vik@avanciers.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+        form.innerHTML = '<h3>Opening your email app…</h3>' +
+          '<p class="muted">Your request is pre-filled in your mail app — press send to reach us. If nothing opened, write to ' +
+          '<a href="mailto:vik@avanciers.com">vik@avanciers.com</a> and we\'ll reply within one business day.</p>';
+      };
+      if (FORM_ENDPOINT) {
+        var btn = form.querySelector("button[type=submit]"); if (btn) { btn.disabled = true; btn.textContent = "Sending…"; }
+        fetch(FORM_ENDPOINT, { method: "POST", headers: { "Accept": "application/json" }, body: new FormData(form) })
+          .then(function (r) { r.ok ? ok() : fallbackMailto(); })
+          .catch(fallbackMailto);
+      } else {
+        fallbackMailto();
+      }
     });
   });
 })();

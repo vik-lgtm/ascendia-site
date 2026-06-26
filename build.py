@@ -12,6 +12,7 @@ BRAND = "Avanciers Digital"
 SITE_ORIGIN = "https://avanciersdigital.com"  # apex; used for canonical, og:url, sitemap
 TAGLINE = ""
 YEAR = "2026"
+WORDMARK = 'Avanciers <span class="brand-accent">Digital</span>'  # header/footer lockup; BRAND stays plain text for titles/meta
 
 # ----------------------------------------------------------------------------
 # CONTENT — services (from the Google Cloud Company Services strategy doc)
@@ -187,7 +188,7 @@ def logo(stroke, dot):
             '<path d="M5 14h9M5 20h6M5 26h9" stroke="%s" stroke-width="2.6" stroke-linecap="round"/>'
             '<path d="M19 10 L30 20 L19 30" stroke="%s" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>'
             '<circle cx="14" cy="14" r="2.2" fill="%s"/><circle cx="14" cy="26" r="2.2" fill="%s"/>'
-            '<circle cx="30" cy="20" r="4.6" fill="#e97451"/></svg>' % (stroke, stroke, dot, dot))
+            '<circle cx="30" cy="20" r="4.6" fill="#f47f4c"/></svg>' % (stroke, stroke, dot, dot))
 
 def rel(p, href):
     if href.startswith(("http", "#", "mailto:")):
@@ -217,12 +218,12 @@ def header(p, active):
     return (
     '<header class="site-header" id="header"><div class="container nav">'
     '<a href="%sindex.html" class="brand" aria-label="%s home">%s'
-    '<span class="brand-text"><span class="brand-name">%s</span></span></a>'
+    '<span class="brand-text"><span class="brand-name">%s</span><span class="brand-tag">A division of Avanciers</span></span></a>'
     '<ul class="nav-links" id="navLinks">%s'
     '<li class="nav-mobile-cta"><a href="%scontact.html" class="btn btn-primary">Talk to us</a></li></ul>'
     '<div class="nav-cta"><a href="%scontact.html" class="btn btn-primary">Talk to us</a>'
     '<button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button></div>'
-    '</div></header>' % (p, BRAND, logo("#ffffff", "#9fb3cc"), BRAND, nav_html(p, active), p, p))
+    '</div></header>' % (p, BRAND, logo("#ffffff", "#9fb3cc"), WORDMARK, nav_html(p, active), p, p))
 
 def footer(p):
     ag = "".join('<li><a href="%s">%s</a></li>' % (rel(p, "agentic-ai/%s.html" % s["slug"]), s["name"].split(" &")[0]) for s in AGENTIC[:5])
@@ -230,7 +231,7 @@ def footer(p):
     return (
     '<footer class="footer"><div class="container"><div class="footer-top">'
     '<div><a href="%sindex.html" class="brand" style="margin-bottom:6px">%s'
-    '<span class="brand-text"><span class="brand-name">%s</span></span></a>'
+    '<span class="brand-text"><span class="brand-name">%s</span><span class="brand-tag">A division of Avanciers</span></span></a>'
     '<p class="footer-blurb">Google-first AI, data and cloud transformation. We turn Google technology into measurable business outcomes.</p>'
     '<span class="badge" style="background:rgba(255,255,255,.06)"><span class="gdots"><i></i><i></i><i></i><i></i></span> Google Cloud specialists</span></div>'
     '<div><h4>Agentic AI</h4><ul>%s</ul></div>'
@@ -242,7 +243,7 @@ def footer(p):
     '</div><div class="footer-bottom"><span>© %s %s. All rights reserved.</span>'
     '<span class="f-status"><i></i>Operating across Canada · USA · Mexico · India</span>'
     '<span class="footer-legal"><a href="%sprivacy.html">Privacy</a><a href="%sprivacy.html">Cookies</a><a href="%sprivacy.html">Terms</a></span>'
-    '</div></div></footer>' % (p, logo("#ffffff", "#9fb3cc"), BRAND, ag, co, p, p, p, p, YEAR, BRAND, p, p, p))
+    '</div></div></footer>' % (p, logo("#ffffff", "#9fb3cc"), WORDMARK, ag, co, p, p, p, p, YEAR, BRAND, p, p, p))
 
 # shared motif gradient defs — literal % chars, kept OUT of the %-formatted head string
 MOTIF_DEFS = (

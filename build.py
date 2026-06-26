@@ -254,6 +254,7 @@ def head(p, title, desc):
     return (
     '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">'
     '<meta name="viewport" content="width=device-width, initial-scale=1.0">'
+    '<meta name="theme-color" content="#0A0F1E"><meta name="referrer" content="strict-origin-when-cross-origin">'
     '<meta name="robots" content="noindex">'  # PRE-LAUNCH: remove this line + rebuild to allow search indexing at launch
     '<title>%s</title><meta name="description" content="%s">'
     '<meta property="og:title" content="%s"><meta property="og:description" content="%s"><meta property="og:type" content="website">'

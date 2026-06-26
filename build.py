@@ -257,10 +257,13 @@ def head(p, title, desc):
     '<meta name="robots" content="noindex">'  # PRE-LAUNCH: remove this line + rebuild to allow search indexing at launch
     '<title>%s</title><meta name="description" content="%s">'
     '<meta property="og:title" content="%s"><meta property="og:description" content="%s"><meta property="og:type" content="website">'
+    '<meta property="og:image" content="https://vik-lgtm.github.io/ascendia-site/assets/img/hero.jpg">'
+    '<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="%s"><meta name="twitter:description" content="%s">'
+    '<meta name="twitter:image" content="https://vik-lgtm.github.io/ascendia-site/assets/img/hero.jpg">'
     '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
     '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">'
     '<link rel="stylesheet" href="%sassets/css/styles.css">'
-    '<link rel="stylesheet" href="%sassets/css/aurora.css"></head><body>' % (title, desc, title, desc, p, p)) + MOTIF_DEFS
+    '<link rel="stylesheet" href="%sassets/css/aurora.css"></head><body>' % (title, desc, title, desc, title, desc, p, p)) + MOTIF_DEFS
 
 def cta_simple(p, heading, text, aside=""):
     return ('<section class="cta-band"><div class="container"><div class="cta-inner">'
@@ -517,7 +520,9 @@ def write(path, title, desc, body, active):
         '<script defer src="%sassets/js/vendor/gsap.min.js"></script>'
         '<script defer src="%sassets/js/vendor/ScrollTrigger.min.js"></script>' % (p, p, p)
         ) + three + ('<script defer src="%sassets/js/aurora.js"></script>' % p)
-    htmlout = head(p, title, desc) + header(p, active) + body + footer(p) + scripts + '</body></html>'
+    htmlout = (head(p, title, desc) + header(p, active)
+               + '<a class="skip" href="#main">Skip to content</a><main id="main">' + body + '</main>'
+               + footer(p) + scripts + '</body></html>')
     full = os.path.join(BASE, path)
     os.makedirs(os.path.dirname(full), exist_ok=True)
     with open(full, "w", encoding="utf-8") as f:

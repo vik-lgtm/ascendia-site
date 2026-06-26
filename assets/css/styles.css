@@ -532,3 +532,8 @@ ul{margin:0;padding:0}
 .lb-stat .n span{color:var(--accent)}
 .lb-stat .l{color:#51607a;margin-top:8px;font-size:.95rem}
 @media(max-width:900px){.lb-grid{grid-template-columns:1fr}.logo-strip .container{gap:14px}}
+
+/* Skip-to-content link (a11y) — visible only on keyboard focus */
+.skip{position:absolute;left:-9999px;top:10px;z-index:300;background:var(--accent);color:#190c06;
+  padding:10px 16px;border-radius:8px;font-weight:700;font-family:var(--body);text-decoration:none}
+.skip:focus{left:12px}

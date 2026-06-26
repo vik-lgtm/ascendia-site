@@ -633,12 +633,12 @@ def home_body():
     '<div class="stat"><div class="num">Google</div><div class="label">Our one and only cloud</div></div>'
     '<div class="stat"><div class="num"><span data-count="10">10</span><span>+</span> yrs</div><div class="label">Enterprise delivery heritage</div></div>'
     '<div class="stat"><div class="num"><span data-count="4">4</span></div><div class="label">Countries · 4 entities</div></div>'
-    '<div class="stat"><div class="num"><span data-count="1500">1,500</span><span>+</span></div><div class="label">Specialists placed by Avanciers</div></div>'
-    '<div class="stat"><div class="num"><span data-count="300">300</span><span>+</span></div><div class="label">Consultants on tap</div></div></div>'
+    '<div class="stat"><div class="num"><span data-count="60">60</span><span>%%</span></div><div class="label">Faster deployment</div></div>'
+    '<div class="stat"><div class="num"><span data-count="40">40</span><span>%%</span></div><div class="label">Lower cloud spend</div></div></div>'
     '<p class="stat-note">Credentials and delivery scale of our parent and operating engine, Avanciers — a women-owned global talent &amp; technology firm.</p></div></section>'
     # credibility strip (parent scale; no third-party logos)
     '<section class="logo-strip" data-reveal><div class="container"><p class="ls-label">Backed by Avanciers — a decade of enterprise delivery across Canada, USA, Mexico &amp; India</p>'
-    '<div class="ls-logos"><span>Big-4 consultancies</span><span>Tier-1 system integrators</span><span>Global enterprises</span><span>Public sector</span></div></div></section>'
+    '<div class="ls-logos"><span>Big-4 consultancies</span><span>Global enterprises</span><span>Public sector</span></div></div></section>'
     # tech marquee
     '<div class="marquee" aria-hidden="true"><div class="marquee-track">'
     '<span class="mq-item">Gemini</span><span class="mq-dot"></span><span class="mq-item">Vertex AI</span><span class="mq-dot"></span>'
@@ -735,8 +735,8 @@ def home_body():
     '<span class="cred">Women-owned business</span><span class="cred">OECM Supplier Partner</span><span class="cred">Aligned to ISO 27001 · ISO 42001 · SOC 2 · GDPR</span></div>'
     '<p style="margin-top:18px"><a href="about.html" class="card-link">More about us →</a></p></div>'
     '<div><div class="impact-box"><p style="font-weight:700;color:var(--navy-800);margin-bottom:14px;font-family:var(--display)">The scale behind us — Avanciers</p>'
-    '<div class="logos-row"><span>Big-4 consultancies</span><span>Tier-1 SIs</span><span>Global enterprises</span><span>Public sector</span></div>'
-    '<p class="muted" style="font-size:.86rem;margin:20px 0 0">4 entities · 350+ families supported through our consultant network.</p></div></div></div></div></section>'
+    '<div class="logos-row"><span>Big-4 consultancies</span><span>Global enterprises</span><span>Public sector</span></div>'
+    '<p class="muted" style="font-size:.86rem;margin:20px 0 0">Operating across Canada · USA · Mexico · India.</p></div></div></div></div></section>'
     # cta + form
     '<section class="cta-band" id="contact"><div class="container"><div class="cta-inner"><div>'
     '<p class="eyebrow eyebrow--light">Let\'s build</p><h2>Build your AI-first business on Google.</h2>'
@@ -788,9 +788,9 @@ def about_body():
     '<p class="lead">Avanciers is a women-owned global talent and technology firm operating across Canada, the USA, Mexico and India, serving Big-4 and Tier-1 enterprises.</p>'
     '<div class="creds"><span class="cred">Google Cloud specialists</span>'
     '<span class="cred">Women-owned business</span><span class="cred">OECM Supplier Partner</span><span class="cred">Aligned to ISO 27001 · ISO 42001 · SOC 2 · GDPR</span></div></div>'
-    '<div><div class="impact-box"><p style="font-weight:700;color:var(--navy-800);margin-bottom:14px;font-family:var(--display)">The scale behind us — Avanciers</p>'
-    '<div class="logos-row"><span>Big-4 consultancies</span><span>Tier-1 SIs</span><span>Global enterprises</span><span>Public sector</span></div>'
-    '<p class="muted" style="font-size:.86rem;margin:20px 0 0">4 entities · 350+ families supported through our consultant network.</p></div></div></div></div></section>'
+    '<div><div class="impact-box"><p style="font-weight:700;color:var(--navy-800);margin-bottom:14px;font-family:var(--display)">Trusted by leading enterprises</p>'
+    '<div class="logos-row"><span>Deloitte</span><span>Telus</span><span>ABB</span><span>RBL</span><span>Axis&nbsp;Max&nbsp;Life</span><span>Ministry&nbsp;of&nbsp;Ontario</span><span>Ministry&nbsp;of&nbsp;BC</span><span>Island&nbsp;Health</span></div>'
+    '<p class="muted" style="font-size:.86rem;margin:20px 0 0">Operating across Canada · USA · Mexico · India.</p></div></div></div></div></section>'
     '%s' % (ph_bg, BRAND, media_row(p, "team-collab", "How we work", "Senior people, in the room with you.", "<p>You work with the architects and engineers who do the build — not a layer of account managers. Small, senior teams, with a human in the loop on every decision that matters.</p>", side="right"), media_row(p, "people-work", "Proof", "We prove it on ourselves first.", "<p>Before a pattern reaches a client it runs in our own business — our operating data on Google Cloud, our reporting in Looker, our questions answered by a Gemini agent.</p>", side="left", cls="section--soft"), cta_simple(p, "Work with us.", "Tell us what you want to build on Google.")))
 
 def insights_body():

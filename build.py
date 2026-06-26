@@ -184,11 +184,8 @@ NAV = [
 CARET = '<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>'
 
 def logo(stroke, dot):
-    # Ascend mark — an "A" rising from two strokes to a coral apex. `dot` kept for call-site compatibility.
-    return ('<svg class="logo" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
-            '<g stroke="%s" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">'
-            '<path d="M9 41 L20 15"/><path d="M28 15 L39 41"/><path d="M14.5 30 L33.5 30"/></g>'
-            '<circle cx="24" cy="11" r="4.6" fill="#f47f4c"/></svg>' % stroke)
+    # Wordmark-only brand — no symbol in the lockup. Kept callable so header/footer args still pass.
+    return ''
 
 def rel(p, href):
     if href.startswith(("http", "#", "mailto:")):
@@ -918,9 +915,8 @@ with open(os.path.join(BASE, "404.html"), "w", encoding="utf-8") as f:
     f.write(notfound)
 favicon = ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">'
     '<rect width="48" height="48" rx="11" fill="#14193C"/>'
-    '<g fill="none" stroke="#eef2f7" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">'
-    '<path d="M9 41 L20 15"/><path d="M28 15 L39 41"/><path d="M14.5 30 L33.5 30"/></g>'
-    '<circle cx="24" cy="11" r="4.6" fill="#f47f4c"/></svg>')
+    '<g fill="none" stroke="#f47f4c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">'
+    '<path d="M14 36 L24 13 L34 36"/><path d="M18.5 27 L29.5 27"/></g></svg>')
 with open(os.path.join(BASE, "favicon.svg"), "w", encoding="utf-8") as f:
     f.write(favicon)
 print("Wrote sitemap.xml (%d urls), robots.txt, 404.html, favicon.svg" % len(canon_urls))

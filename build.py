@@ -184,11 +184,11 @@ NAV = [
 CARET = '<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>'
 
 def logo(stroke, dot):
-    return ('<svg class="logo" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
-            '<path d="M5 14h9M5 20h6M5 26h9" stroke="%s" stroke-width="2.6" stroke-linecap="round"/>'
-            '<path d="M19 10 L30 20 L19 30" stroke="%s" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>'
-            '<circle cx="14" cy="14" r="2.2" fill="%s"/><circle cx="14" cy="26" r="2.2" fill="%s"/>'
-            '<circle cx="30" cy="20" r="4.6" fill="#f47f4c"/></svg>' % (stroke, stroke, dot, dot))
+    # Ascend mark — an "A" rising from two strokes to a coral apex. `dot` kept for call-site compatibility.
+    return ('<svg class="logo" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
+            '<g stroke="%s" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">'
+            '<path d="M9 41 L20 15"/><path d="M28 15 L39 41"/><path d="M14.5 30 L33.5 30"/></g>'
+            '<circle cx="24" cy="11" r="4.6" fill="#f47f4c"/></svg>' % stroke)
 
 def rel(p, href):
     if href.startswith(("http", "#", "mailto:")):
@@ -270,8 +270,9 @@ def head(p, title, desc, canonical):
     '<meta name="twitter:image" content="https://avanciersdigital.com/assets/img/hero.jpg">'
     '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
     '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">'
+    '<link rel="icon" href="%sfavicon.svg" type="image/svg+xml">'
     '<link rel="stylesheet" href="%sassets/css/styles.css">'
-    '<link rel="stylesheet" href="%sassets/css/aurora.css"></head><body>' % (title, desc, canonical, canonical, title, desc, title, desc, p, p)) + MOTIF_DEFS
+    '<link rel="stylesheet" href="%sassets/css/aurora.css"></head><body>' % (title, desc, canonical, canonical, title, desc, title, desc, p, p, p)) + MOTIF_DEFS
 
 def cta_simple(p, heading, text, aside=""):
     return ('<section class="cta-band"><div class="container"><div class="cta-inner">'
@@ -915,4 +916,11 @@ notfound = (head("/", "Page not found — %s" % BRAND,
       '</div></section></main></body></html>')
 with open(os.path.join(BASE, "404.html"), "w", encoding="utf-8") as f:
     f.write(notfound)
-print("Wrote sitemap.xml (%d urls), robots.txt, 404.html" % len(canon_urls))
+favicon = ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">'
+    '<rect width="48" height="48" rx="11" fill="#14193C"/>'
+    '<g fill="none" stroke="#eef2f7" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">'
+    '<path d="M9 41 L20 15"/><path d="M28 15 L39 41"/><path d="M14.5 30 L33.5 30"/></g>'
+    '<circle cx="24" cy="11" r="4.6" fill="#f47f4c"/></svg>')
+with open(os.path.join(BASE, "favicon.svg"), "w", encoding="utf-8") as f:
+    f.write(favicon)
+print("Wrote sitemap.xml (%d urls), robots.txt, 404.html, favicon.svg" % len(canon_urls))

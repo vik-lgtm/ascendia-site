@@ -68,7 +68,11 @@
     scene.fog = new THREE.FogExp2(0x050C1A, 0.02);
     var camera = new THREE.PerspectiveCamera(60, W / H, 0.1, 120);
     camera.position.z = 30;
-    var renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+    /* Bail before touching Three.js if WebGL is unavailable (locked-down/no-GPU browsers) — keeps the static hero + a clean console */
+    if (!(document.createElement("canvas").getContext("webgl") || document.createElement("canvas").getContext("experimental-webgl"))) { canvas.remove(); return; }
+    var renderer;
+    try { renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true }); }
+    catch (err) { canvas.remove(); return; }
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(W, H, false);
 

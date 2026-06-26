@@ -1,4 +1,4 @@
-/* Velivance — site interactions (vanilla, no deps) */
+/* Avanciers Digital — site interactions (vanilla, no deps) */
 (function () {
   "use strict";
   document.documentElement.classList.add("js");
@@ -185,20 +185,23 @@
     });
   }
 
-  // Lead form (demo handler — wire to Formspree/Firebase before launch)
+  // Lead form → composes an email to vik@avanciers.com (no backend required)
   document.querySelectorAll("form[data-lead]").forEach(function (form) {
     form.addEventListener("submit", function (e) {
       e.preventDefault();
-      var email = form.querySelector("[type=email]");
-      var name = form.querySelector("[name=name]");
+      var val = function (n) { var el = form.querySelector("[name=" + n + "]"); return el ? el.value.trim() : ""; };
+      var email = form.querySelector("[type=email]"), name = form.querySelector("[name=name]");
       if (!name.value.trim() || !email.value.trim() || !/.+@.+\..+/.test(email.value)) {
         (name.value.trim() ? email : name).focus(); return;
       }
+      var subject = "Consultation request — " + (val("company") || val("name"));
+      var body = "Name: " + val("name") + "\nWork email: " + val("email") + "\nCompany: " + val("company") +
+                 "\nInterested in: " + val("interest") + "\n\n" + val("msg");
+      window.location.href = "mailto:vik@avanciers.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
       form.innerHTML =
-        '<h3>Thank you — we\'ll be in touch.</h3>' +
-        '<p class="muted">We\'ve received your request and will reply within one business day. ' +
-        'Reach us anytime at <a href="mailto:hello@velivance.com">hello@velivance.com</a>.</p>' +
-        '<p class="form-note">Demo form — connect to Formspree or Firebase to deliver submissions.</p>';
+        '<h3>Thank you — opening your email…</h3>' +
+        '<p class="muted">Your request is pre-filled in your mail app. If it didn\'t open, write to ' +
+        '<a href="mailto:vik@avanciers.com">vik@avanciers.com</a> — we reply within one business day.</p>';
     });
   });
 })();

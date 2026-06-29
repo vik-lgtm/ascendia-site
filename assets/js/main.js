@@ -189,6 +189,7 @@
   // confirm success only on a 2xx. Otherwise we fall back to a mailto compose with
   // HONEST copy — we must not claim "sent" when we only opened the visitor's mail app.
   var FORM_ENDPOINT = "";  // ← set to your Formspree endpoint, e.g. "https://formspree.io/f/xxxxxxx", to capture leads server-side
+  var CONTACT_EMAIL = "";  // ← TODO: branded email e.g. "hello@avanciersdigital.com" — enables the mailto fallback
   document.querySelectorAll("form[data-lead]").forEach(function (form) {
     form.addEventListener("submit", function (e) {
       e.preventDefault();
@@ -197,26 +198,32 @@
       if (!name.value.trim() || !email.value.trim() || !/.+@.+\..+/.test(email.value)) {
         (name.value.trim() ? email : name).focus(); return;
       }
+      var consent = form.querySelector("[name=consent]");  // form is novalidate, so enforce consent in JS
+      if (consent && !consent.checked) { consent.focus(); return; }
       var ok = function () {
         form.innerHTML = '<h3>Thank you — we\'ve got it.</h3>' +
           '<p class="muted">Your request is in. We reply within one business day at the email you gave us.</p>';
       };
-      var fallbackMailto = function () {
-        var subject = "Consultation request — " + (val("company") || val("name"));
-        var body = "Name: " + val("name") + "\nWork email: " + val("email") + "\nCompany: " + val("company") +
-                   "\nInterested in: " + val("interest") + "\n\n" + val("msg");
-        window.location.href = "mailto:vik@avanciers.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
-        form.innerHTML = '<h3>Opening your email app…</h3>' +
-          '<p class="muted">Your request is pre-filled in your mail app — press send to reach us. If nothing opened, write to ' +
-          '<a href="mailto:vik@avanciers.com">vik@avanciers.com</a> and we\'ll reply within one business day.</p>';
+      var fallback = function () {
+        if (CONTACT_EMAIL) {
+          var subject = "Consultation request — " + (val("company") || val("name"));
+          var body = "Name: " + val("name") + "\nWork email: " + val("email") + "\nCompany: " + val("company") +
+                     "\nPhone: " + val("phone") + "\nInterested in: " + val("interest") + "\n\n" + val("msg");
+          window.location.href = "mailto:" + CONTACT_EMAIL + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+          form.innerHTML = '<h3>Opening your email app…</h3>' +
+            '<p class="muted">Your request is pre-filled in your mail app — press send to reach us. If nothing opened, email ' + CONTACT_EMAIL + '.</p>';
+        } else {
+          form.innerHTML = '<h3>Thanks for reaching out.</h3>' +
+            '<p class="muted">Our contact inbox is being finalized — please check back shortly.</p>';
+        }
       };
       if (FORM_ENDPOINT) {
         var btn = form.querySelector("button[type=submit]"); if (btn) { btn.disabled = true; btn.textContent = "Sending…"; }
         fetch(FORM_ENDPOINT, { method: "POST", headers: { "Accept": "application/json" }, body: new FormData(form) })
-          .then(function (r) { r.ok ? ok() : fallbackMailto(); })
-          .catch(fallbackMailto);
+          .then(function (r) { r.ok ? ok() : fallback(); })
+          .catch(fallback);
       } else {
-        fallbackMailto();
+        fallback();
       }
     });
   });

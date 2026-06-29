@@ -13,6 +13,7 @@ SITE_ORIGIN = "https://avanciersdigital.com"  # apex; used for canonical, og:url
 TAGLINE = ""
 YEAR = "2026"
 WORDMARK = 'Avanciers <span class="brand-accent">Digital</span>'  # header/footer lockup; BRAND stays plain text for titles/meta
+CONTACT_EMAIL = ""  # TODO: branded email e.g. hello@avanciersdigital.com — set this to re-enable contact email/mailto
 
 # ----------------------------------------------------------------------------
 # CONTENT — services (from the Google Cloud Company Services strategy doc)
@@ -215,7 +216,7 @@ def header(p, active):
     return (
     '<header class="site-header" id="header"><div class="container nav">'
     '<a href="%sindex.html" class="brand" aria-label="%s home">%s'
-    '<span class="brand-text"><span class="brand-name">%s</span><span class="brand-tag">A division of Avanciers</span></span></a>'
+    '<span class="brand-text"><span class="brand-name">%s</span><span class="brand-tag">Backed by Avanciers</span></span></a>'
     '<ul class="nav-links" id="navLinks">%s'
     '<li class="nav-mobile-cta"><a href="%scontact.html" class="btn btn-primary">Talk to us</a></li></ul>'
     '<div class="nav-cta"><a href="%scontact.html" class="btn btn-primary">Talk to us</a>'
@@ -228,8 +229,9 @@ def footer(p):
     return (
     '<footer class="footer"><div class="container"><div class="footer-top">'
     '<div><a href="%sindex.html" class="brand" style="margin-bottom:6px">%s'
-    '<span class="brand-text"><span class="brand-name">%s</span><span class="brand-tag">A division of Avanciers</span></span></a>'
+    '<span class="brand-text"><span class="brand-name">%s</span><span class="brand-tag">Backed by Avanciers</span></span></a>'
     '<p class="footer-blurb">Google-first AI, data and cloud transformation. We turn Google technology into measurable business outcomes.</p>'
+    '<!-- TODO: business phone + registered business address (add a visible line here once confirmed) -->'
     '<span class="badge" style="background:rgba(255,255,255,.06)"><span class="gdots"><i></i><i></i><i></i><i></i></span> Google Cloud specialists</span></div>'
     '<div><h4>Agentic AI</h4><ul>%s</ul></div>'
     '<div><h4>Core Services</h4><ul>%s</ul></div>'
@@ -258,7 +260,7 @@ def head(p, title, desc, canonical):
     '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">'
     '<meta name="viewport" content="width=device-width, initial-scale=1.0">'
     '<meta name="theme-color" content="#0A0F1E"><meta name="referrer" content="strict-origin-when-cross-origin">'
-    '<meta name="robots" content="noindex">'  # PRE-LAUNCH: remove this line + rebuild to allow search indexing at launch
+    '<!-- LAUNCH: remove noindex when publishing to avanciersdigital.com --><meta name="robots" content="noindex">'  # PRE-LAUNCH: remove this line + rebuild to allow search indexing at launch
     '<title>%s</title><meta name="description" content="%s">'
     '<link rel="canonical" href="%s"><meta property="og:url" content="%s">'
     '<meta property="og:title" content="%s"><meta property="og:description" content="%s"><meta property="og:type" content="website">'
@@ -283,10 +285,12 @@ def lead_form():
     '<div class="field"><label for="name">Name</label><input id="name" name="name" type="text" required placeholder="Your name"></div>'
     '<div class="field"><label for="email">Work email</label><input id="email" name="email" type="email" required placeholder="you@company.com"></div>'
     '<div class="field"><label for="company">Company</label><input id="company" name="company" type="text" placeholder="Company name"></div>'
+    '<div class="field"><label for="phone">Phone <span style="color:var(--slate);font-weight:400">(optional)</span></label><input id="phone" name="phone" type="tel" placeholder="+1 (555) 000-0000"></div>'
     '<div class="field"><label for="interest">I\'m interested in</label><select id="interest" name="interest">'
     '<option>Enterprise AI agents</option><option>Data analytics on BigQuery &amp; Looker</option><option>Google Cloud migration</option>'
     '<option>Workspace + Gemini rollout</option><option>Custom Gemini application</option><option>Not sure yet — let\'s talk</option></select></div>'
     '<div class="field"><label for="msg">What do you want to tackle first?</label><textarea id="msg" name="msg" rows="3" placeholder="A sentence is plenty."></textarea></div>'
+    '<label class="consent" style="display:flex;gap:9px;align-items:flex-start;font-size:.85rem;color:var(--slate);margin:2px 0 16px"><input type="checkbox" name="consent" required style="margin-top:3px;flex:none"> <span>I agree to the <a href="privacy.html" style="color:var(--accent-700)">privacy policy</a>.</span></label>'
     '<button type="submit" class="btn btn-primary">Request a consultation</button>'
     '<p class="form-note">We reply within one business day. No spam, ever.</p></form>')
 
@@ -593,7 +597,9 @@ def hub_body(items, hub, eyebrow, title, intro, kind):
             cta_simple(p, "Not sure where to start?", "Most clients begin with one focused pilot, then expand. Let's find your highest-value first step.")))
 
 def media_row(p, img, eyebrow, title, body_html, side="right", cls=""):
-    media = '<div class="mr-media"><img src="%sassets/img/%s.webp" alt="" loading="lazy"></div>' % (p, img)
+    import re
+    alt = re.sub(r'<[^>]+>', '', title).replace('&amp;', '&').strip()
+    media = '<div class="mr-media"><img src="%sassets/img/%s.webp" alt="%s" loading="lazy"></div>' % (p, img, alt)
     text = '<div class="mr-text"><p class="eyebrow">%s</p><h2>%s</h2>%s</div>' % (eyebrow, title, body_html)
     inner = (text + media) if side == "right" else (media + text)
     return '<section class="section %s" data-reveal><div class="container"><div class="media-row mr-%s">%s</div></div></section>' % (cls, side, inner)
@@ -723,9 +729,7 @@ def home_body():
     '<h3>We ran our own company on it.</h3><p>We unified our entire operating dataset into a single model on Google Cloud, rebuilt executive reporting in Looker, and stood up a Gemini agent that answers leadership questions in plain language — the same platform we now build for clients.</p>'
     '<div class="metrics"><div class="metric"><div class="m">27k+</div><div class="l">transactions unified</div></div>'
     '<div class="metric"><div class="m">1</div><div class="l">ask-your-business agent</div></div>'
-    '<div class="metric"><div class="m">days→min</div><div class="l">to a decision</div></div></div><a href="insights/we-ran-our-own-company-on-google.html" class="card-link" style="color:#ffb79d;margin-top:18px">Read the case study →</a></div></div>'
-    '<div class="case case--soon"><div class="case-body"><p class="kicker">Client story</p><p>First client case study — coming soon as pilots land.</p></div></div>'
-    '<div class="case case--soon"><div class="case-body"><p class="kicker">Client story</p><p>Your engagement could be the next one featured here.</p></div></div></div></div></section>'
+    '<div class="metric"><div class="m">days→min</div><div class="l">to a decision</div></div></div><a href="insights/we-ran-our-own-company-on-google.html" class="card-link" style="color:#ffb79d;margin-top:18px">Read the case study →</a></div></div></div></div></section>'
     # backed
     '<section class="section" data-reveal><div class="container"><div class="backed"><div>'
     '<p class="eyebrow">Backed by Avanciers</p><h2>A startup\'s focus. An established firm\'s backbone.</h2>'
@@ -733,8 +737,8 @@ def home_body():
     '<div class="creds"><span class="cred">Google Cloud specialists</span>'
     '<span class="cred">Women-owned business</span><span class="cred">OECM Supplier Partner</span><span class="cred">Aligned to ISO 27001 · ISO 42001 · SOC 2 · GDPR</span></div>'
     '<p style="margin-top:18px"><a href="about.html" class="card-link">More about us →</a></p></div>'
-    '<div><div class="impact-box"><p style="font-weight:700;color:var(--navy-800);margin-bottom:14px;font-family:var(--display)">The scale behind us — Avanciers</p>'
-    '<div class="logos-row"><span>Big-4 consultancies</span><span>Global enterprises</span><span>Public sector</span></div>'
+    '<div><div class="impact-box"><p style="font-weight:700;color:var(--navy-800);margin-bottom:14px;font-family:var(--display)">Trusted by leading enterprises</p>'
+    '<div class="logos-row"><span>Deloitte</span><span>Telus</span><span>ABB</span><span>RBL</span><span>Axis&nbsp;Max&nbsp;Life</span><span>Ministry&nbsp;of&nbsp;Ontario</span><span>Ministry&nbsp;of&nbsp;BC</span><span>Island&nbsp;Health</span></div>'
     '<p class="muted" style="font-size:.86rem;margin:20px 0 0">Operating across Canada · USA · Mexico · India.</p></div></div></div></div></section>'
     # cta + form
     '<section class="cta-band" id="contact"><div class="container"><div class="cta-inner"><div>'
@@ -779,6 +783,7 @@ def about_body():
     '%s%s'
     # leadership
     '<section class="section section--soft" id="leadership"><div class="container"><div class="section-head center"><p class="eyebrow">Leadership</p><h2>Operators who have built this before.</h2></div>'
+    '<!-- TODO: chairman name + bio (placeholder card removed pending real details) -->'
     '<div class="team"><div class="member"><div class="avatar">VW</div><h3>Vik Wahi</h3><p class="role">Co-Founder &amp; CEO</p><p>Co-founder of Avanciers. Builds the data, AI and analytics systems that prove the model before it ships to clients.</p></div>'
     '<div class="member"><div class="avatar">AW</div><h3>Adi Wahi</h3><p class="role">Co-Founder</p><p>Co-founder of Avanciers. Leads partnerships and the Google-first go-to-market across North America.</p></div></div></div></section>'
     # backed
@@ -795,8 +800,8 @@ def about_body():
 def insights_body():
     p = ""
     imgmap = {"enterprise-ai-agents-from-pilot-to-production": "insight-pilot", "we-ran-our-own-company-on-google": "insight-google"}
-    cards = "".join('<a class="post" href="insights/%s.html"><div class="thumb"><img src="assets/img/%s.webp" alt="" loading="lazy"></div><div class="pbody"><span class="ptag">%s</span><h3>%s</h3><p>%s</p><span class="pmeta">%s · Read →</span></div></a>' % (a["slug"], imgmap.get(a["slug"], "insight-pilot"), a["kind"], a["title"], a["dek"], a["topic"]) for a in ARTICLES)
-    cards += '<div class="post"><div class="thumb"><img src="assets/img/insight-data.webp" alt="" loading="lazy"></div><div class="pbody"><span class="ptag">Playbook</span><h3>Your BigQuery + Looker decision foundation</h3><p>A practical sequence for turning scattered data into decisions leaders trust.</p><span class="pmeta">Coming soon</span></div></div>'
+    cards = "".join('<a class="post" href="insights/%s.html"><div class="thumb"><img src="assets/img/%s.webp" alt="%s" loading="lazy"></div><div class="pbody"><span class="ptag">%s</span><h3>%s</h3><p>%s</p><span class="pmeta">%s · Read →</span></div></a>' % (a["slug"], imgmap.get(a["slug"], "insight-pilot"), a["title"], a["kind"], a["title"], a["dek"], a["topic"]) for a in ARTICLES)
+    cards += '<div class="post"><div class="thumb"><img src="assets/img/insight-data.webp" alt="Turning scattered data into trusted decisions with BigQuery and Looker" loading="lazy"></div><div class="pbody"><span class="ptag">Playbook</span><h3>Your BigQuery + Looker decision foundation</h3><p>A practical sequence for turning scattered data into decisions leaders trust.</p><span class="pmeta">Coming soon</span></div></div>'
     return (
     '<section class="page-hero"><div class="container"><div class="inner"><p class="crumb"><a href="index.html">Home</a> › Insights</p>'
     '<p class="eyebrow eyebrow--light">Insights</p><h1>Ideas on AI-first business.</h1>'
@@ -807,16 +812,18 @@ def insights_body():
 
 def contact_body():
     p = ""
+    email_block = ('<div class="ci"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8fb7e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="m4 6 8 6 8-6"/></svg></div><div><h3>Email</h3><p><a href="mailto:%s">%s</a></p></div></div>' % (CONTACT_EMAIL, CONTACT_EMAIL)) if CONTACT_EMAIL else '<!-- TODO: branded email e.g. hello@avanciersdigital.com (Email contact block hidden until set) -->'
     return (
     '<section class="page-hero"><div class="container"><div class="inner"><p class="crumb"><a href="index.html">Home</a> › Contact</p>'
     '<p class="eyebrow eyebrow--light">Talk to us</p><h1>Let\'s scope your first win.</h1>'
     '<p class="lead">Tell us the workflow, decision or migration you want to tackle. We\'ll come back with a focused, fixed-scope way to start.</p></div></div></section>'
     '<section class="section"><div class="container"><div class="contact-grid"><div class="contact-info">'
-    '<div class="mr-media" style="aspect-ratio:16/10;margin-bottom:26px"><img src="assets/img/consultant.webp" alt="" loading="lazy"></div>'
-    '<div class="ci"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8fb7e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="m4 6 8 6 8-6"/></svg></div><div><h3>Email</h3><p><a href="mailto:vik@avanciers.com">vik@avanciers.com</a></p></div></div>'
+    '<div class="mr-media" style="aspect-ratio:16/10;margin-bottom:26px"><img src="assets/img/consultant.webp" alt="An Avanciers Digital consultant working with a client" loading="lazy"></div>'
+    '%s'
+    '<!-- TODO: business phone (add a .ci block here) --><!-- TODO: registered business address (add a .ci block here) -->'
     '<div class="ci"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8fb7e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div><h3>Response time</h3><p>We reply within one business day.</p></div></div>'
     '<div class="ci"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8fb7e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><h3>Where we operate</h3><p>Through Avanciers, across four countries.</p><div class="offices"><span class="office">Canada</span><span class="office">USA</span><span class="office">Mexico</span><span class="office">India</span></div></div></div>'
-    '</div><div>%s</div></div></div></section>' % lead_form())
+    '</div><div>%s</div></div></div></section>' % (email_block, lead_form()))
 
 def legal_body():
     sec = lambda h, b: f'<h2 style="margin-top:36px">{h}</h2><p class="muted">{b}</p>'
@@ -827,7 +834,7 @@ def legal_body():
     body = (
         '<h2 id="privacy">Privacy</h2><p class="muted">We collect only the information you provide through our contact form '
         '(name, work email, company and your message) to respond to your enquiry. We do not sell your data. You can request '
-        'access to or deletion of your information at any time by emailing <a href="mailto:vik@avanciers.com">vik@avanciers.com</a>.</p>'
+        'access to or deletion of your information at any time through our <a href="contact.html">contact form</a>.<!-- TODO: branded email e.g. hello@avanciersdigital.com --></p>'
         + sec("Cookies", "We use essential cookies to run the site and privacy-respecting analytics to understand traffic. You can control cookies in your browser settings.")
         + sec("Terms of use", f"Content on this site is provided for general information about {BRAND} services and is offered without warranty. Trademarks and product names (including Google, Google Cloud, Gemini, BigQuery and Looker) belong to their respective owners.")
         + sec("Data security", "Information is handled in line with our information-security program (ISO 27001, ISO 42001, SOC 2 and GDPR — in progress, targeted 2026). Contact us for our current security posture.")
@@ -858,7 +865,7 @@ def article_body(a):
 # ----------------------------------------------------------------------------
 pages = []
 pages.append(write("index.html", "%s — Build your AI-first business on Google" % BRAND,
-    "%s is a Google-first AI, data and cloud transformation firm. We modernize enterprises on Google Cloud and put Gemini-powered AI agents to work — securely, with measurable ROI." % BRAND,
+    "%s modernizes enterprises on Google Cloud and puts Gemini-powered AI agents to work — securely, with measurable ROI." % BRAND,
     home_body(), "home"))
 
 pages.append(write("agentic-ai/index.html", "Agentic AI Services — %s" % BRAND,

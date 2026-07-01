@@ -640,7 +640,7 @@ def home_body():
     '<div class="stat"><div class="num"><span data-count="4">4</span></div><div class="label">Countries · 4 entities</div></div>'
     '<div class="stat"><div class="num"><span data-count="60">60</span><span>%%</span></div><div class="label">Faster deployment</div></div>'
     '<div class="stat"><div class="num"><span data-count="40">40</span><span>%%</span></div><div class="label">Lower cloud spend</div></div></div>'
-    '<p class="stat-note">Credentials and delivery scale of our parent and operating engine, Avanciers — a women-owned global talent &amp; technology firm.</p></div></section>'
+    '<p class="stat-note">A decade of enterprise delivery scale — women-owned, across Canada, the USA, Mexico and India.</p></div></section>'
     # credibility strip (parent scale; no third-party logos)
     '<section class="logo-strip" data-reveal><div class="container"><p class="ls-label">A decade of enterprise delivery across Canada, USA, Mexico &amp; India</p>'
     '<div class="ls-logos"><span>Big-4 consultancies</span><span>Global enterprises</span><span>Public sector</span></div></div></section>'
@@ -733,7 +733,7 @@ def home_body():
     # backed
     '<section class="section" data-reveal><div class="container"><div class="backed"><div>'
     '<p class="eyebrow">Our backbone</p><h2>A startup\'s focus. An established firm\'s backbone.</h2>'
-    '<p class="lead">%s draws on the delivery scale of <strong>Avanciers</strong> — a women-owned global talent and technology firm operating across Canada, the USA, Mexico and India, serving Big-4 and Tier-1 enterprises.</p>'
+    '<p class="lead">%s brings a decade of enterprise delivery to Google-first AI, data and cloud — women-owned, operating across Canada, the USA, Mexico and India, serving Big-4 and Tier-1 enterprises.</p>'
     '<div class="creds"><span class="cred">Google Cloud specialists</span>'
     '<span class="cred">Women-owned business</span><span class="cred">OECM Supplier Partner</span><span class="cred">Aligned to ISO 27001 · ISO 42001 · SOC 2 · GDPR</span></div>'
     '<p style="margin-top:18px"><a href="about.html" class="card-link">More about us →</a></p></div>'

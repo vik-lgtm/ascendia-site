@@ -178,7 +178,7 @@ NAV = [
     dict(label="About", key="about", href="about.html",
          children=[dict(label="Overview", desc="Who we are", href="about.html"),
                    dict(label="Leadership", desc="The team", href="about.html#leadership"),
-                   dict(label="Backed by Avanciers", desc="Our backbone", href="about.html#backed")]),
+                   dict(label="Our backbone", desc="The Avanciers advantage", href="about.html#backed")]),
     dict(label="Insights", key="insights", href="insights.html"),
 ]
 
@@ -216,7 +216,7 @@ def header(p, active):
     return (
     '<header class="site-header" id="header"><div class="container nav">'
     '<a href="%sindex.html" class="brand" aria-label="%s home">%s'
-    '<span class="brand-text"><span class="brand-name">%s</span><span class="brand-tag">Backed by Avanciers</span></span></a>'
+    '<span class="brand-text"><span class="brand-name">%s</span></span></a>'
     '<ul class="nav-links" id="navLinks">%s'
     '<li class="nav-mobile-cta"><a href="%scontact.html" class="btn btn-primary">Talk to us</a></li></ul>'
     '<div class="nav-cta"><a href="%scontact.html" class="btn btn-primary">Talk to us</a>'
@@ -229,7 +229,7 @@ def footer(p):
     return (
     '<footer class="footer"><div class="container"><div class="footer-top">'
     '<div><a href="%sindex.html" class="brand" style="margin-bottom:6px">%s'
-    '<span class="brand-text"><span class="brand-name">%s</span><span class="brand-tag">Backed by Avanciers</span></span></a>'
+    '<span class="brand-text"><span class="brand-name">%s</span></span></a>'
     '<p class="footer-blurb">Google-first AI, data and cloud transformation. We turn Google technology into measurable business outcomes.</p>'
     '<!-- TODO: business phone + registered business address (add a visible line here once confirmed) -->'
     '<span class="badge" style="background:rgba(255,255,255,.06)"><span class="gdots"><i></i><i></i><i></i><i></i></span> Google Cloud specialists</span></div>'
@@ -632,7 +632,7 @@ def home_body():
     '<div class="hero-cta"><a href="contact.html" class="btn btn-primary btn-lg">Request a consultation <span class="arrow">→</span></a>'
     '<a href="agentic-ai/index.html" class="btn btn-outline btn-lg">Explore services</a></div>'
     '<div class="hero-trust"><span class="badge"><span class="gdots"><i></i><i></i><i></i><i></i></span> Google Cloud specialists</span>'
-    '<span>Backed by <strong>Avanciers</strong> · operating across 4 countries</span></div></div></div></section>'
+    '<span>Operating across Canada · USA · Mexico · India</span></div></div></div></section>'
     # stat band
     '<section class="stat-band"><div class="container"><div class="stat-grid">'
     '<div class="stat"><div class="num">Google</div><div class="label">Our one and only cloud</div></div>'
@@ -642,7 +642,7 @@ def home_body():
     '<div class="stat"><div class="num"><span data-count="40">40</span><span>%%</span></div><div class="label">Lower cloud spend</div></div></div>'
     '<p class="stat-note">Credentials and delivery scale of our parent and operating engine, Avanciers — a women-owned global talent &amp; technology firm.</p></div></section>'
     # credibility strip (parent scale; no third-party logos)
-    '<section class="logo-strip" data-reveal><div class="container"><p class="ls-label">Backed by Avanciers — a decade of enterprise delivery across Canada, USA, Mexico &amp; India</p>'
+    '<section class="logo-strip" data-reveal><div class="container"><p class="ls-label">A decade of enterprise delivery across Canada, USA, Mexico &amp; India</p>'
     '<div class="ls-logos"><span>Big-4 consultancies</span><span>Global enterprises</span><span>Public sector</span></div></div></section>'
     # tech marquee
     '<div class="marquee" aria-hidden="true"><div class="marquee-track">'
@@ -732,8 +732,8 @@ def home_body():
     '<div class="metric"><div class="m">days→min</div><div class="l">to a decision</div></div></div><a href="insights/we-ran-our-own-company-on-google.html" class="card-link" style="color:#ffb79d;margin-top:18px">Read the case study →</a></div></div></div></div></section>'
     # backed
     '<section class="section" data-reveal><div class="container"><div class="backed"><div>'
-    '<p class="eyebrow">Backed by Avanciers</p><h2>A startup\'s focus. An established firm\'s backbone.</h2>'
-    '<p class="lead">%s is launched and backed by <strong>Avanciers</strong> — a women-owned global talent and technology firm operating across Canada, the USA, Mexico and India, serving Big-4 and Tier-1 enterprises.</p>'
+    '<p class="eyebrow">Our backbone</p><h2>A startup\'s focus. An established firm\'s backbone.</h2>'
+    '<p class="lead">%s draws on the delivery scale of <strong>Avanciers</strong> — a women-owned global talent and technology firm operating across Canada, the USA, Mexico and India, serving Big-4 and Tier-1 enterprises.</p>'
     '<div class="creds"><span class="cred">Google Cloud specialists</span>'
     '<span class="cred">Women-owned business</span><span class="cred">OECM Supplier Partner</span><span class="cred">Aligned to ISO 27001 · ISO 42001 · SOC 2 · GDPR</span></div>'
     '<p style="margin-top:18px"><a href="about.html" class="card-link">More about us →</a></p></div>'
